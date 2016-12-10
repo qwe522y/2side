@@ -1,9 +1,10 @@
 import com.alee.laf.WebLookAndFeel;
 import com.sotas.MainPanel;
-import com.sotas.Resolution;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.lang.reflect.InvocationTargetException;
 
 public class Main {
@@ -15,11 +16,17 @@ public class Main {
             public void run() {
                 JFrame f = new JFrame();
                 f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                f.setSize(Resolution.w, Resolution.h);
+                f.setSize(1366, 700);
                 f.add(new MainPanel(f));
                 f.setTitle("Тест");
-                f.setMinimumSize(new Dimension(Resolution.w, Resolution.h));
+                f.setMinimumSize(new Dimension(1366, 730));
                 f.setVisible(true);
+                f.addComponentListener(new ComponentAdapter() {
+                    @Override
+                    public void componentResized(ComponentEvent e) {
+                        System.out.println(e);
+                    }
+                });
             }
         });
     }

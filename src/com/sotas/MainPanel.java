@@ -24,9 +24,8 @@ public class MainPanel extends WebPanel {
     public MainPanel(Component parent) {
         setSize(parent.getWidth(), parent.getHeight());
         setLayout(null);
-
         WebToolBar toolBar = new WebToolBar();
-        toolBar.setBounds(0,0, 2600, 35);
+        toolBar.setBounds(0,0, 2600, 30);
         toolBar.setToolbarStyle(ToolbarStyle.attached);
         toolBar.setFloatable(false);
         toolBar.add(new WebLabel(" "+ StrConst.zayavlenie_nomer +" "));
@@ -59,22 +58,23 @@ public class MainPanel extends WebPanel {
 
         WebPanel formPanel = new WebPanel();
         formPanel.setLayout(null);
-        formPanel.setBounds(5, 40, 1285, 820);
-        formPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        formPanel.setBounds(4, 35, 1285, 690);
+        //formPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         add(formPanel);
 
         SidePanel leftSide = new LeftSidePanel(componentMap);
-        leftSide.setBounds(5, 5, 630, 810);
+        leftSide.setBounds(5, 5, 630, 680);
         formPanel.add(leftSide);
 
-        VerticalSeparator sep = new VerticalSeparator(810);
+        VerticalSeparator sep = new VerticalSeparator(650);
         sep.setLocation(630, 5);
         formPanel.add(sep);
 
         SidePanel rightSide = new RightSidePanel(componentMap);
-        rightSide.setBounds(650, 5, 630, 810);
+        rightSide.setBounds(650, 5, 630, 680);
         formPanel.add(rightSide);
 
+        /*
         JButton but = new WebButton("Найти заявление(F4)");
         but.setBounds(10, 865, 160, 30);
         add(but);
@@ -86,5 +86,6 @@ public class MainPanel extends WebPanel {
         but = new WebButton("Новое заявление(Сtrl+N)");
         but.setBounds(340, 865, 180, 30);
         add(but);
+        */
     }
 }

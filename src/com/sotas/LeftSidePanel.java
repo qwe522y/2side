@@ -9,36 +9,33 @@ import javax.swing.*;
 public class LeftSidePanel extends SidePanel {
     public LeftSidePanel(ComponentMap componentMap) {
         super(componentMap);
-        createRow(StrConst.vladelec, specialColor);
-        createRow("Представитель");
-        createRowLabel("    Государственные регистрационные знаки ТС");
+        createRow(StrConst.vladelec, genSpecialField()).setBackground(specialColor);
+        createRow("Представитель", genSpecialField());
+        addElement(genLabel("    Государственные регистрационные знаки ТС"), labelLen+fieldLen); rowBr();
         createCustomRow1();
-        createRow("Тип", specialColor);
-        createRowLabel("    Сведения о транспортном средстве");
+        createRow("Тип", genSpecialField()).setBackground(specialColor);
+        addElement(genLabel("    Сведения о транспортном средстве"), labelLen+fieldLen); rowBr();
         createCustomRow2();
-        createRow(StrConst.marka);
-        createRow(StrConst.model);
-        createRow("Модификация", Type.TextField);
-        createRow("Изготовитель", specialColor);
-        createRow("Тип ТС", specialColor);
-
-        createRow(StrConst.kategoriya, Type.ComboBox, specialColor);
-        for(String i : new String[]{" A"," A1"," B"," B1"," C"," C1"," D"," D1"," Прицеп"}) ((JComboBox)componentMap.getMap().get(StrConst.kategoriya)).addItem(i);
-
-        createRow("Спецназначение");
+        createRow(StrConst.marka, genSpecialField());
+        createRow(StrConst.model, genSpecialField());
+        createRow("Модификация");
+        createRow("Изготовитель", genSpecialField()).setBackground(specialColor);
+        createRow("Тип ТС", genSpecialField()).setBackground(specialColor);
+        createRow(StrConst.kategoriya, genComboBox(new String[]{" A"," A1"," B"," B1"," C"," C1"," D"," D1"," Прицеп"})).setBackground(specialColor);
+        createRow("Спецназначение", genSpecialField());
         createCustomRow3();
-        createRow(StrConst.god_vipuska, Type.Spinner); ((JSpinner)componentMap.getMap().get(StrConst.god_vipuska)).setValue(2010);
-        createRow("Модель двигателя",  Type.TextField);
-        createRow("Номер двигателя",  Type.TextField);
-        createRow("Номер кузова");
-        createRow("Номер шасси");
-        createRow("Цвет");
-        createRow("Цветовая группа", specialColor);
+        createRow(StrConst.god_vipuska, genSpinner()); ((JSpinner)componentMap.getMap().get(StrConst.god_vipuska)).setValue(2010);
+        createRow("Модель двигателя");
+        createRow("Номер двигателя");
+        createRow("Номер кузова", genSpecialField());
+        createRow("Номер шасси", genSpecialField());
+        createRow("Цвет", genSpecialField());
+        createRow("Цветовая группа", genSpecialField()).setBackground(specialColor);
         createCustomRow4(); //Мощн. двигателя Л/С
         createCustomRow5(); //Разрешается максимальная масса
         createCustomRow6(); //Тип двигателя
         createCustomRow7(); //Тип трансмиссии
-        createRow("Расположение руля", Type.ComboBox);
+        createRow("Расположение руля", genComboBox(new String[]{""}));
     }
 
     private void createCustomRow1() {
@@ -69,11 +66,11 @@ public class LeftSidePanel extends SidePanel {
         int f2len = 115;
         int l2len = 10;
 
-        WebLabel l = new WebLabel(StrConst.VIN_id);
+        JLabel l = genLabel(StrConst.VIN_id);
         l.setBounds(0, yCursor, labelLen, rowHeight);
         add(l);
 
-        WebTextField f = new SpecialField();
+        JTextField f = genSpecialField();
         f.setBounds(labelLen, yCursor, f1len, rowHeight);
         add(f);
         getComponentMap().add(StrConst.VIN_id + "1", f);
@@ -86,7 +83,7 @@ public class LeftSidePanel extends SidePanel {
         f.setBounds(labelLen + f1len + l2len + 5, yCursor, f2len, rowHeight);
         add(f);
         getComponentMap().add(StrConst.VIN_id + "2", f);
-        yCursor += yCursorStep;
+        rowBr();
     }
 
     private void createCustomRow3() {
@@ -102,54 +99,53 @@ public class LeftSidePanel extends SidePanel {
     }
 
     private void createCustomRow4() {
-        xCursor = 0;
-        createLabel(StrConst.moshnost_dvigatelya + " Л/С:", labelLen);
-        getComponentMap().add(StrConst.moshnost_dvigatelya, createTextField(160));
+        addElement(genLabel(StrConst.moshnost_dvigatelya + " Л/С:"), labelLen);
+        getComponentMap().add(StrConst.moshnost_dvigatelya, addElement(genTextField(), 160));
 
         xCursor +=10;
-        createLabel("кВт:", 30);
-        createTextField(100);
+        addElement(genLabel("кВт:"), 30);
+        addElement(genTextField(), 100);
 
         xCursor +=10;
-        createLabel("Объем:", 50);
-        createSpinner(100);
+        addElement(genLabel("Объем:"), 50);
+        addElement(genSpinner(), 100);
 
-        yCursor += yCursorStep;
+        rowBr();
     }
 
     private void createCustomRow5() {
         xCursor = 0;
-        createLabel("<html>Разрешается<br>максимальная масса(КГ)</html>", labelLen);
-        createSpinner(160);
+        addElement(genLabel("<html>Разрешается<br>максимальная масса(КГ)</html>"), labelLen);
+        addElement(genSpinner(), 160);
 
         xCursor +=10;
-        createLabel("Масса без нагрузки(КГ)", 190);
-        createSpinner(100);
+        addElement(genLabel("Масса без нагрузки(КГ)"), 190);
+        addElement(genSpinner(), 100);
 
-        yCursor += yCursorStep;
+        rowBr();
     }
 
     private void createCustomRow6() {
         xCursor = 0;
-        createLabel("Тип двигателя", labelLen);
-        createSpinner(160);
+        addElement(genLabel("Тип двигателя"), labelLen);
+        addElement(genSpinner(), 160);
 
         xCursor +=10;
-        createLabel("Экологический класс", 190);
-        createSpinner(100);
+        addElement(genLabel("Экологический класс"), 190);
+        addElement(genSpinner(), 100);
 
-        yCursor += yCursorStep;
+        rowBr();
     }
 
     private void createCustomRow7() {
         xCursor = 0;
-        createLabel("Тип трансмиссии", labelLen);
-        createComboBox(160);
+        addElement(genLabel("Тип трансмиссии"), labelLen);
+        addElement(genComboBox(new String[]{""}), 160);
 
         xCursor +=10;
-        createLabel("Тип привода", 190);
-        createComboBox(100);
+        addElement(genLabel("Тип привода"), 190);
+        addElement(genComboBox(new String[]{}), 100);
 
-        yCursor += yCursorStep;
+        rowBr();
     }
 }

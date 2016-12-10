@@ -20,7 +20,7 @@ public class SpecialField extends WebTextField {
         popupButton.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                WebDialog d = new TestDialog();
+                WebDialog d = new OwnerDialog();
                 d.setModal(true);
                 d.setLocation(300, 300);
                 d.setVisible(true);
