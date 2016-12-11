@@ -1,8 +1,6 @@
 package com.sotas;
 
-import com.alee.laf.checkbox.WebCheckBox;
 import com.alee.laf.label.WebLabel;
-import com.alee.laf.text.WebTextField;
 
 import javax.swing.*;
 
@@ -11,10 +9,10 @@ public class LeftSidePanel extends SidePanel {
         super(componentMap);
         createRow(StrConst.vladelec, genSpecialField()).setBackground(specialColor);
         createRow("Представитель", genSpecialField());
-        addElement(genLabel("    Государственные регистрационные знаки ТС"), labelLen+fieldLen); rowBr();
+        addElement(genLabel("    Государственные регистрационные знаки ТС"), 2); rowBr();
         createCustomRow1();
         createRow("Тип", genSpecialField()).setBackground(specialColor);
-        addElement(genLabel("    Сведения о транспортном средстве"), labelLen+fieldLen); rowBr();
+        addElement(genLabel("    Сведения о транспортном средстве"), 2); rowBr();
         createCustomRow2();
         createRow(StrConst.marka, genSpecialField());
         createRow(StrConst.model, genSpecialField());
@@ -35,117 +33,90 @@ public class LeftSidePanel extends SidePanel {
         createCustomRow5(); //Разрешается максимальная масса
         createCustomRow6(); //Тип двигателя
         createCustomRow7(); //Тип трансмиссии
-        createRow("Расположение руля", genComboBox(new String[]{""}));
+        createRow("<html>Расположение руля</html>", genComboBox(new String[]{""}));
     }
 
     private void createCustomRow1() {
-        int f1len = 200;
-        int f2len = 110;
-        int l2len = 150;
-
-        WebLabel l = new WebLabel("Номер");
-        l.setBounds(0, yCursor, labelLen, rowHeight);
-        add(l);
-
-        WebTextField f = new SpecialField();
-        f.setBounds(labelLen, yCursor, f1len, rowHeight);
-        add(f);
-
-        l = new WebLabel("Действие со знаком");
-        l.setBounds(labelLen + f1len + 10, yCursor, l2len, rowHeight);
-        add(l);
-
-        f = new SpecialField();
-        f.setBounds(labelLen + f1len + l2len, yCursor, f2len, rowHeight);
-        add(f);
-        yCursor += yCursorStep;
+        addElement(new WebLabel("Номер"), 1);
+        ComplexField complex = new ComplexField();
+        complex.add(genSpecialField(), 200);
+        complex.add(genLabel("<html>Действие<br>со знаком</html>"), 70).setHorizontalAlignment(SwingConstants.RIGHT);
+        complex.add(genSpecialField());
+        addElement(complex, 1);
+        rowBr();
     }
 
     private void createCustomRow2() {
-        int f1len = 330;
-        int f2len = 115;
-        int l2len = 10;
-
-        JLabel l = genLabel(StrConst.VIN_id);
-        l.setBounds(0, yCursor, labelLen, rowHeight);
-        add(l);
-
-        JTextField f = genSpecialField();
-        f.setBounds(labelLen, yCursor, f1len, rowHeight);
-        add(f);
-        getComponentMap().add(StrConst.VIN_id + "1", f);
-
-        l = new WebLabel("/");
-        l.setBounds(labelLen + f1len + 5, yCursor, l2len, rowHeight);
-        add(l);
-
-        f = new SpecialField();
-        f.setBounds(labelLen + f1len + l2len + 5, yCursor, f2len, rowHeight);
-        add(f);
-        getComponentMap().add(StrConst.VIN_id + "2", f);
+        addElement(genLabel(StrConst.VIN_id), 1);
+        ComplexField complex = new ComplexField();
+        getComponentMap().add(StrConst.VIN_id + "1", complex.add(genSpecialField(), 300));
+        JLabel label = genLabel("/");
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        complex.add(label, 10);
+        getComponentMap().add(StrConst.VIN_id + "2", complex.add(genSpecialField(), 150));
+        addElement(complex, 1);
         rowBr();
     }
 
     private void createCustomRow3() {
-        int chLen = 200;
-        WebCheckBox cb = new WebCheckBox("<html>Перевозка крупно<br>-габаритного груза</html>");
-        cb.setBounds(labelLen, yCursor, chLen, rowHeight);
-        add(cb);
-
-        cb = new WebCheckBox("<html>Оборудование<br>системы ГЛОНАСС</html>");
-        cb.setBounds(labelLen + chLen , yCursor, chLen , rowHeight);
-        add(cb);
-        yCursor += yCursorStep;
+        addElement(genLabel(""), 1);
+        ComplexField complex = new ComplexField();
+        complex.add(genCheckBox("<html>Перевозка крупно<br>-габаритного груза</html>"), 200);
+        complex.add(genCheckBox("<html>Оборудование<br>системы ГЛОНАСС</html>"), 200);
+        addElement(complex, 1);
+        rowBr();
     }
 
     private void createCustomRow4() {
         addElement(genLabel(StrConst.moshnost_dvigatelya + " Л/С:"), labelLen);
-        getComponentMap().add(StrConst.moshnost_dvigatelya, addElement(genTextField(), 160));
+        ComplexField complex = new ComplexField();
+        getComponentMap().add(StrConst.moshnost_dvigatelya, complex.add(genTextField(), 160));
 
-        xCursor +=10;
-        addElement(genLabel("кВт:"), 30);
-        addElement(genTextField(), 100);
+        complex.add(genLabel(" кВт:"), 45).setHorizontalAlignment(SwingConstants.RIGHT);
+        complex.add(genTextField(), 100);
 
-        xCursor +=10;
-        addElement(genLabel("Объем:"), 50);
-        addElement(genSpinner(), 100);
+        complex.add(genLabel(" Объем:"), 55).setHorizontalAlignment(SwingConstants.RIGHT);;
+        complex.add(genSpinner(), 100);
 
+        addElement(complex, 1);
         rowBr();
     }
 
     private void createCustomRow5() {
         xCursor = 0;
-        addElement(genLabel("<html>Разрешается<br>максимальная масса(КГ)</html>"), labelLen);
-        addElement(genSpinner(), 160);
+        addElement(genLabel("<html>Разрешается макс. масса(КГ)</html>"), 1);
 
-        xCursor +=10;
-        addElement(genLabel("Масса без нагрузки(КГ)"), 190);
-        addElement(genSpinner(), 100);
+        ComplexField complex = new ComplexField();
+        complex.add(genSpinner(), 160);
 
+        complex.add(genLabel(" Масса без нагрузки(КГ):"), 200).setHorizontalAlignment(SwingConstants.RIGHT);;;
+        complex.add(genSpinner(), 100);
+
+        addElement(complex, 1);
         rowBr();
     }
 
     private void createCustomRow6() {
-        xCursor = 0;
-        addElement(genLabel("Тип двигателя"), labelLen);
-        addElement(genSpinner(), 160);
+        addElement(genLabel("Тип двигателя"), 1);
+        ComplexField complex = new ComplexField();
+        complex.add(genSpinner(), 160);
 
-        xCursor +=10;
-        addElement(genLabel("Экологический класс"), 190);
-        addElement(genSpinner(), 100);
+        complex.add(genLabel("Экологический класс:"), 200).setHorizontalAlignment(SwingConstants.RIGHT);
+        complex.add(genSpinner(), 100);
 
+        addElement(complex, 1);
         rowBr();
     }
 
     private void createCustomRow7() {
-        xCursor = 0;
         addElement(genLabel("Тип трансмиссии"), labelLen);
-        addElement(genComboBox(new String[]{""}), 160);
+        ComplexField complex = new ComplexField();
+        complex.add(genComboBox(new String[]{""}), 160);
 
-        xCursor +=10;
-        addElement(genLabel("Тип привода"), 190);
-        addElement(genComboBox(new String[]{}), 100);
+        complex.add(genLabel("Тип привода:"), 200).setHorizontalAlignment(SwingConstants.RIGHT);
+        complex.add(genComboBox(new String[]{}), 100);
 
+        addElement(complex, 1);
         rowBr();
     }
 }

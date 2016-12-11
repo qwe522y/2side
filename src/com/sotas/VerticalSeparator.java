@@ -3,14 +3,14 @@ package com.sotas;
 import com.alee.laf.panel.WebPanel;
 import com.alee.laf.separator.WebSeparator;
 
+import java.awt.*;
+
 public class VerticalSeparator extends WebPanel {
     private int width = 20;
-    public VerticalSeparator(int len) {
+    public VerticalSeparator() {
         //setBackground(Color.BLUE);
-        setSize(width, len);
-        setLayout(null);
+        setLayout(new BorderLayout());
         WebSeparator sep = new WebSeparator(WebSeparator.VERTICAL);
-        sep.setBounds(11, 0, 3, len);
-        add(sep);
+        add(sep, BorderLayout.CENTER);
     }
 }

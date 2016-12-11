@@ -4,6 +4,7 @@ import com.alee.extended.date.WebDateField;
 import com.alee.laf.button.WebButton;
 import com.alee.laf.label.WebLabel;
 import com.alee.laf.panel.WebPanel;
+import com.alee.laf.rootpane.WebFrame;
 import com.alee.laf.text.WebTextField;
 import com.alee.laf.toolbar.ToolbarStyle;
 import com.alee.laf.toolbar.WebToolBar;
@@ -18,14 +19,57 @@ import java.io.InputStream;
 import java.util.Date;
 import java.util.Properties;
 
-public class MainPanel extends WebPanel {
-    private static final Logger log = Logger.getLogger(MainPanel.class);
+public class MainFrame extends WebFrame {
+    private static final Logger log = Logger.getLogger(MainFrame.class);
     ComponentMap componentMap = new ComponentMap();
-    public MainPanel(Component parent) {
-        setSize(parent.getWidth(), parent.getHeight());
-        setLayout(null);
+    public MainFrame() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Гарибанов ГИБДД");
+        setLayout(new BorderLayout());
+        createToolBar();
+        createCenterPanel();
+        setMinimumSize(new Dimension(1185, 700));
+        /*
+        JButton but = new WebButton("Найти заявление(F4)");
+        but.setBounds(10, 865, 160, 30);
+        add(but);
+
+        but = new WebButton("Найти ТС(Shift+F4)");
+        but.setBounds(170, 865, 160, 30);
+        add(but);
+
+        but = new WebButton("Новое заявление(Сtrl+N)");
+        but.setBounds(340, 865, 180, 30);
+        add(but);
+        */
+        pack();
+    }
+
+    private void createCenterPanel() {
+        WebPanel centerPanel = new WebPanel();
+        centerPanel.setLayout(new GridBagLayout());
+        //centerPanel.setBackground(Color.GRAY);
+        add(centerPanel, BorderLayout.CENTER);
+        GridBagConstraints c = new GridBagConstraints();
+        c.weighty = 1;
+        c.anchor = GridBagConstraints.NORTH;
+        c.insets = new Insets(5, 5, 5, 5);
+
+        SidePanel leftSide = new LeftSidePanel(componentMap);
+        c.weightx = 0.5; c.fill = GridBagConstraints.HORIZONTAL; ;
+        centerPanel.add(leftSide, c);
+
+        VerticalSeparator sep = new VerticalSeparator();
+        c.weightx = 0.0; c.fill = GridBagConstraints.VERTICAL;;
+        centerPanel.add(sep, c);
+
+        SidePanel rightSide = new RightSidePanel(componentMap);
+        c.weightx = 0.5; c.fill = GridBagConstraints.HORIZONTAL;
+        centerPanel.add(rightSide, c);
+    }
+
+    private void createToolBar() {
         WebToolBar toolBar = new WebToolBar();
-        toolBar.setBounds(0,0, 2600, 30);
         toolBar.setToolbarStyle(ToolbarStyle.attached);
         toolBar.setFloatable(false);
         toolBar.add(new WebLabel(" "+ StrConst.zayavlenie_nomer +" "));
@@ -54,38 +98,6 @@ public class MainPanel extends WebPanel {
                 }
             }
         });
-        add(toolBar);
-
-        WebPanel formPanel = new WebPanel();
-        formPanel.setLayout(null);
-        formPanel.setBounds(4, 35, 1285, 690);
-        //formPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-        add(formPanel);
-
-        SidePanel leftSide = new LeftSidePanel(componentMap);
-        leftSide.setBounds(5, 5, 630, 680);
-        formPanel.add(leftSide);
-
-        VerticalSeparator sep = new VerticalSeparator(650);
-        sep.setLocation(630, 5);
-        formPanel.add(sep);
-
-        SidePanel rightSide = new RightSidePanel(componentMap);
-        rightSide.setBounds(650, 5, 630, 680);
-        formPanel.add(rightSide);
-
-        /*
-        JButton but = new WebButton("Найти заявление(F4)");
-        but.setBounds(10, 865, 160, 30);
-        add(but);
-
-        but = new WebButton("Найти ТС(Shift+F4)");
-        but.setBounds(170, 865, 160, 30);
-        add(but);
-
-        but = new WebButton("Новое заявление(Сtrl+N)");
-        but.setBounds(340, 865, 180, 30);
-        add(but);
-        */
+        add(toolBar, BorderLayout.PAGE_START);
     }
 }

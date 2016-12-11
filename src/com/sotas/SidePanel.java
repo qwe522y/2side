@@ -14,18 +14,19 @@ import java.awt.*;
 
 public abstract class SidePanel extends WebPanel {
     private ComponentMap componentMap;
-    final int rowHeight = 28;
+    final int rowHeight = 30;
+    final int minRowHeight = 26;
     final int labelLen = 170;
     final int fieldLen = 460;
-    final int yCursorStep = 25;
+    final int yCursorStep = 30;
     Color specialColor = new Color(181, 233, 255);
     int yCursor = 0;
     int xCursor = 0;
 
     public SidePanel(ComponentMap componentMap) {
         this.componentMap = componentMap;
-        //setBackground(Color.YELLOW);
-        setLayout(null);
+        setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
     }
 
 
@@ -33,9 +34,9 @@ public abstract class SidePanel extends WebPanel {
         return createRow(label, genTextField());
     }
 
-    protected JComponent createRow(String label, JComponent field) {
-        addElement(genLabel(label), labelLen);
-        addElement(field, fieldLen);
+    protected <T extends JComponent> T createRow(String label, T field) {
+        addElement(genLabel(label), 1);
+        addElement(field, 1);
         componentMap.add(label, field);
         rowBr();
         return field;
@@ -46,10 +47,26 @@ public abstract class SidePanel extends WebPanel {
         xCursor = 0;
     }
 
-    protected JComponent addElement(JComponent element, int width) {
-        element.setBounds(xCursor, yCursor, width, rowHeight);
-        add(element);
-        xCursor += element.getWidth();
+    protected <T extends JComponent> T addElement(T element, int cellWidth) {
+        //element.setBounds(xCursor, yCursor, width, rowHeight);
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = xCursor;
+        c.gridy = yCursor;
+        if(cellWidth == 2) {
+            c.gridwidth = 2;
+        }
+        if(xCursor == 0) {
+            c.anchor = GridBagConstraints.LINE_START;
+            c.fill = GridBagConstraints.HORIZONTAL;
+            c.weightx = 1;
+        } else {
+            c.anchor = GridBagConstraints.LINE_END;
+            c.fill = GridBagConstraints.NONE;
+            element.setPreferredSize(new Dimension(fieldLen, rowHeight));
+            element.setMinimumSize(new Dimension(fieldLen, minRowHeight));
+        }
+        add(element, c);
+        xCursor += 1;
         return element;
     }
 
@@ -58,7 +75,10 @@ public abstract class SidePanel extends WebPanel {
     }
 
     protected JLabel genLabel(String label) {
-        return new WebLabel(label);
+        WebLabel l = new WebLabel(label);
+        l.setPreferredSize(110, rowHeight);
+        l.setMinimumSize(new Dimension(110, minRowHeight));
+        return l;
     }
 
     protected JSpinner genSpinner() {
@@ -74,7 +94,10 @@ public abstract class SidePanel extends WebPanel {
     }
 
     protected SpecialField genSpecialField() {
-        return new SpecialField();
+        SpecialField f = new SpecialField();
+        f.setPreferredSize(110, rowHeight);
+        f.setMinimumSize(new Dimension(110, minRowHeight));
+        return f;
     }
 
     protected WebDateField genDateField() {
@@ -91,5 +114,24 @@ public abstract class SidePanel extends WebPanel {
 
     public ComponentMap getComponentMap() {
         return componentMap;
+    }
+
+
+    class ComplexField extends WebPanel{
+        public ComplexField() {
+            setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+        }
+
+        <T extends JComponent> T add(T item, int pxWidth) {
+            item.setPreferredSize(new Dimension(pxWidth, rowHeight));
+            item.setMinimumSize(new Dimension(pxWidth, minRowHeight));
+            item.setMaximumSize(new Dimension(pxWidth, rowHeight));
+            add(item);
+            return item;
+        }
+
+        JPanel addSpace(int pxWidth) {
+            return add(new JPanel(), pxWidth);
+        }
     }
 }
