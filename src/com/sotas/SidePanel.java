@@ -17,11 +17,12 @@ public abstract class SidePanel extends WebPanel {
     final int rowHeight = 30;
     final int minRowHeight = 26;
     final int labelLen = 170;
-    final int fieldLen = 460;
+    protected int fieldLen = 460;
     final int yCursorStep = 30;
     Color specialColor = new Color(181, 233, 255);
     int yCursor = 0;
     int xCursor = 0;
+    protected String labelSuffix = "";
 
     public SidePanel(ComponentMap componentMap) {
         this.componentMap = componentMap;
@@ -35,7 +36,7 @@ public abstract class SidePanel extends WebPanel {
     }
 
     protected <T extends JComponent> T createRow(String label, T field) {
-        addElement(genLabel(label), 1);
+        addElement(genLabel(label + labelSuffix), 1);
         addElement(field, 1);
         componentMap.add(label, field);
         rowBr();
@@ -76,8 +77,8 @@ public abstract class SidePanel extends WebPanel {
 
     protected JLabel genLabel(String label) {
         WebLabel l = new WebLabel(label);
-        l.setPreferredSize(110, rowHeight);
-        l.setMinimumSize(new Dimension(110, minRowHeight));
+        l.setPreferredSize(labelLen, rowHeight);
+        l.setMinimumSize(new Dimension(labelLen, minRowHeight));
         return l;
     }
 

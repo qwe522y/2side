@@ -1,8 +1,8 @@
 package com.sotas;
 
 import com.alee.laf.WebLookAndFeel;
-import com.alee.laf.label.WebLabel;
-import com.alee.laf.text.WebTextField;
+import com.alee.laf.scroll.WebScrollPane;
+import com.alee.laf.table.WebTable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,37 +25,17 @@ class MyPanel extends JFrame {
         setTitle("test");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        setLayout(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
+        setLayout(null);
 
-        c.weightx=0.5;
-
-        c.gridx=0; c.gridy=0; c.anchor = GridBagConstraints.LINE_START; c.fill = GridBagConstraints.HORIZONTAL;
-        add(genLabel(), c);
-        c.gridx=1; c.gridy=0; c.anchor = GridBagConstraints.LINE_END; c.fill = GridBagConstraints.NONE;
-        add(genField(), c);
-
-        c.gridx=0; c.gridy=1; c.anchor = GridBagConstraints.LINE_START; c.fill = GridBagConstraints.HORIZONTAL;
-        add(genLabel(), c);
-        c.gridx=1; c.gridy=1; c.anchor = GridBagConstraints.LINE_END; c.fill = GridBagConstraints.NONE;
-        add(genField(), c);
-
-        c.gridx=0; c.gridy=2; c.anchor = GridBagConstraints.LINE_START; c.fill = GridBagConstraints.HORIZONTAL;
-        add(genLabel(), c);
-        c.gridx=1; c.gridy=2; c.anchor = GridBagConstraints.LINE_END; c.fill = GridBagConstraints.NONE;
-        add(genField(), c);
-        pack();
-    }
-
-    JComponent genLabel() {
-        WebLabel res = new WebLabel("Some text!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        res.setPreferredWidth(150);
-        return res;
-    }
-
-    JComponent genField() {
-        WebTextField res = new WebTextField();
-        res.setPreferredWidth(400);
-        return  res;
+        WebTable t = new WebTable(new String[][]{{"111", "qwe"}, {"222", "asd"}, {"333", "zxc"},{"111", "qwe"}, {"222", "asd"}, {"333", "zxc"}, {"111", "qwe"}, {"222", "asd"}, {"333", "zxc"},{"111", "qwe"}, {"222", "asd"}, {"333", "zxc"}}, new String[]{"Oooo", "Pppp"});
+        t.setRowSelectionAllowed ( true );
+        t.setColumnSelectionAllowed ( false );
+        //t.setPreferredScrollableViewportSize ( new Dimension ( 300, 100 ) );
+        t.setEditable ( false );
+        t.setSelectedRow(0);
+        WebScrollPane pane = new WebScrollPane(t);
+        pane.setBounds(10, 10, 300, 150);
+        add(pane);
+        setSize(600, 600);
     }
 }

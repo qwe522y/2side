@@ -3,11 +3,18 @@ package com.sotas;
 import com.alee.laf.label.WebLabel;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class LeftSidePanel extends SidePanel {
     public LeftSidePanel(ComponentMap componentMap) {
         super(componentMap);
-        createRow(StrConst.vladelec, genSpecialField()).setBackground(specialColor);
+        createRow(StrConst.vladelec, genSpecialField()).setBg(specialColor).but.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new OwnerDialog().setVisible(true);
+            }
+        });
         createRow("Представитель", genSpecialField());
         addElement(genLabel("    Государственные регистрационные знаки ТС"), 2); rowBr();
         createCustomRow1();
@@ -68,7 +75,7 @@ public class LeftSidePanel extends SidePanel {
     }
 
     private void createCustomRow4() {
-        addElement(genLabel(StrConst.moshnost_dvigatelya + " Л/С:"), labelLen);
+        addElement(genLabel(StrConst.moshnost_dvigatelya + " Л/С:"), 1);
         ComplexField complex = new ComplexField();
         getComponentMap().add(StrConst.moshnost_dvigatelya, complex.add(genTextField(), 160));
 
@@ -99,7 +106,7 @@ public class LeftSidePanel extends SidePanel {
     private void createCustomRow6() {
         addElement(genLabel("Тип двигателя"), 1);
         ComplexField complex = new ComplexField();
-        complex.add(genSpinner(), 160);
+        complex.add(genSpecialField(), 160);
 
         complex.add(genLabel("Экологический класс:"), 200).setHorizontalAlignment(SwingConstants.RIGHT);
         complex.add(genSpinner(), 100);
@@ -109,7 +116,7 @@ public class LeftSidePanel extends SidePanel {
     }
 
     private void createCustomRow7() {
-        addElement(genLabel("Тип трансмиссии"), labelLen);
+        addElement(genLabel("Тип трансмиссии"), 1);
         ComplexField complex = new ComplexField();
         complex.add(genComboBox(new String[]{""}), 160);
 

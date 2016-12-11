@@ -17,4 +17,9 @@ public class SpecialField extends WebTextField {
         setTrailingComponent(but);
         but.setCursor ( Cursor.getDefaultCursor () );
     }
+
+    public SpecialField setBg(Color color) {
+        setBackground(color);
+        return this;
+    }
 }

@@ -21,7 +21,7 @@ public class RightSidePanel extends SidePanel {
         createRow("Дата выдачи", genDateField());
         createRow("Срок действия", genDateField());
         createCustomRow4();
-        addElement(genLabel("    Документ, подтверждающий право собственности"), labelLen+fieldLen); rowBr();
+        addElement(genLabel("    Документ, подтверждающий право собственности"), 2); rowBr();
         createRow("Серия и номер", genSpecialField());
         createRow("Стоимость ТС");
         createCustomRow5();
@@ -48,7 +48,7 @@ public class RightSidePanel extends SidePanel {
     }
 
     private void createCustomRow3() {
-        addElement(genLabel("Свид. о регистрации"), labelLen);
+        addElement(genLabel("Свид. о регистрации"), 1);
         ComplexField complex = new ComplexField();
         complex.add(genSpecialField(), 300);
         complex.add(genCheckBox("Свид. утрачено"), 160).setHorizontalAlignment(SwingConstants.RIGHT);
@@ -57,7 +57,7 @@ public class RightSidePanel extends SidePanel {
     }
 
     private void createCustomRow4() {
-        addElement(genLabel("Страховщик"), labelLen);
+        addElement(genLabel("Страховщик"), 1);
         ComplexField complex = new ComplexField();
         complex.add(genSpecialField(), 370);
         complex.add(genButton("Полис"), 90);
@@ -66,7 +66,7 @@ public class RightSidePanel extends SidePanel {
     }
 
     private void createCustomRow5() {
-        addElement(genLabel("Форма собственности"), labelLen);
+        addElement(genLabel("Форма собственности"), 1);
         ComplexField complex = new ComplexField();
         complex.add(genSpecialField(), 370);
         complex.add(genButton("Договор"), 90);
@@ -75,9 +75,9 @@ public class RightSidePanel extends SidePanel {
     }
 
     private void createCustomRow6() {
-        JLabel lable = addElement(genLabel("<html>Вносимые изменения в конструкцию ТС</html>"), labelLen);
-        lable.setMinimumSize(new Dimension(labelLen, 2*minRowHeight));
-        lable.setPreferredSize(new Dimension(labelLen, 2*rowHeight));
+        JLabel lable = addElement(genLabel("<html>Вносимые изменения в конструкцию ТС</html>"), 1);
+        lable.setMinimumSize(new Dimension(0, 2*minRowHeight));
+        lable.setPreferredSize(new Dimension(0, 2*rowHeight));
 
         WebTextArea textArea = new WebTextArea ();
         textArea.setLineWrap ( true );
