@@ -2,15 +2,14 @@ package com.sotas;
 
 import com.alee.laf.button.WebButton;
 import com.alee.laf.panel.WebPanel;
-import com.alee.laf.rootpane.WebDialog;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-class FormDialog extends WebDialog {
-    public FormDialog(SidePanel form, String title) {
+class FormDialog extends AbstractDialog {
+    public FormDialog(SidePanel form, String title, Dimension size) {
         setTitle(title);
         setLayout(new BorderLayout());
         setModal(true);
@@ -38,5 +37,6 @@ class FormDialog extends WebDialog {
         add(butPanel, BorderLayout.SOUTH);
         add(new JPanel(), BorderLayout.LINE_START);
         add(new JPanel(), BorderLayout.LINE_END);
+        setSize(size);
     }
 }

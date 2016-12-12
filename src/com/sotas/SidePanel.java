@@ -94,6 +94,14 @@ public abstract class SidePanel extends WebPanel {
         return new WebComboBox(list);
     }
 
+    protected SpecialField genSpecialField(AbstractDialog dialog) {
+        SpecialField f = new SpecialField(dialog);
+        f.setPreferredSize(110, rowHeight);
+        f.setMinimumSize(new Dimension(110, minRowHeight));
+        return f;
+    }
+
+    @Deprecated
     protected SpecialField genSpecialField() {
         SpecialField f = new SpecialField();
         f.setPreferredSize(110, rowHeight);

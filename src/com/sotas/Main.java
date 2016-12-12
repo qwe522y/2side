@@ -10,6 +10,7 @@ import java.lang.reflect.InvocationTargetException;
 public class Main {
 
     public static void main(String[] args) throws InvocationTargetException, InterruptedException, UnsupportedLookAndFeelException {
+        Resource.getInstance();
         UIManager.setLookAndFeel(new WebLookAndFeel());
         SwingUtilities.invokeAndWait(new Runnable() {
             @Override

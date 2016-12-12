@@ -3,18 +3,11 @@ package com.sotas;
 import com.alee.laf.label.WebLabel;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class LeftSidePanel extends SidePanel {
     public LeftSidePanel(ComponentMap componentMap) {
         super(componentMap);
-        createRow(StrConst.vladelec, genSpecialField()).setBg(specialColor).but.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new OwnerDialog().setVisible(true);
-            }
-        });
+        createRow(StrConst.vladelec, genSpecialField(new OwnerDialog())).setBg(specialColor);
         createRow("Представитель", genSpecialField());
         addElement(genLabel("    Государственные регистрационные знаки ТС"), 2); rowBr();
         createCustomRow1();
