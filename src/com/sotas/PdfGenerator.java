@@ -14,13 +14,17 @@ import java.util.Date;
 public class PdfGenerator {
     private static final Logger log = Logger.getLogger(PdfGenerator.class);
     private static String path = "temp.pdf";
-    private final ComponentMap componentMap;
+    private final ComponentMap cm;
+    private final ComponentMap vladelecCm;
+    private final String vladelecFio;
     private Font smallFont;
     private Font normalFont;
     private Font boldFont;
 
-    public PdfGenerator(ComponentMap componentMap) throws IOException, DocumentException {
-        this.componentMap = componentMap;
+    public PdfGenerator(ComponentMap componentMap, ComponentMap vladelecComponentMap) throws IOException, DocumentException {
+        this.cm = componentMap;
+        this.vladelecCm = vladelecComponentMap;
+        vladelecFio = (vladelecCm.getFieldText(StrConst.vladelec.famil) + " " + vladelecCm.getFieldText(StrConst.vladelec.name) + " " + vladelecCm.getFieldText(StrConst.vladelec.otchestvo)).toUpperCase();
         BaseFont times = BaseFont.createFont("normal.ttf", "cp1251", BaseFont.EMBEDDED);
         smallFont = new Font(times, 6);
         normalFont = new Font(times, 9);
@@ -32,7 +36,7 @@ public class PdfGenerator {
         Document doc = new Document(PageSize.A4, 10, 10, 10, 10);
         PdfWriter.getInstance(doc, new FileOutputStream(path));
         doc.open();
-        doc.add(new Phrase("           "+ Utils.dateTimeFormat.format(new Date()) +"                                              МРЭО ГИБДД МВД по РД(дислокация г.Избербаш)", smallFont));
+        doc.add(new Phrase("                     "+ Utils.dateTimeFormat.format(new Date()) +"                                              МРЭО ГИБДД МВД по РД(дислокация г.Избербаш)", smallFont));
         doc.add(genT1());
         doc.add(genT2());
         doc.add(genT3());
@@ -43,6 +47,10 @@ public class PdfGenerator {
         doc.add(genT8());
         doc.add(genT9());
         doc.add(genT10());
+        Paragraph paragrath = new Paragraph();
+        paragrath.setAlignment(Element.ALIGN_RIGHT);
+        paragrath.add(new Phrase(cm.getFieldText(StrConst.zayavlenie_nomer) + "                     ", smallFont));
+        doc.add(paragrath);
         doc.close();
     }
 
@@ -51,7 +59,7 @@ public class PdfGenerator {
         PdfPTable t = new PdfPTable(1);
         t.setWidthPercentage(90);
 
-        PdfPCell c = new PdfPCell(new Phrase(StrConst.zayavlenie_nomer + " " + componentMap.getFieldText(StrConst.zayavlenie_nomer), boldFont));
+        PdfPCell c = new PdfPCell(new Phrase(StrConst.zayavlenie_nomer, boldFont));
         c.setHorizontalAlignment(Element.ALIGN_CENTER);
         c.setBorderWidthBottom(0);
         t.addCell(c);
@@ -61,7 +69,7 @@ public class PdfGenerator {
         t.addCell(c);
 
         phrase = new Phrase("Я, ", normalFont);
-        phrase.add(new Chunk(componentMap.getFieldText(StrConst.vladelec), boldFont));
+        phrase.add(new Chunk(vladelecFio, boldFont));
         phrase.add(new Chunk(", прошу", normalFont));
         c = new PdfPCell(phrase);
         c.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -84,13 +92,13 @@ public class PdfGenerator {
         t.addCell(c);
 
         t.addCell(new Phrase("Марка, модель, год выпуска", normalFont));
-        t.addCell(new Phrase(componentMap.getFieldText(StrConst.marka) + " " + componentMap.getFieldText(StrConst.model) + ", " + componentMap.getFieldText(StrConst.god_vipuska), normalFont));
+        t.addCell(new Phrase(cm.getFieldText(StrConst.marka) + " " + cm.getFieldText(StrConst.model) + ", " + cm.getFieldText(StrConst.god_vipuska), normalFont));
 
         t.addCell(new Phrase("VIN идентификационный номер", normalFont));
-        t.addCell(new Phrase("XTA29385912385912", normalFont));
+        t.addCell(new Phrase(cm.getFieldText(StrConst.VIN_id + "1"), normalFont));
 
         t.addCell(new Phrase("Регистр. знак(при наличии)", normalFont));
-        t.addCell(new Phrase("С123Е1292", normalFont));
+        t.addCell(new Phrase(cm.getFieldText(StrConst.nomer), normalFont));
         return t;
     }
 
@@ -100,7 +108,7 @@ public class PdfGenerator {
         t.setWidthPercentage(90);
 
         t.addCell(new Phrase("СВЕДЕНИЯ О СОБСТВЕННИКЕ ТС", boldFont));
-        t.addCell(new Phrase("МАГАМАЕВ РАДЖАБ ГУСЕЙНОВИЧ", boldFont));
+        t.addCell(new Phrase(vladelecFio, boldFont));
 
         t.addCell(new Phrase("Документ, удостоверяющий личность", normalFont));
         t.addCell(new Phrase("Паспорт(Россия), 12 54 235126, выдан 25.02.2007, ДАЗАДАЕВСКИМ РОВД", normalFont));
@@ -121,7 +129,7 @@ public class PdfGenerator {
         t.setSpacingBefore(5);
         t.setWidthPercentage(90);
 
-        PdfPCell c = new PdfPCell(new Phrase(componentMap.getFieldText(StrConst.date), normalFont));
+        PdfPCell c = new PdfPCell(new Phrase(cm.getFieldText(StrConst.date), normalFont));
         c.setHorizontalAlignment(Element.ALIGN_CENTER);
         t.addCell(c);
 
@@ -129,7 +137,7 @@ public class PdfGenerator {
         c.setHorizontalAlignment(Element.ALIGN_CENTER);
         t.addCell(c);
 
-        c = new PdfPCell(new Phrase(Utils.cutFio(componentMap.getFieldText(StrConst.vladelec)), normalFont));
+        c = new PdfPCell(new Phrase(Utils.cutFio(cm.getFieldText(vladelecFio)), normalFont));
         c.setHorizontalAlignment(Element.ALIGN_CENTER);
         t.addCell(c);
 
@@ -162,7 +170,7 @@ public class PdfGenerator {
 
         c = new PdfPCell(new Phrase("Марка, модель, год выпуска", normalFont));
         t.addCell(c);
-        c = new PdfPCell(new Phrase(componentMap.getFieldText(StrConst.marka) + " " + componentMap.getFieldText(StrConst.model) + ", " + componentMap.getFieldText(StrConst.god_vipuska), normalFont));
+        c = new PdfPCell(new Phrase(cm.getFieldText(StrConst.marka) + " " + cm.getFieldText(StrConst.model) + ", " + cm.getFieldText(StrConst.god_vipuska), normalFont));
         t.addCell(c);
         c = new PdfPCell(new Phrase("соответствует / \n не соответствует  \n (ненужное зачеркнуть)", normalFont));
         c.setVerticalAlignment(Element.ALIGN_BOTTOM);
@@ -172,7 +180,7 @@ public class PdfGenerator {
 
         c = new PdfPCell(new Phrase("Тип/категория ТС", normalFont));
         t.addCell(c);
-        c = new PdfPCell(new Phrase(componentMap.getFieldText(StrConst.kategoriya), normalFont));
+        c = new PdfPCell(new Phrase(cm.getFieldText(StrConst.kategoriya), normalFont));
         t.addCell(c);
 
         c = new PdfPCell(new Phrase("Цвет", normalFont));
@@ -187,29 +195,23 @@ public class PdfGenerator {
 
         c = new PdfPCell(new Phrase(StrConst.VIN_id, normalFont));
         t.addCell(c);
-        c = new PdfPCell(new Phrase(componentMap.getFieldText(StrConst.VIN_id + "1") + " / " + componentMap.getFieldText(StrConst.VIN_id + "2"), normalFont));
+        c = new PdfPCell(new Phrase(cm.getFieldText(StrConst.VIN_id + "1") + " / " + cm.getFieldText(StrConst.VIN_id + "2"), normalFont));
         t.addCell(c);
 
         c = new PdfPCell(new Phrase("Номер кузова", normalFont));
         t.addCell(c);
-        c = new PdfPCell(new Phrase(componentMap.getFieldText(StrConst.nomer_cuzova), normalFont));
+        c = new PdfPCell(new Phrase(cm.getFieldText(StrConst.nomer_cuzova), normalFont));
         t.addCell(c);
 
         c = new PdfPCell(new Phrase("Номер шасси", normalFont));
         t.addCell(c);
-        c = new PdfPCell(new Phrase(componentMap.getFieldText(StrConst.nomer_shassi), normalFont));
+        c = new PdfPCell(new Phrase(cm.getFieldText(StrConst.nomer_shassi), normalFont));
         t.addCell(c);
 
         c = new PdfPCell(new Phrase("Мощн. двиг. л.с.(кВт), раб. объем двиг.(куб/см), экологичный класс", normalFont));
         t.addCell(c);
-        String power = null;
+        String power = cm.getFieldText(StrConst.moshnost_dvigatelya);
         String power2 = null;
-        try {
-            power = componentMap.getFieldText(StrConst.moshnost_dvigatelya);
-            power2 = String.format("%.2f", Double.parseDouble(power) * 0.735499);
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
         c = new PdfPCell(new Phrase(power + "(" + power2 + ")" + ", 3954, ТРЕТИЙ", normalFont));
         t.addCell(c);
 

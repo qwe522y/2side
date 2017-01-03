@@ -2,11 +2,11 @@ package com.sotas;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ComponentMap {
-    private final Map<String, JComponent> map = new HashMap<>();
+    private final Map<String, JComponent> map = new LinkedHashMap<>();
     public String getFieldText(String name) {
         JComponent c = map.get(name);
         if(c instanceof JTextComponent)

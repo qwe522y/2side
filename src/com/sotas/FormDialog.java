@@ -9,7 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 class FormDialog extends AbstractDialog {
-    public FormDialog(SidePanel form, String title, Dimension size) {
+    public FormDialog(SpecialField field, final SidePanel form, String title, Dimension size) {
+        super(form.getComponentMap());
+        this.field = field;
         setTitle(title);
         setLayout(new BorderLayout());
         setModal(true);
@@ -20,6 +22,7 @@ class FormDialog extends AbstractDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
+                if(FormDialog.this.field != null) FormDialog.this.field.setText(form.genShortText());
             }
         });
         WebButton cancelBut = new WebButton("Отмена");

@@ -21,7 +21,9 @@ import java.util.Properties;
 
 public class MainFrame extends WebFrame {
     private static final Logger log = Logger.getLogger(MainFrame.class);
-    ComponentMap componentMap = new ComponentMap();
+    ComponentMap cm = new ComponentMap();
+    ComponentMap vladelecCm = new ComponentMap();
+    ComponentMap predstavitelCm = new ComponentMap();
     public MainFrame() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Гарибанов ГИБДД");
@@ -55,7 +57,7 @@ public class MainFrame extends WebFrame {
         c.anchor = GridBagConstraints.NORTH;
         c.insets = new Insets(5, 5, 5, 5);
 
-        SidePanel leftSide = new LeftSidePanel(componentMap);
+        SidePanel leftSide = new LeftSidePanel(cm, vladelecCm, predstavitelCm);
         c.weightx = 0.5; c.fill = GridBagConstraints.HORIZONTAL; ;
         centerPanel.add(leftSide, c);
 
@@ -63,7 +65,7 @@ public class MainFrame extends WebFrame {
         c.weightx = 0.0; c.fill = GridBagConstraints.VERTICAL;;
         centerPanel.add(sep, c);
 
-        SidePanel rightSide = new RightSidePanel(componentMap);
+        SidePanel rightSide = new RightSidePanel(cm);
         c.weightx = 0.5; c.fill = GridBagConstraints.HORIZONTAL;
         centerPanel.add(rightSide, c);
     }
@@ -76,12 +78,12 @@ public class MainFrame extends WebFrame {
         WebTextField f = new WebTextField();
         f.setMinimumWidth(150);
         toolBar.add(f);
-        componentMap.add(StrConst.zayavlenie_nomer, f);
+        cm.add(StrConst.zayavlenie_nomer, f);
         toolBar.add(new WebLabel(" Дата: "));
         WebDateField dateField = new WebDateField(new Date());
         dateField.setMinimumWidth(150);
         toolBar.add(dateField);
-        componentMap.add(StrConst.date, dateField);
+        cm.add(StrConst.date, dateField);
         JButton printButton = new WebButton(new ImageIcon(getClass().getResource ( "/img/printer16.png" )));
         toolBar.add(printButton);
         printButton.addActionListener(new ActionListener() {
@@ -90,7 +92,7 @@ public class MainFrame extends WebFrame {
                 Properties prop = new Properties();
                 try(InputStream fis = new FileInputStream("setting.cfg")) {
                     prop.load(fis);
-                    new PdfGenerator(componentMap).gen();
+                    new PdfGenerator(cm, vladelecCm).gen();
                     log.info(prop.getProperty("pdfReader") + " " + "temp.pdf");
                     Runtime.getRuntime().exec(new String[]{prop.getProperty("pdfReader"), "temp.pdf"});
                 } catch (Exception ex) {

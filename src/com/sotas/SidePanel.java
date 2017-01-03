@@ -36,9 +36,14 @@ public abstract class SidePanel extends WebPanel {
     }
 
     protected <T extends JComponent> T createRow(String label, T field) {
+        return createRow(null, label, field);
+    }
+
+    protected <T extends JComponent> T createRow(String prefix, String label, T field) {
         addElement(genLabel(label + labelSuffix), 1);
         addElement(field, 1);
-        componentMap.add(label, field);
+        if(prefix != null) componentMap.add(prefix + "_" + label, field);
+        else componentMap.add(label, field);
         rowBr();
         return field;
     }
@@ -123,6 +128,18 @@ public abstract class SidePanel extends WebPanel {
 
     public ComponentMap getComponentMap() {
         return componentMap;
+    }
+
+    public String genShortText() {
+        StringBuilder sb = new StringBuilder();
+        for(String key : getComponentMap().getMap().keySet()) {
+            String val = getComponentMap().getFieldText(key);
+            if(val != null && val.length() > 0) {
+                sb.append(",").append(val);
+            }
+        }
+        if(sb.length()>0) sb.delete(0, 1);
+        return sb.toString();
     }
 
 

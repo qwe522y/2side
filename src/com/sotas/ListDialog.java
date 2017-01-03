@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 public class ListDialog extends AbstractDialog {
     private String[][] rows;
     public ListDialog(final String[][] rows, String[] headers, String title, Dimension size) {
+        super(null);
         this.rows = rows;
         setTitle(title);
         setLayout(new BorderLayout());

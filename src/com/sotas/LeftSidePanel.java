@@ -5,10 +5,10 @@ import com.alee.laf.label.WebLabel;
 import javax.swing.*;
 
 public class LeftSidePanel extends SidePanel {
-    public LeftSidePanel(ComponentMap componentMap) {
-        super(componentMap);
-        createRow(StrConst.vladelec, genSpecialField(new OwnerDialog())).setBg(specialColor);
-        createRow("Представитель", genSpecialField());
+    public LeftSidePanel(ComponentMap cm, ComponentMap vladelecCm, ComponentMap predstavitelCm) {
+        super(cm);
+        createRow("Владелец", genSpecialField(new VladelecDialog(vladelecCm))).setBg(specialColor);
+        createRow("Представитель", genSpecialField(new PredstavitelDialog(predstavitelCm)));
         addElement(genLabel("    Государственные регистрационные знаки ТС"), 2); rowBr();
         createCustomRow1();
         createRow("Тип", genSpecialField()).setBackground(specialColor);
@@ -22,7 +22,7 @@ public class LeftSidePanel extends SidePanel {
         createRow(StrConst.kategoriya, genComboBox(new String[]{" A"," A1"," B"," B1"," C"," C1"," D"," D1"," Прицеп"})).setBackground(specialColor);
         createRow("Спецназначение", genSpecialField());
         createCustomRow3();
-        createRow(StrConst.god_vipuska, genSpinner()); ((JSpinner)componentMap.getMap().get(StrConst.god_vipuska)).setValue(2010);
+        createRow(StrConst.god_vipuska, genSpinner()); ((JSpinner)cm.getMap().get(StrConst.god_vipuska)).setValue(2010);
         createRow("Модель двигателя");
         createRow("Номер двигателя");
         createRow("Номер кузова", genSpecialField());
@@ -39,7 +39,9 @@ public class LeftSidePanel extends SidePanel {
     private void createCustomRow1() {
         addElement(new WebLabel("Номер"), 1);
         ComplexField complex = new ComplexField();
-        complex.add(genSpecialField(), 200);
+        SpecialField nomerField = genSpecialField();
+        getComponentMap().add(StrConst.nomer, nomerField);
+        complex.add(nomerField, 200);
         complex.add(genLabel("<html>Действие<br>со знаком</html>"), 70).setHorizontalAlignment(SwingConstants.RIGHT);
         complex.add(genSpecialField());
         addElement(complex, 1);
