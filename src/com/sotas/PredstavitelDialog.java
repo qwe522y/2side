@@ -10,8 +10,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class PredstavitelDialog extends AbstractDialog {
+    private final NaturalPersonForm naturalPersonForm;
+    private final AddressForm addressForm;
+
     public PredstavitelDialog(ComponentMap cm) {
         super(cm);
+        addressForm = new AddressForm(cm);
+        naturalPersonForm = new NaturalPersonForm(cm);
         setModal(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(null);
@@ -48,7 +53,7 @@ public class PredstavitelDialog extends AbstractDialog {
     }
 
     private void showNaturalPersonDialog() {
-        FormDialog dialog = new FormDialog(field, new NaturalPersonForm(cm), "Сведения о физических лицах", new Dimension(700, 800));
+        FormDialog dialog = new FormDialog(field, naturalPersonForm, "Сведения о физических лицах", new Dimension(700, 800));
         dialog.setVisible(true);
     }
 
@@ -75,7 +80,7 @@ public class PredstavitelDialog extends AbstractDialog {
             createRow("Код подразделения");
             createRow("Кем выдан документ, удостоверяющий личность").setBackground(specialColor);
             createRow("Страна документа, удостоверяющего личность", genSpecialField(new ListDialog(Resource.getInstance().passportCountry, null, "Страна документа, удостоверяющего личность", new Dimension(400, 600)))).setBg(specialColor);
-            createRow("Адрес регистрации", new SpecialField(new FormDialog(null, new AddressForm(new ComponentMap()), "Адрес", new Dimension(750, 480))));
+            createRow("Адрес регистрации", new SpecialField(new FormDialog(null, addressForm, "Адрес", new Dimension(750, 480))));
             createRow("Домашний телефон");
             createRow("Мобильный телефон");
             createRow("Серия и номер", genComboBox(new String[]{"", "Простая письменная форма", "Нотариальная с правом передоверия", "Нотариальная без права передоверия", "Иной документ"}));

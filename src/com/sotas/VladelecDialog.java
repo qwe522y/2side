@@ -10,8 +10,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class VladelecDialog extends AbstractDialog {
+    private final NaturalPersonForm naturalPersonForm;
+    private final AddressForm addressForm;
+
     public VladelecDialog(ComponentMap cm) {
         super(cm);
+        addressForm = new AddressForm(cm);
+        naturalPersonForm = new NaturalPersonForm(cm);
         setModal(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(null);
@@ -52,7 +57,7 @@ public class VladelecDialog extends AbstractDialog {
     }
 
     private void showNaturalPersonDialog() {
-        FormDialog dialog = new FormDialog(field, new NaturalPersonForm(cm), "Сведения о физических лицах", new Dimension(700, 900));
+        FormDialog dialog = new FormDialog(field, naturalPersonForm , "Сведения о физических лицах", new Dimension(700, 900));
         dialog.setVisible(true);
     }
 
@@ -72,7 +77,7 @@ public class VladelecDialog extends AbstractDialog {
             createRow("Пол", genComboBox(new String[]{"Мужской", "Женский"})).setBackground(specialColor);
             createRow("Регион места рождения", genSpecialField(new ListDialog(Resource.getInstance().bornPlaceRegion, null, "Регион места рождения", new Dimension(600, 800)))).setBg(specialColor);
             createRow("Место рождения").setBackground(specialColor);
-            createRow("ИНН");
+            createRow(StrConst.vladelec.inn);
             createRow("Кем выдан ИНН");
             createRow("Индивидуальный предприниматель", genComboBox(new String[]{"Нет", "Да"})).setBackground(specialColor);
             createRow("ОГРНИП");
@@ -84,12 +89,12 @@ public class VladelecDialog extends AbstractDialog {
             createRow("Код подразделения");
             createRow(StrConst.vladelec.kemVidanDUL).setBackground(specialColor);
             createRow("Страна документа, удостоверяющего личность", genSpecialField(new ListDialog(Resource.getInstance().passportCountry, null, "Страна документа, удостоверяющего личность", new Dimension(400, 600)))).setBg(specialColor);
-            createRow("Адрес регистрации", new SpecialField(new FormDialog(null, new AddressForm(new ComponentMap()), "Адрес", new Dimension(750, 480))));
+            createRow("Адрес регистрации", new SpecialField(new FormDialog(null, addressForm, "Адрес", new Dimension(750, 520))));
             createRow("Место работы");
             createRow("Должность");
             createRow("Домашний телефон");
             createRow(StrConst.vladelec.mobilePhone);
-            createRow("Электронная почта");
+            createRow(StrConst.vladelec.mail);
         }
 
         @Override
@@ -118,7 +123,7 @@ public class VladelecDialog extends AbstractDialog {
             createRow("Тип строения", genComboBox(new String[]{""}));
             createRow(StrConst.vladelec.adresReg.prefix, StrConst.vladelec.adresReg.stroyenie, genTextField());
             createRow(StrConst.vladelec.adresReg.prefix, StrConst.vladelec.adresReg.kvartira, genTextField());
-            createRow("Почтовый индекс", genTextField());
+            createRow(StrConst.vladelec.adresReg.prefix, StrConst.vladelec.adresReg.mailIndex, genTextField());
             createRow("ОКТМО", genTextField());
         }
     }

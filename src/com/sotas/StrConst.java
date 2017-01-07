@@ -20,11 +20,13 @@ public class StrConst {
         public static final String name = "Имя";
         public static final String otchestvo = "Отчество";
         public static final String bornDate = "Дата рождения";
+        public static final String inn = "ИНН";
         public static final String tipDUL = "Тип документа удостоверяющий личность";
         public static final String seriaNomerDUL = "Серия и номер документа, удостоверяющего личность";
         public static final String kemVidanDUL = "Кем выдан документ, удостоверяющий личность";
         public static final String dataVidachiDUL = "Дата выдачи документа, удостоверяющего личность";
         public static final String mobilePhone = "Мобильный телефон";
+        public static final String mail = "Электронная почта";
 
         public static class adresReg {
             public static final String prefix = "adresReg";
@@ -39,6 +41,7 @@ public class StrConst {
             public static final String korpus = "Корпус";
             public static final String stroyenie = "Строение";
             public static final String kvartira = "Квартира";
+            public static final String mailIndex = "Почтовый индекс";
         }
     }
 }

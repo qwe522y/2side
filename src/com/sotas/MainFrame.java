@@ -3,6 +3,7 @@ package com.sotas;
 import com.alee.extended.date.WebDateField;
 import com.alee.laf.button.WebButton;
 import com.alee.laf.label.WebLabel;
+import com.alee.laf.optionpane.WebOptionPane;
 import com.alee.laf.panel.WebPanel;
 import com.alee.laf.rootpane.WebFrame;
 import com.alee.laf.text.WebTextField;
@@ -14,8 +15,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.Date;
 import java.util.Properties;
 
@@ -96,6 +99,9 @@ public class MainFrame extends WebFrame {
                     log.info(prop.getProperty("pdfReader") + " " + "temp.pdf");
                     Runtime.getRuntime().exec(new String[]{prop.getProperty("pdfReader"), "temp.pdf"});
                 } catch (Exception ex) {
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    ex.printStackTrace(new PrintStream(baos));
+                    WebOptionPane.showMessageDialog (null, "Возникла внутренняя ошибка\nmessage: " + ex.getMessage() + "\n" + new String(baos.toByteArray()) , "Ошибка", WebOptionPane.ERROR_MESSAGE );
                     log.error(ex.getMessage(), ex);
                 }
             }

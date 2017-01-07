@@ -24,6 +24,11 @@ public class PdfGenerator {
     public PdfGenerator(ComponentMap componentMap, ComponentMap vladelecComponentMap) throws IOException, DocumentException {
         this.cm = componentMap;
         this.vladelecCm = vladelecComponentMap;
+        StringBuilder sb = new StringBuilder();
+        for(String key : cm.getMap().keySet()) sb.append(key + ":" + cm.getFieldText(key)).append("\n");
+        for(String key : vladelecComponentMap.getMap().keySet()) sb.append("vladelec." + key + ":" + vladelecCm.getFieldText(key)).append("\n");
+        log.debug(sb.toString());
+
         vladelecFio = (vladelecCm.getFieldText(StrConst.vladelec.famil) + " " + vladelecCm.getFieldText(StrConst.vladelec.name) + " " + vladelecCm.getFieldText(StrConst.vladelec.otchestvo)).toUpperCase();
         BaseFont times = BaseFont.createFont("normal.ttf", "cp1251", BaseFont.EMBEDDED);
         smallFont = new Font(times, 6);
@@ -114,13 +119,31 @@ public class PdfGenerator {
         t.addCell(new Phrase("Паспорт(Россия), 12 54 235126, выдан 25.02.2007, ДАЗАДАЕВСКИМ РОВД", normalFont));
 
         t.addCell(new Phrase("ИНН(при наличии)", normalFont));
-        t.addCell(new Phrase("", normalFont));
+        t.addCell(new Phrase(vladelecCm.getFieldText(StrConst.vladelec.inn), normalFont));
 
         t.addCell(new Phrase("Адрес регистрации", normalFont));
-        t.addCell(new Phrase("395713, Россия, Республика Дагестан, Дахадаевский р-н, с. Худуц", normalFont));
+        StringBuilder sb = new StringBuilder();
+        for(String s : new String[]{
+            vladelecCm.getFieldText(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.mailIndex),
+            vladelecCm.getFieldText(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.strana),
+            vladelecCm.getFieldText(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.subectRf),
+            vladelecCm.getFieldText(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.rayon),
+            vladelecCm.getFieldText(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.naseleniyPunktPriRegVRf),
+            vladelecCm.getFieldText(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.naseleniyPunktPriRegNeVRF),
+            vladelecCm.getFieldText(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.ulicaPriRegVRf),
+            vladelecCm.getFieldText(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.ulicaPriRegNeVRf),
+            vladelecCm.getFieldText(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.dom),
+            vladelecCm.getFieldText(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.korpus),
+            vladelecCm.getFieldText(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.stroyenie),
+            vladelecCm.getFieldText(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.kvartira)
+        }) {
+            if(s != null && s.length() > 0) sb.append(", ").append(s);
+        }
+        if(sb.length()>0) sb.delete(0, 1);
+        t.addCell(new Phrase(sb.toString(), normalFont));
 
-        t.addCell(new Phrase("Телефон", normalFont));
-        t.addCell(new Phrase("Адрес эл. почты(при наличии)", normalFont));
+        t.addCell(new Phrase("Телефон " + vladelecCm.getFieldText(StrConst.vladelec.adresReg.prefix + "_" + vladelecCm.getFieldText(StrConst.vladelec.mobilePhone)), normalFont));
+        t.addCell(new Phrase("Адрес эл. почты(при наличии) " + vladelecCm.getFieldText(StrConst.vladelec.adresReg.prefix + "_" + vladelecCm.getFieldText(StrConst.vladelec.mail)), normalFont));
         return t;
     }
 

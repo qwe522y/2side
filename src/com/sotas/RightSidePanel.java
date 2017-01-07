@@ -10,7 +10,7 @@ public class RightSidePanel extends SidePanel {
     public RightSidePanel(ComponentMap componentMap) {
         super(componentMap);
         createRow("<html>Технологическая операция</html>", genSpecialField()).setBackground(specialColor);
-        createRow("", genCheckBox("Ограниченный срок"));
+        createRow("Ограниченный срок", genCheckBox(""));
         addElement(genLabel("    Документы ТС"), 2); rowBr();
         createRow("<html>Одобрение типа ТС<html>", genSpecialField());
         createRow("<html>Технические документы<html>", genSpecialField());

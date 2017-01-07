@@ -42,8 +42,9 @@ public abstract class SidePanel extends WebPanel {
     protected <T extends JComponent> T createRow(String prefix, String label, T field) {
         addElement(genLabel(label + labelSuffix), 1);
         addElement(field, 1);
-        if(prefix != null) componentMap.add(prefix + "_" + label, field);
-        else componentMap.add(label, field);
+        String key = label;
+        if(prefix != null) key = prefix + "_" + label;
+        componentMap.add(key, field);
         rowBr();
         return field;
     }
