@@ -8,6 +8,11 @@ import java.util.Map;
 public class ComponentMap {
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ComponentMap.class);
     private final Map<String, JComponent> map = new LinkedHashMap<>();
+    private String name;
+    public ComponentMap(String name) {
+        this.name = name;
+    }
+
     public String getFieldText(String name) {
         name = removeTags(name);
         try {
@@ -46,5 +51,17 @@ public class ComponentMap {
         str = str.replace("</html>", "");
         str = str.replace("<br>", " ");
         return str;
+    }
+
+    public Map<String, String> toStringMap() {
+        Map<String, String> res = new LinkedHashMap<>();
+        for(String key : map.keySet()) {
+            String val = getFieldText(key);
+            if(val != null && val.length() > 0) {
+                res.put(key, getFieldText(key));
+            }
+        }
+        res.put("mapName", name);
+        return res;
     }
 }

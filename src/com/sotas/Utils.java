@@ -1,8 +1,8 @@
 package com.sotas;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 
 public class Utils {
@@ -17,5 +17,15 @@ public class Utils {
             res += " " + fioAr[1].trim().substring(0, 1) + ". " + fioAr[2].trim().substring(0, 1)+ ".";
         }
         return res;
+    }
+
+    public static byte[] read(InputStream is) throws IOException {
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        int nRead;
+        byte[] data = new byte[1024];
+        while ((nRead = is.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, nRead);
+        }
+        return buffer.toByteArray();
     }
 }

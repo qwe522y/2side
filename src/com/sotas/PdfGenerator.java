@@ -116,7 +116,7 @@ public class PdfGenerator {
         t.addCell(new Phrase(vladelecFio, boldFont));
 
         t.addCell(new Phrase("Документ, удостоверяющий личность", normalFont));
-        t.addCell(new Phrase("Паспорт(Россия), 12 54 235126, выдан 25.02.2007, ДАЗАДАЕВСКИМ РОВД", normalFont));
+        t.addCell(new Phrase(vladelecCm.getFieldText(StrConst.vladelec.tipDUL) +  ", " + vladelecCm.getFieldText(StrConst.vladelec.seriaNomerDUL) + ", выдан " + vladelecCm.getFieldText(StrConst.vladelec.dataVidachiDUL) + ", " +  vladelecCm.getFieldText(StrConst.vladelec.kemVidanDUL), normalFont));
 
         t.addCell(new Phrase("ИНН(при наличии)", normalFont));
         t.addCell(new Phrase(vladelecCm.getFieldText(StrConst.vladelec.inn), normalFont));
@@ -213,12 +213,12 @@ public class PdfGenerator {
 
         c = new PdfPCell(new Phrase("Регистрационный знак", normalFont));
         t.addCell(c);
-        c = new PdfPCell(new Phrase("ВЛ238ВЛ84", normalFont));
+        c = new PdfPCell(new Phrase(cm.getFieldText(StrConst.nomer), normalFont));
         t.addCell(c);
 
         c = new PdfPCell(new Phrase(StrConst.VIN_id, normalFont));
         t.addCell(c);
-        c = new PdfPCell(new Phrase(cm.getFieldText(StrConst.VIN_id + "1") + " / " + cm.getFieldText(StrConst.VIN_id + "2"), normalFont));
+        c = new PdfPCell(new Phrase(cm.getFieldText(StrConst.VIN_id + "1")));
         t.addCell(c);
 
         c = new PdfPCell(new Phrase("Номер кузова", normalFont));
@@ -234,7 +234,7 @@ public class PdfGenerator {
         c = new PdfPCell(new Phrase("Мощн. двиг. л.с.(кВт), раб. объем двиг.(куб/см), экологичный класс", normalFont));
         t.addCell(c);
         String power = cm.getFieldText(StrConst.moshnost_dvigatelya);
-        String power2 = null;
+        String power2 = cm.getFieldText(StrConst.moshnost_dvigatelya_kvt);
         c = new PdfPCell(new Phrase(power + "(" + power2 + ")" + ", 3954, ТРЕТИЙ", normalFont));
         t.addCell(c);
 

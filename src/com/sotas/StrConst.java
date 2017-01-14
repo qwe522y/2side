@@ -9,6 +9,7 @@ public class StrConst {
     public static final String nomer_cuzova = "Номер кузова";
     public static final String nomer_shassi = "Номер шасси";
     public static final String moshnost_dvigatelya = "Мощн. двигателя";
+    public static final String moshnost_dvigatelya_kvt = "Мощн. двигателя(квт)";
     public static final String VIN_id = "VIN идентификационный номер";
     public static final String kategoriya = "Категория";
     public static final String god_vipuska = "Год выпуска";
@@ -16,6 +17,7 @@ public class StrConst {
     public static final String model = "Модель";
 
     public static class vladelec {
+        public static final String prefix = "владелец";
         public static final String famil = "Фамилия";
         public static final String name = "Имя";
         public static final String otchestvo = "Отчество";
@@ -29,7 +31,7 @@ public class StrConst {
         public static final String mail = "Электронная почта";
 
         public static class adresReg {
-            public static final String prefix = "adresReg";
+            public static final String prefix = "адрес регистрации";
             public static final String strana = "Страна";
             public static final String subectRf = "Субъект Российской Федерации";
             public static final String rayon = "Район";

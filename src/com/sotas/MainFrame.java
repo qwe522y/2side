@@ -24,9 +24,10 @@ import java.util.Properties;
 
 public class MainFrame extends WebFrame {
     private static final Logger log = Logger.getLogger(MainFrame.class);
-    ComponentMap cm = new ComponentMap();
-    ComponentMap vladelecCm = new ComponentMap();
-    ComponentMap predstavitelCm = new ComponentMap();
+    ServerCmd serverCmd = new ServerCmd();
+    ComponentMap cm = new ComponentMap("main");
+    ComponentMap vladelecCm = new ComponentMap("владелец");
+    ComponentMap predstavitelCm = new ComponentMap("представитель");
     public MainFrame() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Гарибанов ГИБДД");
@@ -34,19 +35,6 @@ public class MainFrame extends WebFrame {
         createToolBar();
         createCenterPanel();
         setMinimumSize(new Dimension(1185, 700));
-        /*
-        JButton but = new WebButton("Найти заявление(F4)");
-        but.setBounds(10, 865, 160, 30);
-        add(but);
-
-        but = new WebButton("Найти ТС(Shift+F4)");
-        but.setBounds(170, 865, 160, 30);
-        add(but);
-
-        but = new WebButton("Новое заявление(Сtrl+N)");
-        but.setBounds(340, 865, 180, 30);
-        add(but);
-        */
         pack();
     }
 
@@ -95,6 +83,8 @@ public class MainFrame extends WebFrame {
                 Properties prop = new Properties();
                 try(InputStream fis = new FileInputStream("setting.cfg")) {
                     prop.load(fis);
+                    Prms prms = serverCmd.sendRegisterRequest("qwe", "qweqweqwe", Integer.parseInt(cm.getFieldText(StrConst.zayavlenie_nomer)), new Prms(cm.toStringMap(), vladelecCm.toStringMap(), predstavitelCm.toStringMap()));
+                    clearAllCm();
                     new PdfGenerator(cm, vladelecCm).gen();
                     log.info(prop.getProperty("pdfReader") + " " + "temp.pdf");
                     Runtime.getRuntime().exec(new String[]{prop.getProperty("pdfReader"), "temp.pdf"});
@@ -107,5 +97,11 @@ public class MainFrame extends WebFrame {
             }
         });
         add(toolBar, BorderLayout.PAGE_START);
+    }
+
+    private void clearAllCm() {
+        cm.getMap().clear();
+        vladelecCm.getMap().clear();
+        predstavitelCm.getMap().clear();
     }
 }

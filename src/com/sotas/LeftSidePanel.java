@@ -75,7 +75,7 @@ public class LeftSidePanel extends SidePanel {
         getComponentMap().add(StrConst.moshnost_dvigatelya, complex.add(genTextField(), 160));
 
         complex.add(genLabel(" кВт:"), 45).setHorizontalAlignment(SwingConstants.RIGHT);
-        complex.add(genTextField(), 100);
+        getComponentMap().add(StrConst.moshnost_dvigatelya_kvt, complex.add(genTextField(), 100));
 
         complex.add(genLabel(" Объем:"), 55).setHorizontalAlignment(SwingConstants.RIGHT);;
         complex.add(genSpinner(), 100);
