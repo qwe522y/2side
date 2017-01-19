@@ -12,6 +12,10 @@ public class Protocol {
     }
 
     public Prms parseRegisterRequest(String json) {
-        return new Prms();
+        try {
+            return new ObjectMapper().readValue(json, Prms.class);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

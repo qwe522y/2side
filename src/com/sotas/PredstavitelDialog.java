@@ -70,7 +70,7 @@ public class PredstavitelDialog extends AbstractDialog {
             createRow("Транслитерация имени");
             createRow("Отчество");
             createRow("Дата рождения", genDateField()).setBackground(specialColor);
-            createRow("Пол", genComboBox(new String[]{"Мужской", "Женский"})).setBackground(specialColor);
+            createRow("Пол", genComboBox(new String[]{"", "Мужской", "Женский"})).setBackground(specialColor);
             createRow("Регион места рождения", genSpecialField(new ListDialog(Resource.getInstance().bornPlaceRegion, null, "Регион места рождения", new Dimension(600, 800)))).setBg(specialColor);
             createRow("Место рождения").setBackground(specialColor);
             createRow("Гражданство", genSpecialField(new ListDialog(Resource.getInstance().nationality, null, "Гражданство", new Dimension(400, 600)))).setBg(specialColor);

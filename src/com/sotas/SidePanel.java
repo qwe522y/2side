@@ -20,6 +20,7 @@ public abstract class SidePanel extends WebPanel {
     protected int fieldLen = 460;
     final int yCursorStep = 30;
     Color specialColor = new Color(181, 233, 255);
+    public String prefix;
     int yCursor = 0;
     int xCursor = 0;
     protected String labelSuffix = "";
@@ -36,10 +37,6 @@ public abstract class SidePanel extends WebPanel {
     }
 
     protected <T extends JComponent> T createRow(String label, T field) {
-        return createRow(null, label, field);
-    }
-
-    protected <T extends JComponent> T createRow(String prefix, String label, T field) {
         addElement(genLabel(label + labelSuffix), 1);
         addElement(field, 1);
         String key = label;
@@ -136,7 +133,9 @@ public abstract class SidePanel extends WebPanel {
         for(String key : getComponentMap().getMap().keySet()) {
             String val = getComponentMap().getFieldText(key);
             if(val != null && val.length() > 0) {
-                sb.append(",").append(val);
+                if(prefix == null || key.startsWith(prefix)) {
+                    sb.append(",").append(val);
+                }
             }
         }
         if(sb.length()>0) sb.delete(0, 1);

@@ -13,6 +13,8 @@ public class SpecialField extends WebTextField {
     public WebButton but;
 
     public SpecialField(final AbstractDialog  dialog) {
+        this.dialog = dialog;
+        setEditable(false);
         but = WebButton.createIconWebButton(new ImageIcon(getClass().getResource ( "/img/form_button16.png" )));
         but.setFocusable ( false );
         //popupButton.setShadeWidth ( 0 );

@@ -14,22 +14,15 @@ import java.util.Date;
 public class PdfGenerator {
     private static final Logger log = Logger.getLogger(PdfGenerator.class);
     private static String path = "temp.pdf";
-    private final ComponentMap cm;
-    private final ComponentMap vladelecCm;
     private final String vladelecFio;
+    private Prms prms;
     private Font smallFont;
     private Font normalFont;
     private Font boldFont;
 
-    public PdfGenerator(ComponentMap componentMap, ComponentMap vladelecComponentMap) throws IOException, DocumentException {
-        this.cm = componentMap;
-        this.vladelecCm = vladelecComponentMap;
-        StringBuilder sb = new StringBuilder();
-        for(String key : cm.getMap().keySet()) sb.append(key + ":" + cm.getFieldText(key)).append("\n");
-        for(String key : vladelecComponentMap.getMap().keySet()) sb.append("vladelec." + key + ":" + vladelecCm.getFieldText(key)).append("\n");
-        log.debug(sb.toString());
-
-        vladelecFio = (vladelecCm.getFieldText(StrConst.vladelec.famil) + " " + vladelecCm.getFieldText(StrConst.vladelec.name) + " " + vladelecCm.getFieldText(StrConst.vladelec.otchestvo)).toUpperCase();
+    public PdfGenerator(Prms prms) throws IOException, DocumentException {
+        this.prms = prms;
+        vladelecFio = (prms.vladelec(StrConst.vladelec.famil) + " " + prms.vladelec(StrConst.vladelec.name) + " " + prms.vladelec(StrConst.vladelec.otchestvo)).toUpperCase();
         BaseFont times = BaseFont.createFont("normal.ttf", "cp1251", BaseFont.EMBEDDED);
         smallFont = new Font(times, 6);
         normalFont = new Font(times, 9);
@@ -54,7 +47,7 @@ public class PdfGenerator {
         doc.add(genT10());
         Paragraph paragrath = new Paragraph();
         paragrath.setAlignment(Element.ALIGN_RIGHT);
-        paragrath.add(new Phrase(cm.getFieldText(StrConst.zayavlenie_nomer) + "                     ", smallFont));
+        paragrath.add(new Phrase(prms.main(StrConst.zayavlenie_nomer) + "                     ", smallFont));
         doc.add(paragrath);
         doc.close();
     }
@@ -97,13 +90,13 @@ public class PdfGenerator {
         t.addCell(c);
 
         t.addCell(new Phrase("Марка, модель, год выпуска", normalFont));
-        t.addCell(new Phrase(cm.getFieldText(StrConst.marka) + " " + cm.getFieldText(StrConst.model) + ", " + cm.getFieldText(StrConst.god_vipuska), normalFont));
+        t.addCell(new Phrase(prms.main(StrConst.marka) + " " + prms.main(StrConst.model) + ", " + prms.main(StrConst.god_vipuska), normalFont));
 
         t.addCell(new Phrase("VIN идентификационный номер", normalFont));
-        t.addCell(new Phrase(cm.getFieldText(StrConst.VIN_id + "1"), normalFont));
+        t.addCell(new Phrase(prms.main(StrConst.VIN_id + "1"), normalFont));
 
         t.addCell(new Phrase("Регистр. знак(при наличии)", normalFont));
-        t.addCell(new Phrase(cm.getFieldText(StrConst.nomer), normalFont));
+        t.addCell(new Phrase(prms.main(StrConst.nomer).toUpperCase(), normalFont));
         return t;
     }
 
@@ -115,35 +108,41 @@ public class PdfGenerator {
         t.addCell(new Phrase("СВЕДЕНИЯ О СОБСТВЕННИКЕ ТС", boldFont));
         t.addCell(new Phrase(vladelecFio, boldFont));
 
+        t.addCell(new Phrase(StrConst.vladelec.bornDate, normalFont));
+        t.addCell(new Phrase(prms.vladelec(StrConst.vladelec.bornDate), normalFont));
+
         t.addCell(new Phrase("Документ, удостоверяющий личность", normalFont));
-        t.addCell(new Phrase(vladelecCm.getFieldText(StrConst.vladelec.tipDUL) +  ", " + vladelecCm.getFieldText(StrConst.vladelec.seriaNomerDUL) + ", выдан " + vladelecCm.getFieldText(StrConst.vladelec.dataVidachiDUL) + ", " +  vladelecCm.getFieldText(StrConst.vladelec.kemVidanDUL), normalFont));
+        t.addCell(new Phrase(prms.vladelec(StrConst.vladelec.tipDUL) +  ", " +
+                prms.vladelec(StrConst.vladelec.seriaNomerDUL) + ", выдан " +
+                prms.vladelec(StrConst.vladelec.dataVidachiDUL) + ", " +
+                prms.vladelec(StrConst.vladelec.kemVidanDUL), normalFont));
 
         t.addCell(new Phrase("ИНН(при наличии)", normalFont));
-        t.addCell(new Phrase(vladelecCm.getFieldText(StrConst.vladelec.inn), normalFont));
+        t.addCell(new Phrase(prms.vladelec(StrConst.vladelec.inn), normalFont));
 
         t.addCell(new Phrase("Адрес регистрации", normalFont));
         StringBuilder sb = new StringBuilder();
         for(String s : new String[]{
-            vladelecCm.getFieldText(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.mailIndex),
-            vladelecCm.getFieldText(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.strana),
-            vladelecCm.getFieldText(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.subectRf),
-            vladelecCm.getFieldText(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.rayon),
-            vladelecCm.getFieldText(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.naseleniyPunktPriRegVRf),
-            vladelecCm.getFieldText(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.naseleniyPunktPriRegNeVRF),
-            vladelecCm.getFieldText(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.ulicaPriRegVRf),
-            vladelecCm.getFieldText(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.ulicaPriRegNeVRf),
-            vladelecCm.getFieldText(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.dom),
-            vladelecCm.getFieldText(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.korpus),
-            vladelecCm.getFieldText(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.stroyenie),
-            vladelecCm.getFieldText(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.kvartira)
+            prms.vladelec(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.mailIndex),
+            prms.vladelec(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.strana),
+            prms.vladelec(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.subectRf),
+            prms.vladelec(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.rayon),
+            prms.vladelec(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.naseleniyPunktPriRegVRf),
+            prms.vladelec(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.naseleniyPunktPriRegNeVRF),
+            prms.vladelec(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.ulicaPriRegVRf),
+            prms.vladelec(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.ulicaPriRegNeVRf),
+            addPrefix("дом ", prms.vladelec(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.dom)),
+            addPrefix("корпус ", prms.vladelec(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.korpus)),
+            addPrefix("стр-е", prms.vladelec(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.stroyenie)),
+            addPrefix("кв. ", prms.vladelec(StrConst.vladelec.adresReg.prefix + "_" + StrConst.vladelec.adresReg.kvartira))
         }) {
             if(s != null && s.length() > 0) sb.append(", ").append(s);
         }
         if(sb.length()>0) sb.delete(0, 1);
         t.addCell(new Phrase(sb.toString(), normalFont));
 
-        t.addCell(new Phrase("Телефон " + vladelecCm.getFieldText(StrConst.vladelec.adresReg.prefix + "_" + vladelecCm.getFieldText(StrConst.vladelec.mobilePhone)), normalFont));
-        t.addCell(new Phrase("Адрес эл. почты(при наличии) " + vladelecCm.getFieldText(StrConst.vladelec.adresReg.prefix + "_" + vladelecCm.getFieldText(StrConst.vladelec.mail)), normalFont));
+        t.addCell(new Phrase("Телефон    " + prms.vladelec(StrConst.vladelec.mobilePhone), normalFont));
+        t.addCell(new Phrase("Адрес эл. почты(при наличии)    " + prms.vladelec(StrConst.vladelec.mail), normalFont));
         return t;
     }
 
@@ -152,7 +151,7 @@ public class PdfGenerator {
         t.setSpacingBefore(5);
         t.setWidthPercentage(90);
 
-        PdfPCell c = new PdfPCell(new Phrase(cm.getFieldText(StrConst.date), normalFont));
+        PdfPCell c = new PdfPCell(new Phrase(prms.main(StrConst.date), normalFont));
         c.setHorizontalAlignment(Element.ALIGN_CENTER);
         t.addCell(c);
 
@@ -160,7 +159,7 @@ public class PdfGenerator {
         c.setHorizontalAlignment(Element.ALIGN_CENTER);
         t.addCell(c);
 
-        c = new PdfPCell(new Phrase(Utils.cutFio(cm.getFieldText(vladelecFio)), normalFont));
+        c = new PdfPCell(new Phrase(Utils.cutFio(prms.main(vladelecFio)), normalFont));
         c.setHorizontalAlignment(Element.ALIGN_CENTER);
         t.addCell(c);
 
@@ -193,7 +192,7 @@ public class PdfGenerator {
 
         c = new PdfPCell(new Phrase("Марка, модель, год выпуска", normalFont));
         t.addCell(c);
-        c = new PdfPCell(new Phrase(cm.getFieldText(StrConst.marka) + " " + cm.getFieldText(StrConst.model) + ", " + cm.getFieldText(StrConst.god_vipuska), normalFont));
+        c = new PdfPCell(new Phrase(prms.main(StrConst.marka) + " " + prms.main(StrConst.model) + ", " + prms.main(StrConst.god_vipuska), normalFont));
         t.addCell(c);
         c = new PdfPCell(new Phrase("соответствует / \n не соответствует  \n (ненужное зачеркнуть)", normalFont));
         c.setVerticalAlignment(Element.ALIGN_BOTTOM);
@@ -203,44 +202,45 @@ public class PdfGenerator {
 
         c = new PdfPCell(new Phrase("Тип/категория ТС", normalFont));
         t.addCell(c);
-        c = new PdfPCell(new Phrase(cm.getFieldText(StrConst.kategoriya), normalFont));
+        c = new PdfPCell(new Phrase(prms.main(StrConst.kategoriya), normalFont));
         t.addCell(c);
 
         c = new PdfPCell(new Phrase("Цвет", normalFont));
         t.addCell(c);
-        c = new PdfPCell(new Phrase("СЕРЕБРИСТО-ГОЛУБОЙ", normalFont));
+        c = new PdfPCell(new Phrase(prms.main(StrConst.color), normalFont));
         t.addCell(c);
 
         c = new PdfPCell(new Phrase("Регистрационный знак", normalFont));
         t.addCell(c);
-        c = new PdfPCell(new Phrase(cm.getFieldText(StrConst.nomer), normalFont));
+        c = new PdfPCell(new Phrase(prms.main(StrConst.nomer).toUpperCase(), boldFont));
         t.addCell(c);
 
         c = new PdfPCell(new Phrase(StrConst.VIN_id, normalFont));
         t.addCell(c);
-        c = new PdfPCell(new Phrase(cm.getFieldText(StrConst.VIN_id + "1")));
+        c = new PdfPCell(new Phrase(prms.main(StrConst.VIN_id + "1"), boldFont));
         t.addCell(c);
 
         c = new PdfPCell(new Phrase("Номер кузова", normalFont));
         t.addCell(c);
-        c = new PdfPCell(new Phrase(cm.getFieldText(StrConst.nomer_cuzova), normalFont));
+        c = new PdfPCell(new Phrase(prms.main(StrConst.nomer_cuzova), boldFont));
         t.addCell(c);
 
         c = new PdfPCell(new Phrase("Номер шасси", normalFont));
         t.addCell(c);
-        c = new PdfPCell(new Phrase(cm.getFieldText(StrConst.nomer_shassi), normalFont));
+        c = new PdfPCell(new Phrase(prms.main(StrConst.nomer_shassi), boldFont));
         t.addCell(c);
 
         c = new PdfPCell(new Phrase("Мощн. двиг. л.с.(кВт), раб. объем двиг.(куб/см), экологичный класс", normalFont));
         t.addCell(c);
-        String power = cm.getFieldText(StrConst.moshnost_dvigatelya);
-        String power2 = cm.getFieldText(StrConst.moshnost_dvigatelya_kvt);
-        c = new PdfPCell(new Phrase(power + "(" + power2 + ")" + ", 3954, ТРЕТИЙ", normalFont));
+        String power = prms.main(StrConst.moshnost_dvigatelya);
+        String power2 = prms.main(StrConst.moshnost_dvigatelya_kvt);
+        String V = prms.main(StrConst.Vdvigatelya);
+        c = new PdfPCell(new Phrase(power + "(" + power2 + ")" + ", " + V + ", " + prms.main(StrConst.eco_class), normalFont));
         t.addCell(c);
 
         c = new PdfPCell(new Phrase("Разреш. макс. масса(кг), масса без нагруз.(кг)", normalFont));
         t.addCell(c);
-        c = new PdfPCell(new Phrase("5345, 9435", normalFont));
+        c = new PdfPCell(new Phrase(prms.main(StrConst.max_massa) + ", " + prms.main(StrConst.massa_bez_nagruzki), normalFont));
         t.addCell(c);
 
         t.addCell(" ");
@@ -454,59 +454,9 @@ public class PdfGenerator {
 
         return t;
     }
+
+    private String addPrefix(String prefix, String val) {
+        if(val != null && val.length() > 0) return prefix + val;
+        return val;
+    }
 }
-
-        /*
-        PdfPTable t = new PdfPTable(3);
-        t.setSpacingBefore(0);
-        t.setSpacingAfter(10);
-        PdfPCell c1 = new PdfPCell(new Phrase("Йцйуйцуяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяя", simpleFont));
-        t.addCell(c1);
-        PdfPCell c2 = new PdfPCell(new Phrase("Header2"));
-        c2.setColspan(2);
-        t.addCell(c2);
-        t.addCell("1.1");
-        t.addCell("1.2");
-        PdfPCell c3 = new PdfPCell(new Phrase("Йцйуйцуяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяяя", simpleFont));
-        c3.setHorizontalAlignment(Element.ALIGN_CENTER);
-        c3.setVerticalAlignment(Element.ALIGN_MIDDLE);
-        c3.setRowspan(2);
-        t.addCell(c3);
-        t.addCell("2.1");
-        t.addCell("2.2");
-
-        t.addCell("3.1");
-        t.addCell("3.2");
-        t.addCell("3.3");
-        doc.add(t);
-        doc.add(t);
-        /*
-        Image image1 = Image.getInstance("bg.png");
-        image1.setAbsolutePosition(0, 0);
-        doc.add(image1);
-        doc.add(new Paragraph("\n\n\n\n\n\n\n\n\n\n\n\n\n\n"+ "Жених", boldFont));
-        doc.add(new Paragraph("ФИО: " + n.he, simpleFont));
-        doc.add(new Paragraph("Дата и место рождения: " + date2str(n.heBorn) + " " + n.heLocation , simpleFont));
-        doc.add(new Paragraph("Невеста", boldFont));
-        doc.add(new Paragraph("ФИО: " + n.she, simpleFont));
-        doc.add(new Paragraph("Дата и место рождения: " + date2str(n.sheBorn) + " " + n.sheLocation , simpleFont));
-
-        doc.add(new Paragraph("Уали", boldFont));
-        doc.add(new Paragraph(n.wali, simpleFont));
-
-        doc.add(new Paragraph("Свидетели", boldFont));
-        doc.add(new Paragraph("1. " + n.witness1, simpleFont));
-        doc.add(new Paragraph("2. " + n.witness2, simpleFont));
-
-        doc.add(new Paragraph("Имам", boldFont));
-        doc.add(new Paragraph(n.imam, simpleFont));
-
-        doc.add(new Paragraph("Место заключения брака", boldFont));
-        doc.add(new Paragraph(n.location, simpleFont));
-
-        doc.add(new Paragraph("Дата", boldFont));
-        doc.add(new Paragraph(date2str(n.date), simpleFont));
-
-        doc.add(new Paragraph("ЭЦП:", boldFont));
-        doc.add(new Paragraph(n.sign, simpleFont));
-        */

@@ -5,16 +5,21 @@ public class StrConst {
     public static final String date = "date";
 
     //left side
-    public static final String nomer = "номер";
+    public static final String nomer = "Номер";
     public static final String nomer_cuzova = "Номер кузова";
     public static final String nomer_shassi = "Номер шасси";
     public static final String moshnost_dvigatelya = "Мощн. двигателя";
     public static final String moshnost_dvigatelya_kvt = "Мощн. двигателя(квт)";
+    public static final String Vdvigatelya = "Объем двигателя";
+    public static final String eco_class = "Экологический класс";
+    public static final String max_massa= "Разрешается макс. масса(КГ)";
+    public static final String massa_bez_nagruzki = "Масса без нагрузки(КГ)";
     public static final String VIN_id = "VIN идентификационный номер";
     public static final String kategoriya = "Категория";
     public static final String god_vipuska = "Год выпуска";
     public static final String marka = "Марка";
     public static final String model = "Модель";
+    public static final String color = "Цвет";
 
     public static class vladelec {
         public static final String prefix = "владелец";

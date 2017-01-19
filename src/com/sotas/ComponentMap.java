@@ -56,6 +56,11 @@ public class ComponentMap {
     public Map<String, String> toStringMap() {
         Map<String, String> res = new LinkedHashMap<>();
         for(String key : map.keySet()) {
+            if(map.get(key) instanceof SpecialField) {
+                SpecialField field = (SpecialField) map.get(key);
+                if(field.dialog instanceof ListDialog || field.dialog == null){}
+                else continue;
+            }
             String val = getFieldText(key);
             if(val != null && val.length() > 0) {
                 res.put(key, getFieldText(key));

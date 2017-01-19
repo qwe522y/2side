@@ -27,7 +27,7 @@ public class LeftSidePanel extends SidePanel {
         createRow("Номер двигателя");
         createRow("Номер кузова", genSpecialField());
         createRow("Номер шасси", genSpecialField());
-        createRow("Цвет", genSpecialField());
+        createRow(StrConst.color, genSpecialField());
         createRow("Цветовая группа", genSpecialField()).setBackground(specialColor);
         createCustomRow4(); //Мощн. двигателя Л/С
         createCustomRow5(); //Разрешается максимальная масса
@@ -39,7 +39,7 @@ public class LeftSidePanel extends SidePanel {
     private void createCustomRow1() {
         addElement(new WebLabel("Номер"), 1);
         ComplexField complex = new ComplexField();
-        SpecialField nomerField = genSpecialField();
+        JTextField nomerField = genTextField();
         getComponentMap().add(StrConst.nomer, nomerField);
         complex.add(nomerField, 200);
         complex.add(genLabel("<html>Действие<br>со знаком</html>"), 70).setHorizontalAlignment(SwingConstants.RIGHT);
@@ -51,11 +51,11 @@ public class LeftSidePanel extends SidePanel {
     private void createCustomRow2() {
         addElement(genLabel(StrConst.VIN_id), 1);
         ComplexField complex = new ComplexField();
-        getComponentMap().add(StrConst.VIN_id + "1", complex.add(genSpecialField(), 300));
+        getComponentMap().add(StrConst.VIN_id + "1", complex.add(genTextField(), 300));
         JLabel label = genLabel("/");
         label.setHorizontalAlignment(SwingConstants.CENTER);
         complex.add(label, 10);
-        getComponentMap().add(StrConst.VIN_id + "2", complex.add(genSpecialField(), 150));
+        getComponentMap().add(StrConst.VIN_id + "2", complex.add(genTextField(), 150));
         addElement(complex, 1);
         rowBr();
     }
@@ -78,7 +78,9 @@ public class LeftSidePanel extends SidePanel {
         getComponentMap().add(StrConst.moshnost_dvigatelya_kvt, complex.add(genTextField(), 100));
 
         complex.add(genLabel(" Объем:"), 55).setHorizontalAlignment(SwingConstants.RIGHT);;
-        complex.add(genSpinner(), 100);
+        JSpinner v = genSpinner();
+        complex.add(v, 100);
+        getComponentMap().add(StrConst.Vdvigatelya, v);
 
         addElement(complex, 1);
         rowBr();
@@ -89,10 +91,14 @@ public class LeftSidePanel extends SidePanel {
         addElement(genLabel("<html>Разрешается макс. масса(КГ)</html>"), 1);
 
         ComplexField complex = new ComplexField();
-        complex.add(genSpinner(), 160);
-
+        JSpinner m = genSpinner();
+        complex.add(m, 160);
+        getComponentMap().add(StrConst.max_massa, m);
         complex.add(genLabel(" Масса без нагрузки(КГ):"), 200).setHorizontalAlignment(SwingConstants.RIGHT);;;
+
+        JSpinner m2 = genSpinner();
         complex.add(genSpinner(), 100);
+        getComponentMap().add(StrConst.massa_bez_nagruzki, m2);
 
         addElement(complex, 1);
         rowBr();
@@ -101,7 +107,7 @@ public class LeftSidePanel extends SidePanel {
     private void createCustomRow6() {
         addElement(genLabel("Тип двигателя"), 1);
         ComplexField complex = new ComplexField();
-        complex.add(genSpecialField(), 160);
+        complex.add(genTextField(), 160);
 
         complex.add(genLabel("Экологический класс:"), 200).setHorizontalAlignment(SwingConstants.RIGHT);
         complex.add(genSpinner(), 100);

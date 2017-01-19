@@ -79,15 +79,25 @@ public class MainFrame extends WebFrame {
         toolBar.add(printButton);
         printButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent event) {
+                Integer docnum = null;
+                try {
+                    docnum = Integer.parseInt(cm.getFieldText(StrConst.zayavlenie_nomer));
+                } catch (RuntimeException e) {
+                    WebOptionPane.showMessageDialog (null, "Заполните номер заявления", "Ошибка", WebOptionPane.ERROR_MESSAGE );
+                    return;
+                }
                 Properties prop = new Properties();
                 try(InputStream fis = new FileInputStream("setting.cfg")) {
                     prop.load(fis);
-                    Prms prms = serverCmd.sendRegisterRequest("qwe", "qweqweqwe", Integer.parseInt(cm.getFieldText(StrConst.zayavlenie_nomer)), new Prms(cm.toStringMap(), vladelecCm.toStringMap(), predstavitelCm.toStringMap()));
+                    Prms prms = serverCmd.sendRegisterRequest(LoginFrame.getLogin(), LoginFrame.getPassword(), docnum, new Prms(cm.toStringMap(), vladelecCm.toStringMap(), predstavitelCm.toStringMap()));
                     clearAllCm();
-                    new PdfGenerator(cm, vladelecCm).gen();
-                    log.info(prop.getProperty("pdfReader") + " " + "temp.pdf");
-                    Runtime.getRuntime().exec(new String[]{prop.getProperty("pdfReader"), "temp.pdf"});
+                    new PdfGenerator(prms).gen();
+                    dispose();
+                    log.info(prop.getProperty("pdfReader") + " temp.pdf");
+                    Process process = Runtime.getRuntime().exec(new String[]{prop.getProperty("pdfReader"), "temp.pdf"});
+                    process.waitFor();
+                    new MainFrame().setVisible(true);
                 } catch (Exception ex) {
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     ex.printStackTrace(new PrintStream(baos));
