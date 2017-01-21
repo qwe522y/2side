@@ -7,15 +7,15 @@ import javax.swing.*;
 import java.awt.*;
 
 public class RightSidePanel extends SidePanel {
-    public RightSidePanel(ComponentMap componentMap) {
-        super(componentMap);
+    public RightSidePanel(ComponentMap cm, ComponentMap ptsCm, ComponentMap svidRegCm) {
+        super(cm);
         createRow("<html>Технологическая операция</html>", genSpecialField()).setBackground(specialColor);
         createRow("Ограниченный срок", genCheckBox(""));
         addElement(genLabel("    Документы ТС"), 2); rowBr();
         createRow("<html>Одобрение типа ТС<html>", genSpecialField());
         createRow("<html>Технические документы<html>", genSpecialField());
-        createCustomRow2();
-        createCustomRow3();
+        createCustomRow2(ptsCm);
+        createCustomRow3(svidRegCm);
         addElement(genLabel("    Страховой полис"), 2); rowBr();
         createRow("Серия и номер");
         createRow("Дата выдачи", genDateField());
@@ -30,15 +30,16 @@ public class RightSidePanel extends SidePanel {
         createRow("Прочие документы", genSpecialField());
         createRow("Квитанция об оплате", genSpecialField());
         addElement(genLabel("    Утилизационные сбор"), 2); rowBr();
-        createRow("Статус", genComboBox(new String[]{}));
+        createRow("Статус", genComboBox(new String[]{"Отсутствуют сведения", "Уплачен", "Приняты обязательства", "Не уплачивается"}));
         createRow("Значение");
         createCustomRow6();
     }
 
-    private void createCustomRow2() {
+    private void createCustomRow2(ComponentMap ptsCm) {
         addElement(genLabel("ПТС"), 1);
         ComplexField complex = new ComplexField();
-        complex.add(genSpecialField(), 250);
+        SpecialField field = genSpecialField(new PTSDialog(ptsCm));
+        complex.add(field, 250);
 
         complex.add(genLabel("Действия ПТС:"), 110).setHorizontalAlignment(SwingConstants.RIGHT);
         complex.add(genSpecialField(), 100);
@@ -47,11 +48,15 @@ public class RightSidePanel extends SidePanel {
         rowBr();
     }
 
-    private void createCustomRow3() {
-        addElement(genLabel("Свид. о регистрации"), 1);
+    private void createCustomRow3(ComponentMap svidRegCm) {
+        addElement(genLabel("Cвид. о регистрации"), 1);
         ComplexField complex = new ComplexField();
-        complex.add(genSpecialField(), 300);
-        complex.add(genCheckBox("Свид. утрачено"), 160).setHorizontalAlignment(SwingConstants.RIGHT);
+        SpecialField field = genSpecialField(new SvidRegDialog(svidRegCm));
+
+        complex.add(field, 300);
+        JCheckBox checkBox = genCheckBox(StrConst.свид_утрачено);
+        getComponentMap().add(StrConst.свид_утрачено, checkBox);
+        complex.add(checkBox, 160).setHorizontalAlignment(SwingConstants.RIGHT);
         addElement(complex, 1);
         rowBr();
     }

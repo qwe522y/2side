@@ -19,7 +19,7 @@ public class LeftSidePanel extends SidePanel {
         createRow("Модификация");
         createRow("Изготовитель", genSpecialField()).setBackground(specialColor);
         createRow("Тип ТС", genSpecialField()).setBackground(specialColor);
-        createRow(StrConst.kategoriya, genComboBox(new String[]{" A"," A1"," B"," B1"," C"," C1"," D"," D1"," Прицеп"})).setBackground(specialColor);
+        createRow(StrConst.kategoriya, genComboBox(new String[]{"", " A"," A1"," B"," B1"," C"," C1"," D"," D1"," Прицеп"})).setBackground(specialColor);
         createRow("Спецназначение", genSpecialField());
         createCustomRow3();
         createRow(StrConst.god_vipuska, genSpinner()); ((JSpinner)cm.getMap().get(StrConst.god_vipuska)).setValue(2010);
@@ -63,8 +63,12 @@ public class LeftSidePanel extends SidePanel {
     private void createCustomRow3() {
         addElement(genLabel(""), 1);
         ComplexField complex = new ComplexField();
-        complex.add(genCheckBox("<html>Перевозка крупно<br>-габаритного груза</html>"), 200);
-        complex.add(genCheckBox("<html>Оборудование<br>системы ГЛОНАСС</html>"), 200);
+        JCheckBox component = genCheckBox("<html>Перевозка крупно<br>-габаритного груза</html>");
+        complex.add(component, 200);
+        getComponentMap().add(StrConst.перевозка_крупногабаритного_груза, component);
+        JCheckBox component2 = genCheckBox("<html>Оборудование<br>системы ГЛОНАСС</html>");
+        getComponentMap().add(StrConst.оборудование_системы_ГЛОНАСС, component2);
+        complex.add(component2, 200);
         addElement(complex, 1);
         rowBr();
     }
@@ -89,15 +93,14 @@ public class LeftSidePanel extends SidePanel {
     private void createCustomRow5() {
         xCursor = 0;
         addElement(genLabel("<html>Разрешается макс. масса(КГ)</html>"), 1);
-
         ComplexField complex = new ComplexField();
         JSpinner m = genSpinner();
         complex.add(m, 160);
         getComponentMap().add(StrConst.max_massa, m);
-        complex.add(genLabel(" Масса без нагрузки(КГ):"), 200).setHorizontalAlignment(SwingConstants.RIGHT);;;
 
+        complex.add(genLabel(" Масса без нагрузки(КГ):"), 200).setHorizontalAlignment(SwingConstants.RIGHT);;;
         JSpinner m2 = genSpinner();
-        complex.add(genSpinner(), 100);
+        complex.add(m2, 100);
         getComponentMap().add(StrConst.massa_bez_nagruzki, m2);
 
         addElement(complex, 1);

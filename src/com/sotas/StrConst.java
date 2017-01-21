@@ -20,6 +20,10 @@ public class StrConst {
     public static final String marka = "Марка";
     public static final String model = "Модель";
     public static final String color = "Цвет";
+    public static final String перевозка_крупногабаритного_груза = "Перевозка крупногабаритного груза";
+    public static final String оборудование_системы_ГЛОНАСС = "Оборудование системы ГЛОНАСС";
+
+    public static String свид_утрачено = "Свид. утрачено";
 
     public static class vladelec {
         public static final String prefix = "владелец";
@@ -50,5 +54,13 @@ public class StrConst {
             public static final String kvartira = "Квартира";
             public static final String mailIndex = "Почтовый индекс";
         }
+    }
+
+    public static class PTS {
+        public static final String серия_и_номер = "Серия и номер";
+        public static final String тип = "Тип";
+        public static final String дата_выдачи = "Дата выдачи";
+        public static final String кем_выдан = "Кем выдан";
+        public static final String особые_отметки = "Особые отметки";
     }
 }

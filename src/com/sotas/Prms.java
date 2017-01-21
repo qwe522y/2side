@@ -22,7 +22,7 @@ public class Prms extends HashMap<String, Map<String, String>> {
         return getVal("main", key);
     }
 
-    private String getVal(String group, String key) {
+    public  String getVal(String group, String key) {
         Map<String, String> m = get(group);
         if(m == null) return "";
         String val = m.get(key);

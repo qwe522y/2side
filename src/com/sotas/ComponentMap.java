@@ -9,6 +9,7 @@ public class ComponentMap {
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ComponentMap.class);
     private final Map<String, JComponent> map = new LinkedHashMap<>();
     private String name;
+
     public ComponentMap(String name) {
         this.name = name;
     }

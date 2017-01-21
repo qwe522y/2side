@@ -28,6 +28,8 @@ public class MainFrame extends WebFrame {
     ComponentMap cm = new ComponentMap("main");
     ComponentMap vladelecCm = new ComponentMap("владелец");
     ComponentMap predstavitelCm = new ComponentMap("представитель");
+    ComponentMap PTSCm = new ComponentMap("ПТС");
+    ComponentMap svidRegCm = new ComponentMap("свид. о регистрации");
     public MainFrame() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Гарибанов ГИБДД");
@@ -56,7 +58,7 @@ public class MainFrame extends WebFrame {
         c.weightx = 0.0; c.fill = GridBagConstraints.VERTICAL;;
         centerPanel.add(sep, c);
 
-        SidePanel rightSide = new RightSidePanel(cm);
+        SidePanel rightSide = new RightSidePanel(cm, PTSCm, svidRegCm);
         c.weightx = 0.5; c.fill = GridBagConstraints.HORIZONTAL;
         centerPanel.add(rightSide, c);
     }
@@ -90,7 +92,7 @@ public class MainFrame extends WebFrame {
                 Properties prop = new Properties();
                 try(InputStream fis = new FileInputStream("setting.cfg")) {
                     prop.load(fis);
-                    Prms prms = serverCmd.sendRegisterRequest(LoginFrame.getLogin(), LoginFrame.getPassword(), docnum, new Prms(cm.toStringMap(), vladelecCm.toStringMap(), predstavitelCm.toStringMap()));
+                    Prms prms = serverCmd.sendRegisterRequest(LoginFrame.getLogin(), LoginFrame.getPassword(), docnum, new Prms(cm.toStringMap(), vladelecCm.toStringMap(), predstavitelCm.toStringMap(), PTSCm.toStringMap(), svidRegCm.toStringMap()));
                     clearAllCm();
                     new PdfGenerator(prms).gen();
                     dispose();
@@ -113,5 +115,7 @@ public class MainFrame extends WebFrame {
         cm.getMap().clear();
         vladelecCm.getMap().clear();
         predstavitelCm.getMap().clear();
+        PTSCm.getMap().clear();
+        svidRegCm.getMap().clear();
     }
 }

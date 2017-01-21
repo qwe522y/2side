@@ -332,32 +332,32 @@ public class PdfGenerator {
         t.addCell(c);
 
         t.addCell(new PdfPCell(new Phrase("Регистрационные знаки или знаки \"ТРАНЗИТ\"", normalFont)));
-        c = new PdfPCell(new Phrase("238ВЛ848", normalFont));
+        c = new PdfPCell(new Phrase("", normalFont));
         c.setColspan(2);
         t.addCell(c);
 
         t.addCell(new PdfPCell(new Phrase("Паспорт транспортного средства(серия, №)", normalFont)));
-        c = new PdfPCell(new Phrase("59 ПО 49348234, 31.08.2007, ОАО \"АВТОВАЗ\"", normalFont));
+        c = new PdfPCell(new Phrase(prms.getVal("ПТС", StrConst.PTS.серия_и_номер) + ", " + prms.getVal("ПТС", StrConst.PTS.дата_выдачи), normalFont));
         c.setColspan(2);
         t.addCell(c);
 
         t.addCell(new PdfPCell(new Phrase("Документ удостоверяющий право собственности", normalFont)));
-        c = new PdfPCell(new Phrase("Договор, совершенный в простой письменной форме, 25.08.2016, ВОЛГОГРАД", normalFont));
+        c = new PdfPCell(new Phrase("", normalFont));
         c.setColspan(2);
         t.addCell(c);
 
         t.addCell(new PdfPCell(new Phrase("Страховой полис(№, когда и кем выдан)", normalFont)));
-        c = new PdfPCell(new Phrase("ЕЕЕ 34050345349183, 04.10.2013, ООО СК \"Согласие\"", normalFont));
+        c = new PdfPCell(new Phrase("", normalFont));
         c.setColspan(2);
         t.addCell(c);
 
         t.addCell(new PdfPCell(new Phrase("Иные документы представленные заявителем", normalFont)));
-        c = new PdfPCell(new Phrase("СТС 1230912-30912, 20.11.2013, РЭО ГИБДД МО МВД РФ \"ИЛОВЛИНСКИЙ\"", normalFont));
+        c = new PdfPCell(new Phrase(prms.getVal("свид. о регистрации", StrConst.PTS.серия_и_номер), normalFont));
         c.setColspan(2);
         t.addCell(c);
 
         t.addCell(new PdfPCell(new Phrase("Квитанция №(при наличии)", normalFont)));
-        c = new PdfPCell(new Phrase("123810283, 20.11.2013, 1300 руб.", normalFont));
+        c = new PdfPCell(new Phrase("", normalFont));
         c.setColspan(2);
         t.addCell(c);
 
