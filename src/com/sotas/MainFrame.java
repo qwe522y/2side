@@ -1,7 +1,6 @@
 package com.sotas;
 
 import com.alee.extended.date.WebDateField;
-import com.alee.laf.button.WebButton;
 import com.alee.laf.label.WebLabel;
 import com.alee.laf.optionpane.WebOptionPane;
 import com.alee.laf.panel.WebPanel;
@@ -77,8 +76,22 @@ public class MainFrame extends WebFrame {
         dateField.setMinimumWidth(150);
         toolBar.add(dateField);
         cm.add(StrConst.date, dateField);
-        JButton printButton = new WebButton(new ImageIcon(getClass().getResource ( "/img/printer16.png" )));
+        final JButton newDocButton = new JButton(new ImageIcon(getClass().getResource ( "/img/new_doc16.png" )));
+        toolBar.add(newDocButton);
+        JButton printButton = new JButton(new ImageIcon(getClass().getResource ( "/img/printer16.png" )));
         toolBar.add(printButton);
+        newDocButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int res = WebOptionPane.showConfirmDialog(null, "Создать новый документ?", "Создание нового документа", WebOptionPane.YES_NO_OPTION);
+                log.info("press newDocButton res="+res);
+                if(res == 0) { //yes
+                    clearAllCm();
+                    dispose();
+                    new MainFrame().setVisible(true);
+                }
+            }
+        });
         printButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
