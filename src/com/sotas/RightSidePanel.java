@@ -18,8 +18,7 @@ public class RightSidePanel extends SidePanel {
         createCustomRow3(svidRegCm);
         addElement(genLabel("    Страховой полис"), 2); rowBr();
         createRow("Серия и номер");
-        createRow("Дата выдачи", genDateField());
-        createRow("Срок действия", genDateField());
+        createCustomRow31();
         createCustomRow4();
         addElement(genLabel("    Документ, подтверждающий право собственности"), 2); rowBr();
         createRow("Серия и номер", genSpecialField());
@@ -61,6 +60,19 @@ public class RightSidePanel extends SidePanel {
         rowBr();
     }
 
+    private void createCustomRow31() {
+        addElement(genLabel("Дата выдачи"), 1);
+        ComplexField complex = new ComplexField();
+        getComponentMap().add("Дата выдачи", complex.add(genDateField(), 170));
+
+        JLabel label = genLabel("Срок действия" + ":");
+        label.setHorizontalAlignment(SwingConstants.RIGHT);
+        complex.add(label, 120);
+        getComponentMap().add("Срок действия", complex.add(genDateField(), 170));
+        addElement(complex, 1);
+        rowBr();
+    }
+
     private void createCustomRow4() {
         addElement(genLabel("Страховщик"), 1);
         ComplexField complex = new ComplexField();
@@ -88,8 +100,8 @@ public class RightSidePanel extends SidePanel {
         textArea.setLineWrap ( true );
         textArea.setWrapStyleWord ( true );
         WebScrollPane areaScroll = new WebScrollPane ( textArea );
-        areaScroll.setPreferredSize(new Dimension(fieldLen, 4*rowHeight));
-        areaScroll.setMinimumSize(new Dimension(fieldLen, 4*minRowHeight));
+        areaScroll.setPreferredSize(new Dimension(fieldLen, 3*rowHeight));
+        areaScroll.setMinimumSize(new Dimension(fieldLen, 3*minRowHeight));
 
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = xCursor;

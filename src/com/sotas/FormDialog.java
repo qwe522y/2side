@@ -2,6 +2,7 @@ package com.sotas;
 
 import com.alee.laf.button.WebButton;
 import com.alee.laf.panel.WebPanel;
+import com.alee.laf.scroll.WebScrollPane;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +16,10 @@ class FormDialog extends AbstractDialog {
         setTitle(title);
         setLayout(new BorderLayout());
         setModal(true);
-        add(form, BorderLayout.CENTER);
+        WebScrollPane scrollPane = new WebScrollPane(form);
+        scrollPane.setBorder(null);
+        add(new JPanel(), BorderLayout.NORTH);
+        add(scrollPane, BorderLayout.CENTER);
         WebButton okBut = new WebButton("OK");
         okBut.setPreferredSize(new Dimension(80, 30));
         okBut.addActionListener(new ActionListener() {

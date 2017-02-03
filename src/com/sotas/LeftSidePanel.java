@@ -14,8 +14,7 @@ public class LeftSidePanel extends SidePanel {
         createRow("Тип", genSpecialField()).setBackground(specialColor);
         addElement(genLabel("    Сведения о транспортном средстве"), 2); rowBr();
         createCustomRow2();
-        createRow(StrConst.marka, genSpecialField());
-        createRow(StrConst.model, genSpecialField());
+        createCustomRow21();
         createRow("Модификация");
         createRow("Изготовитель", genSpecialField()).setBackground(specialColor);
         createRow("Тип ТС", genSpecialField()).setBackground(specialColor);
@@ -27,8 +26,7 @@ public class LeftSidePanel extends SidePanel {
         createRow("Номер двигателя");
         createRow("Номер кузова", genSpecialField());
         createRow("Номер шасси", genSpecialField());
-        createRow(StrConst.color, genSpecialField());
-        createRow("Цветовая группа", genSpecialField()).setBackground(specialColor);
+        createCustomRow31();
         createCustomRow4(); //Мощн. двигателя Л/С
         createCustomRow5(); //Разрешается максимальная масса
         createCustomRow6(); //Тип двигателя
@@ -51,11 +49,24 @@ public class LeftSidePanel extends SidePanel {
     private void createCustomRow2() {
         addElement(genLabel(StrConst.VIN_id), 1);
         ComplexField complex = new ComplexField();
-        getComponentMap().add(StrConst.VIN_id + "1", complex.add(genTextField(), 300));
+        getComponentMap().add(StrConst.VIN_id + "1", complex.add(genTextField(), 260));
         JLabel label = genLabel("/");
         label.setHorizontalAlignment(SwingConstants.CENTER);
         complex.add(label, 10);
-        getComponentMap().add(StrConst.VIN_id + "2", complex.add(genTextField(), 150));
+        getComponentMap().add(StrConst.VIN_id + "2", complex.add(genTextField(), 190));
+        addElement(complex, 1);
+        rowBr();
+    }
+
+    private void createCustomRow21() {
+        addElement(genLabel(StrConst.marka), 1);
+        ComplexField complex = new ComplexField();
+        getComponentMap().add(StrConst.marka, complex.add(genTextField(), 190));
+
+        JLabel label = genLabel(StrConst.model + ":");
+        label.setHorizontalAlignment(SwingConstants.RIGHT);
+        complex.add(label, 80);
+        getComponentMap().add(StrConst.model, complex.add(genTextField(), 190));
         addElement(complex, 1);
         rowBr();
     }
@@ -69,6 +80,19 @@ public class LeftSidePanel extends SidePanel {
         JCheckBox component2 = genCheckBox("<html>Оборудование<br>системы ГЛОНАСС</html>");
         getComponentMap().add(StrConst.оборудование_системы_ГЛОНАСС, component2);
         complex.add(component2, 200);
+        addElement(complex, 1);
+        rowBr();
+    }
+
+    private void createCustomRow31() {
+        addElement(genLabel(StrConst.color), 1);
+        ComplexField complex = new ComplexField();
+        getComponentMap().add(StrConst.color, complex.add(genTextField(), 180));
+
+        JLabel label = genLabel("Цвет. группа" + ":");
+        label.setHorizontalAlignment(SwingConstants.RIGHT);
+        complex.add(label, 100);
+        getComponentMap().add("Цветовая группа", complex.add(genSpecialField(), 180).setBg(specialColor));
         addElement(complex, 1);
         rowBr();
     }

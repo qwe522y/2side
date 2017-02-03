@@ -57,7 +57,7 @@ public class VladelecDialog extends AbstractDialog {
     }
 
     private void showNaturalPersonDialog() {
-        FormDialog dialog = new FormDialog(field, naturalPersonForm , "Сведения о физических лицах", new Dimension(700, 900));
+        FormDialog dialog = new FormDialog(field, naturalPersonForm , "Сведения о физических лицах", new Dimension(700, 700));
         dialog.setVisible(true);
     }
 

@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 
 public class ServerCmd {
-    private String serverUrl = "127.0.0.1:8000";
+    //private String serverUrl = "127.0.0.1:8000";
+    //private String serverUrl = "192.168.11.114";
+    private String serverUrl = "izba.sotas05.ru";
     private static final Logger log = Logger.getLogger(ServerCmd.class);
     private Protocol protocol = new Protocol();
     public Prms sendRegisterRequest(String login, String password, int docnum, Prms prms) {

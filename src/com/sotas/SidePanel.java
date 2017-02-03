@@ -14,7 +14,7 @@ import java.awt.*;
 
 public abstract class SidePanel extends WebPanel {
     private ComponentMap componentMap;
-    final int rowHeight = 30;
+    final int rowHeight = 26;
     final int minRowHeight = 26;
     final int labelLen = 170;
     protected int fieldLen = 460;

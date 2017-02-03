@@ -1,3 +1,6 @@
 Manifest-Version: 1.0
+Class-Path: lib/log4j-1.2.17.jar lib/weblaf-1.29.jar lib/xstream-1.4.9.jar lib/itextpd
+ f-5.5.3.jar lib/jackson-core-2.8.6.jar lib/jackson-databind-2.8.6.jar lib/jackson
+ -annotations-2.8.6.jar
 Main-Class: com.sotas.Main
 

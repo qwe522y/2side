@@ -51,7 +51,7 @@ public class LoginFrame extends JFrame{
 
     public void processLogin() {
         try {
-            if (serverCmd.sendAuthRequest(loginField.getText(), passwordField.getText())) {
+            if (true) { //(serverCmd.sendAuthRequest(loginField.getText(), passwordField.getText())) {
                 login = loginField.getText();
                 password = passwordField.getText();
                 dispose();
