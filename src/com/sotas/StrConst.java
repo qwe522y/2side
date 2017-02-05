@@ -24,6 +24,7 @@ public class StrConst {
     public static final String оборудование_системы_ГЛОНАСС = "Оборудование системы ГЛОНАСС";
 
     public static String свид_утрачено = "Свид. утрачено";
+    public static String технологическая_операция = "Технологическая операция";
 
     public static class vladelec {
         public static final String prefix = "владелец";

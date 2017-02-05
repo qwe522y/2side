@@ -73,8 +73,8 @@ public class PdfGenerator {
         c.setHorizontalAlignment(Element.ALIGN_CENTER);
         t.addCell(c);
 
-        t.addCell(new Phrase("внести изменения в регистрационные данные в связи с изменением собственика", normalFont));
-        t.addCell(new Phrase("с выдачей СТС, ГРС, с внесением изменений в ПТС", normalFont));
+        t.addCell(new Phrase(prms.main(StrConst.технологическая_операция), normalFont));
+        //t.addCell(new Phrase("с выдачей СТС, ГРС, с внесением изменений в ПТС", normalFont));
 
         return t;
     }

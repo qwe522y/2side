@@ -3,6 +3,7 @@ package com.sotas;
 import com.alee.laf.label.WebLabel;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class LeftSidePanel extends SidePanel {
     public LeftSidePanel(ComponentMap cm, ComponentMap vladelecCm, ComponentMap predstavitelCm) {
@@ -11,7 +12,7 @@ public class LeftSidePanel extends SidePanel {
         createRow("Представитель", genSpecialField(new PredstavitelDialog(predstavitelCm)));
         addElement(genLabel("    Государственные регистрационные знаки ТС"), 2); rowBr();
         createCustomRow1();
-        createRow("Тип", genSpecialField()).setBackground(specialColor);
+        createRow("Тип", genSpecialField(new ListDialog(Resource.getInstance().tipRegZnak, null, "Типы регистрационных знаков", new Dimension(600, 600)))).setBackground(specialColor);
         addElement(genLabel("    Сведения о транспортном средстве"), 2); rowBr();
         createCustomRow2();
         createCustomRow21();
@@ -92,7 +93,7 @@ public class LeftSidePanel extends SidePanel {
         JLabel label = genLabel("Цвет. группа" + ":");
         label.setHorizontalAlignment(SwingConstants.RIGHT);
         complex.add(label, 100);
-        getComponentMap().add("Цветовая группа", complex.add(genSpecialField(), 180).setBg(specialColor));
+        getComponentMap().add("Цветовая группа", complex.add(genSpecialField(new ListDialog(Resource.getInstance().colorGroup, null, "Цветовые группы", new Dimension(600, 600))), 180).setBg(specialColor));
         addElement(complex, 1);
         rowBr();
     }

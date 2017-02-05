@@ -1,6 +1,5 @@
 package com.sotas;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -10,6 +9,7 @@ import java.util.List;
 
 public class Resource {
     private static Resource resource;
+
     synchronized
     public static Resource getInstance() {
         if(resource == null) resource = new Resource();
@@ -21,42 +21,34 @@ public class Resource {
     public String[][] passportType;
     public String[][] passportCountry;
     public String[][] russianRegion;
+    public String[][] technologicalOperations;
+    public String[][] tipRegZnak;
+    public String[][] formaSobstvennosti;
+    public String[][] colorGroup;
+
     public Resource() {
         try {
-            //bornPlaceRegion
-            String[] arr = readList("res/bornPlaceRegion.txt");
-            bornPlaceRegion = new String[arr.length][1];
-            for(int i=0; i<arr.length; i++) {
-                bornPlaceRegion[i][0] = arr[i];
-            }
-            //nationality - гражданство
-            arr = readList("res/nationality.txt");
-            nationality = new String[arr.length][1];
-            for(int i=0; i<arr.length; i++) {
-                nationality[i][0] = arr[i];
-            }
-            //passportType - документ удостоверяющий чичность
-            arr = readList("res/passportType.txt");
-            passportType = new String[arr.length][1];
-            for(int i=0; i<arr.length; i++) {
-                passportType[i][0] = arr[i];
-            }
-            //passportCountry - страна документа удостоверяющего личность
-            arr = readList("res/passportCountry.txt");
-            passportCountry = new String[arr.length][1];
-            for(int i=0; i<arr.length; i++) {
-                passportCountry[i][0] = arr[i];
-            }
-            //russianRegion - субъекты РФ
-            arr = readList("res/russianRegion.txt");
-            russianRegion = new String[arr.length][1];
-            for(int i=0; i<arr.length; i++) {
-                russianRegion[i][0] = arr[i];
-            }
+            bornPlaceRegion = getSingleColumnList("res/bornPlaceRegion.txt");
+            nationality = getSingleColumnList("res/nationality.txt"); //гражданство
+            passportType = getSingleColumnList("res/passportType.txt"); //документ удостоверяющий чичность
+            passportCountry = getSingleColumnList("res/passportCountry.txt"); //страна документа удостоверяющего личность
+            russianRegion = getSingleColumnList("res/russianRegion.txt"); //субъекты РФ
+            technologicalOperations = getSingleColumnList("res/technologicalOperations.txt"); //технологические операции
+            tipRegZnak = getSingleColumnList("res/tipRegZnak.txt"); //тип регистрационного знака
+            formaSobstvennosti = getSingleColumnList("res/formaSobstvennosti.txt"); //форма собственности
+            colorGroup = getSingleColumnList("res/colorGroup.txt"); //цветовая группа
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Ошибка", JOptionPane.ERROR_MESSAGE);
             throw new RuntimeException(e);
         }
+    }
+
+    private String[][] getSingleColumnList(String txtPath) throws IOException {
+        String[] arr = readList(txtPath);
+        String[][] res = new String[arr.length][1];
+        for(int i=0; i<arr.length; i++) {
+            res[i][0] = arr[i];
+        }
+        return res;
     }
 
     private String[] readList(String filePath) throws IOException {

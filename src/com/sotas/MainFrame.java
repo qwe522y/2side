@@ -14,10 +14,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.io.PrintStream;
 import java.util.Date;
 import java.util.Properties;
 
@@ -114,10 +112,8 @@ public class MainFrame extends WebFrame {
                     process.waitFor();
                     new MainFrame().setVisible(true);
                 } catch (Exception ex) {
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    ex.printStackTrace(new PrintStream(baos));
-                    WebOptionPane.showMessageDialog (null, "Возникла внутренняя ошибка\nmessage: " + ex.getMessage() + "\n" + new String(baos.toByteArray()) , "Ошибка", WebOptionPane.ERROR_MESSAGE );
                     log.error(ex.getMessage(), ex);
+                    Utils.showException(ex);
                 }
             }
         });
