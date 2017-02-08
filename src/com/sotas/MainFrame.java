@@ -28,6 +28,7 @@ public class MainFrame extends WebFrame {
     ComponentMap PTSCm = new ComponentMap("ПТС");
     ComponentMap svidRegCm = new ComponentMap("свид. о регистрации");
     public MainFrame() {
+        setIconImage(Resource.icon);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Гарибанов ГИБДД");
         setLayout(new BorderLayout());

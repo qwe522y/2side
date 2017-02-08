@@ -8,5 +8,6 @@ public class AbstractDialog extends WebDialog {
 
     public AbstractDialog(ComponentMap cm) {
         this.cm = cm;
+        setIconImage(Resource.icon);
     }
 }

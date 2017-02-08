@@ -104,6 +104,13 @@ public abstract class SidePanel extends WebPanel {
         return f;
     }
 
+    protected ListField genListField(ListDialog listDialog) {
+        ListField f = new ListField(listDialog);
+        //f.setPreferredSize(110, rowHeight);
+        f.setMinimumSize(new Dimension(110, minRowHeight));
+        return f;
+    }
+
     @Deprecated
     protected SpecialField genSpecialField() {
         SpecialField f = new SpecialField();

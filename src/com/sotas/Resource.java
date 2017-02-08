@@ -1,5 +1,7 @@
 package com.sotas;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -9,7 +11,7 @@ import java.util.List;
 
 public class Resource {
     private static Resource resource;
-
+    public static Image icon = new ImageIcon(Resource.class.getResource("/car.png")).getImage();
     synchronized
     public static Resource getInstance() {
         if(resource == null) resource = new Resource();

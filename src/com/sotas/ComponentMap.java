@@ -22,15 +22,16 @@ public class ComponentMap {
                 log.warn("no item for name " + name);
                 return "";
             }
-            if (c instanceof JTextComponent)
+            if (c instanceof JTextComponent) {
                 return ((JTextComponent) c).getText();
-            if (c instanceof JSpinner)
+            } else if (c instanceof JSpinner) {
                 return "" + ((JSpinner) c).getValue();
-            if (c instanceof JComboBox) {
+            } else if (c instanceof JComboBox) {
                 return "" + ((JComboBox) c).getSelectedItem();
-            }
-            if (c instanceof JCheckBox) {
+            } else if (c instanceof JCheckBox) {
                 return "" + ((JCheckBox) c).isSelected();
+            } else if( c instanceof ListField) {
+                return ((ListField)c).getText();
             }
             throw new RuntimeException(c.getClass() + " is wrong class");
         } catch (RuntimeException e) {

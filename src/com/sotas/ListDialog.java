@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ListDialog extends AbstractDialog {
+    public ListField field;
     private String[][] rows;
     public ListDialog(final String[][] rows, String[] headers, String title, Dimension size) {
         super(null);
@@ -53,5 +54,9 @@ public class ListDialog extends AbstractDialog {
         butPanel.add(cancelBut);
         add(butPanel, BorderLayout.SOUTH);
         setSize(size);
+    }
+
+    public String[][] getRows() {
+        return rows;
     }
 }

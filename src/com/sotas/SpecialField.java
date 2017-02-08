@@ -15,7 +15,6 @@ public class SpecialField extends WebTextField {
     public SpecialField(final AbstractDialog  dialog) {
         this.dialog = dialog;
         setEditable(false);
-        if(dialog instanceof ListDialog) setEditable(true);
         but = WebButton.createIconWebButton(new ImageIcon(getClass().getResource ( "/img/form_button16.png" )));
         but.setFocusable ( false );
         //popupButton.setShadeWidth ( 0 );

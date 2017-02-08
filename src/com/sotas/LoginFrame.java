@@ -16,6 +16,7 @@ public class LoginFrame extends JFrame{
     private JTextField passwordField;
 
     public LoginFrame() {
+        setIconImage(Resource.icon);
         setTitle("Вход");
         setLayout(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

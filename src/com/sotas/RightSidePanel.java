@@ -9,7 +9,7 @@ import java.awt.*;
 public class RightSidePanel extends SidePanel {
     public RightSidePanel(ComponentMap cm, ComponentMap ptsCm, ComponentMap svidRegCm) {
         super(cm);
-        createRow("<html>" + StrConst.технологическая_операция + "</html>", genSpecialField(new ListDialog(Resource.getInstance().technologicalOperations, null, "Технологические операции", new Dimension(600, 600)))).setBackground(specialColor);
+        createRow("<html>" + StrConst.технологическая_операция + "</html>", genListField(new ListDialog(Resource.getInstance().technologicalOperations, null, "Технологические операции", new Dimension(600, 600)))).setBackground(specialColor);
         createRow("Ограниченный срок", genCheckBox(""));
         addElement(genLabel("    Документы ТС"), 2); rowBr();
         createRow("<html>Одобрение типа ТС<html>", genSpecialField());
@@ -85,7 +85,7 @@ public class RightSidePanel extends SidePanel {
     private void createCustomRow5() {
         addElement(genLabel("Форма собственности"), 1);
         ComplexField complex = new ComplexField();
-        complex.add(genSpecialField(new ListDialog(Resource.getInstance().formaSobstvennosti, null, "Формы собственности", new Dimension(600, 600))), 370);
+        complex.add(genListField(new ListDialog(Resource.getInstance().formaSobstvennosti, null, "Формы собственности", new Dimension(600, 600))), 370);
         complex.add(genButton("Договор"), 90);
         addElement(complex, 1);
         rowBr();
