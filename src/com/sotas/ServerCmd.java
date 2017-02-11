@@ -11,7 +11,7 @@ public class ServerCmd {
     private String serverUrl = "izba.sotas05.ru";
     private static final Logger log = Logger.getLogger(ServerCmd.class);
     private Protocol protocol = new Protocol();
-    public Prms sendRegisterRequest(String login, String password, int docnum, Prms prms) {
+    public Prms sendRegisterRequest(String login, String password, Prms prms) {
         log.info("sendRegisterRequest login=" + login + ", prms=" + prms);
         HttpURLConnection conn = null;
         try {
@@ -19,7 +19,6 @@ public class ServerCmd {
             conn.setRequestMethod("POST");
             conn.addRequestProperty("login", login);
             conn.addRequestProperty("password", password);
-            conn.addRequestProperty("docnum", ""+docnum);
             conn.setDoOutput(true);
             String request = protocol.genRegisterRequest(prms);
             conn.getOutputStream().write(request.getBytes("UTF-8"));

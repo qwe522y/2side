@@ -32,7 +32,7 @@ public class LeftSidePanel extends SidePanel {
         createCustomRow5(); //Разрешается максимальная масса
         createCustomRow6(); //Тип двигателя
         createCustomRow7(); //Тип трансмиссии
-        createRow("<html>Расположение руля</html>", genComboBox(new String[]{""}));
+        createRow("<html>Расположение руля</html>", genComboBox(new String[]{"Левостороннее", "Правостороннее"}));
     }
 
     private void createCustomRow1() {
@@ -147,10 +147,10 @@ public class LeftSidePanel extends SidePanel {
     private void createCustomRow7() {
         addElement(genLabel("Тип трансмиссии"), 1);
         ComplexField complex = new ComplexField();
-        complex.add(genComboBox(new String[]{""}), 160);
+        complex.add(genComboBox(new String[]{"Механическая", "Автоматическая"}), 160);
 
         complex.add(genLabel("Тип привода:"), 200).setHorizontalAlignment(SwingConstants.RIGHT);
-        complex.add(genComboBox(new String[]{"", "Переднеприводный", "Заднеприводный", "Полноприводный", "Иные"}), 100);
+        complex.add(genComboBox(new String[]{"Переднеприводный", "Заднеприводный", "Полноприводный", "Иные"}), 100);
 
         addElement(complex, 1);
         rowBr();

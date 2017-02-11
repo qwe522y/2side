@@ -1,5 +1,7 @@
 package com.sotas;
 
+import com.alee.extended.date.WebDateField;
+
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.util.LinkedHashMap;
@@ -22,7 +24,11 @@ public class ComponentMap {
                 log.warn("no item for name " + name);
                 return "";
             }
-            if (c instanceof JTextComponent) {
+            if(c instanceof WebDateField) {
+                WebDateField d = (WebDateField)c;
+                if(d.getDate() == null) return "";
+                return d.getText();
+            } else if (c instanceof JTextComponent) {
                 return ((JTextComponent) c).getText();
             } else if (c instanceof JSpinner) {
                 return "" + ((JSpinner) c).getValue();

@@ -1,7 +1,7 @@
 package com.sotas;
 
 public class StrConst {
-    public static final String zayavlenie_nomer = "Заявляение №";
+    //public static final String zayavlenie_nomer = "Заявляение №";
     public static final String date = "date";
 
     //left side

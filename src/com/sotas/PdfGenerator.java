@@ -47,7 +47,7 @@ public class PdfGenerator {
         doc.add(genT10());
         Paragraph paragrath = new Paragraph();
         paragrath.setAlignment(Element.ALIGN_RIGHT);
-        paragrath.add(new Phrase(prms.main(StrConst.zayavlenie_nomer) + "                     ", smallFont));
+        paragrath.add(new Phrase(prms.main("id") + "                     ", smallFont));
         doc.add(paragrath);
         doc.close();
     }
@@ -57,7 +57,7 @@ public class PdfGenerator {
         PdfPTable t = new PdfPTable(1);
         t.setWidthPercentage(90);
 
-        PdfPCell c = new PdfPCell(new Phrase(StrConst.zayavlenie_nomer, boldFont));
+        PdfPCell c = new PdfPCell(new Phrase("Заявляение №", boldFont));
         c.setHorizontalAlignment(Element.ALIGN_CENTER);
         c.setBorderWidthBottom(0);
         t.addCell(c);

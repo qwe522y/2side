@@ -10,7 +10,10 @@ import com.alee.laf.spinner.WebSpinner;
 import com.alee.laf.text.WebTextField;
 
 import javax.swing.*;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 import java.awt.*;
+import java.text.ParseException;
 
 public abstract class SidePanel extends WebPanel {
     private ComponentMap componentMap;
@@ -120,7 +123,13 @@ public abstract class SidePanel extends WebPanel {
     }
 
     protected WebDateField genDateField() {
-        return new WebDateField();
+        WebDateField res = new WebDateField();
+        try {
+            res.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("##.##.####")));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        return res;
     }
 
     protected JCheckBox genCheckBox(String text) {

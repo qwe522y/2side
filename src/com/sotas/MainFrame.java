@@ -5,7 +5,6 @@ import com.alee.laf.label.WebLabel;
 import com.alee.laf.optionpane.WebOptionPane;
 import com.alee.laf.panel.WebPanel;
 import com.alee.laf.rootpane.WebFrame;
-import com.alee.laf.text.WebTextField;
 import com.alee.laf.toolbar.ToolbarStyle;
 import com.alee.laf.toolbar.WebToolBar;
 import org.apache.log4j.Logger;
@@ -65,11 +64,6 @@ public class MainFrame extends WebFrame {
         WebToolBar toolBar = new WebToolBar();
         toolBar.setToolbarStyle(ToolbarStyle.attached);
         toolBar.setFloatable(false);
-        toolBar.add(new WebLabel(" "+ StrConst.zayavlenie_nomer +" "));
-        WebTextField f = new WebTextField();
-        f.setMinimumWidth(150);
-        toolBar.add(f);
-        cm.add(StrConst.zayavlenie_nomer, f);
         toolBar.add(new WebLabel(" Дата: "));
         WebDateField dateField = new WebDateField(new Date());
         dateField.setMinimumWidth(150);
@@ -94,17 +88,10 @@ public class MainFrame extends WebFrame {
         printButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                Integer docnum = null;
-                try {
-                    docnum = Integer.parseInt(cm.getFieldText(StrConst.zayavlenie_nomer));
-                } catch (RuntimeException e) {
-                    WebOptionPane.showMessageDialog (null, "Заполните номер заявления", "Ошибка", WebOptionPane.ERROR_MESSAGE );
-                    return;
-                }
                 Properties prop = new Properties();
                 try(InputStream fis = new FileInputStream("setting.cfg")) {
                     prop.load(fis);
-                    Prms prms = serverCmd.sendRegisterRequest(LoginFrame.getLogin(), LoginFrame.getPassword(), docnum, new Prms(cm.toStringMap(), vladelecCm.toStringMap(), predstavitelCm.toStringMap(), PTSCm.toStringMap(), svidRegCm.toStringMap()));
+                    Prms prms = serverCmd.sendRegisterRequest(LoginFrame.getLogin(), LoginFrame.getPassword(), new Prms(cm.toStringMap(), vladelecCm.toStringMap(), predstavitelCm.toStringMap(), PTSCm.toStringMap(), svidRegCm.toStringMap()));
                     clearAllCm();
                     new PdfGenerator(prms).gen();
                     dispose();
