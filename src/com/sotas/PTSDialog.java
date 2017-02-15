@@ -18,7 +18,7 @@ class PTSForm extends SidePanel {
         labelSuffix = sb.toString();
         fieldLen = 300;
         createRow(StrConst.PTS.серия_и_номер, genTextField());
-        createRow(StrConst.PTS.тип, genTextField());
+        createRow(StrConst.PTS.тип, genListField(new ListDialog(Resource.getInstance().ptsType, null, "Типы ПТС", new Dimension(500, 300))));
         createRow(StrConst.PTS.дата_выдачи, genDateField());
         createRow(StrConst.PTS.кем_выдан, genTextField());
         createRow(StrConst.PTS.особые_отметки, genTextField());

@@ -18,7 +18,7 @@ public class LeftSidePanel extends SidePanel {
         createCustomRow21();
         createRow("Модификация");
         createRow("Изготовитель", genSpecialField()).setBackground(specialColor);
-        createRow("Тип ТС", genSpecialField()).setBackground(specialColor);
+        createRow("Тип ТС", genListField(new ListDialog(Resource.getInstance().typeTS, null, "Типы ТС", new Dimension(600, 600)))).setBackground(specialColor);
         createRow(StrConst.kategoriya, genComboBox(new String[]{"", " A"," A1"," B"," B1"," C"," C1"," D"," D1"," Прицеп"})).setBackground(specialColor);
         createRow("Спецназначение", genSpecialField());
         createCustomRow3();

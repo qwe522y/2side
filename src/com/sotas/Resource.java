@@ -27,6 +27,9 @@ public class Resource {
     public String[][] tipRegZnak;
     public String[][] formaSobstvennosti;
     public String[][] colorGroup;
+    public String[][] ptsType;
+    public String[][] svidRegType;
+    public String[][] typeTS;
 
     public Resource() {
         try {
@@ -39,6 +42,9 @@ public class Resource {
             tipRegZnak = getSingleColumnList("res/tipRegZnak.txt"); //тип регистрационного знака
             formaSobstvennosti = getSingleColumnList("res/formaSobstvennosti.txt"); //форма собственности
             colorGroup = getSingleColumnList("res/colorGroup.txt"); //цветовая группа
+            ptsType = getSingleColumnList("res/ptsType.txt"); // тип ПТС
+            svidRegType = getSingleColumnList("res/svidRegType.txt"); // тип свидетельства о регистрации
+            typeTS = getSingleColumnList("res/typeTS.txt"); // тип ТС
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
