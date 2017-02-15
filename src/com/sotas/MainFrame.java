@@ -66,6 +66,12 @@ public class MainFrame extends WebFrame {
         toolBar.setFloatable(false);
         toolBar.add(new WebLabel(" Дата: "));
         WebDateField dateField = new WebDateField(new Date());
+        dateField.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
+            }
+        });
         dateField.setMinimumWidth(150);
         toolBar.add(dateField);
         cm.add(StrConst.date, dateField);
@@ -73,6 +79,7 @@ public class MainFrame extends WebFrame {
         toolBar.add(newDocButton);
         JButton printButton = new JButton(new ImageIcon(getClass().getResource ( "/img/printer16.png" )));
         toolBar.add(printButton);
+        newDocButton.setFocusable(false);
         newDocButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -85,6 +92,7 @@ public class MainFrame extends WebFrame {
                 }
             }
         });
+        printButton.setFocusable(false);
         printButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {

@@ -15,6 +15,8 @@ import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.text.ParseException;
 
 public abstract class SidePanel extends WebPanel {
@@ -102,23 +104,38 @@ public abstract class SidePanel extends WebPanel {
         JSpinner.NumberEditor editor = new JSpinner.NumberEditor(tf);
         editor.getFormat().setGroupingUsed(false);
         tf.setEditor(editor);
+        ((JSpinner.DefaultEditor)tf.getEditor()).getTextField().addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
+                }
+            }
+        });
         return tf;
     }
 
     protected JComboBox genComboBox(String[] list) {
-        return new WebComboBox(list);
+        WebComboBox res = new WebComboBox(list);
+        res.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_ENTER) KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
+            }
+        });
+        return res;
     }
 
     protected SpecialField genSpecialField(AbstractDialog dialog) {
         SpecialField f = new SpecialField(dialog);
         f.setPreferredSize(110, rowHeight);
         f.setMinimumSize(new Dimension(110, minRowHeight));
-        return f;
-    }
-
-    protected ListField genListField(ListDialog listDialog) {
-        ListField f = new ListField(listDialog);
-        f.setMinimumSize(new Dimension(110, minRowHeight));
+        f.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
+            }
+        });
         return f;
     }
 
@@ -126,6 +143,18 @@ public abstract class SidePanel extends WebPanel {
     protected SpecialField genSpecialField() {
         SpecialField f = new SpecialField();
         f.setPreferredSize(110, rowHeight);
+        f.setMinimumSize(new Dimension(110, minRowHeight));
+        f.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
+            }
+        });
+        return f;
+    }
+
+    protected ListField genListField(ListDialog listDialog) {
+        ListField f = new ListField(listDialog);
         f.setMinimumSize(new Dimension(110, minRowHeight));
         return f;
     }
@@ -137,11 +166,24 @@ public abstract class SidePanel extends WebPanel {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
+        res.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_ENTER) KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
+            }
+        });
         return res;
     }
 
     protected JCheckBox genCheckBox(String text) {
-        return new WebCheckBox(text);
+        WebCheckBox res = new WebCheckBox(text);
+        res.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_ENTER) KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
+            }
+        });
+        return res;
     }
 
     protected JButton genButton(String text) {
