@@ -10,10 +10,10 @@ public class LeftSidePanel extends SidePanel {
         super(cm);
         createRow("Владелец", genSpecialField(new VladelecDialog(vladelecCm))).setBg(specialColor);
         createRow("Представитель", genSpecialField(new PredstavitelDialog(predstavitelCm)));
-        addElement(genLabel("    Государственные регистрационные знаки ТС"), 2); rowBr();
+        addElement(genLabel("<html><b>&nbsp;&nbsp;&nbsp;&nbsp;Государственные регистрационные знаки ТС:</b></html>"), 2); rowBr();
         createCustomRow1();
         createRow("Тип", genListField(new ListDialog(Resource.getInstance().tipRegZnak, null, "Типы регистрационных знаков", new Dimension(600, 600)))).setBackground(specialColor);
-        addElement(genLabel("    Сведения о транспортном средстве"), 2); rowBr();
+        addElement(genLabel("<html><b>&nbsp;&nbsp;&nbsp;&nbsp;Сведения о транспортном средстве:</b></html>"), 2); rowBr();
         createCustomRow2();
         createCustomRow21();
         createRow("Модификация");

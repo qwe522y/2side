@@ -576,6 +576,14 @@ public final class AutoCompleteSupport<E> {
 
         // add a DocumentFilter to the Document backing the editor JTextField
         this.comboBoxEditorComponent = (JTextField) comboBox.getEditor().getEditorComponent();
+        // изба кариз начало
+        this.comboBoxEditorComponent.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
+            }
+        });
+        // изба кариз конец
         this.document = (AbstractDocument) comboBoxEditorComponent.getDocument();
         this.document.setDocumentFilter(documentFilter);
 

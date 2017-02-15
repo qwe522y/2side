@@ -33,6 +33,7 @@ public class ListField extends JPanel {
                 listDialog.setVisible(true);
             }
         });
+        but.setFocusable(false);
     }
 
     private String[] firstColumnArray(String[][] rows) {

@@ -13,6 +13,8 @@ import javax.swing.*;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.ParseException;
 
 public abstract class SidePanel extends WebPanel {
@@ -78,7 +80,14 @@ public abstract class SidePanel extends WebPanel {
     }
 
     protected JTextField genTextField() {
-        return new WebTextField();
+        WebTextField res = new WebTextField();
+        res.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
+            }
+        });
+        return res;
     }
 
     protected JLabel genLabel(String label) {
@@ -109,7 +118,6 @@ public abstract class SidePanel extends WebPanel {
 
     protected ListField genListField(ListDialog listDialog) {
         ListField f = new ListField(listDialog);
-        //f.setPreferredSize(110, rowHeight);
         f.setMinimumSize(new Dimension(110, minRowHeight));
         return f;
     }
