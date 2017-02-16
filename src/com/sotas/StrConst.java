@@ -26,6 +26,14 @@ public class StrConst {
     public static String свид_утрачено = "Свид. утрачено";
     public static String технологическая_операция = "Технологическая операция";
 
+    public static class Страховой_полис {
+        public static String name = "Страховой полис";
+        public static String серия_и_номер = "Серия и номер";
+        public static String дата_выдачи = "Дата выдачи";
+        public static String срок_действия = "Срок действия";
+        public static String страховщик = "Страховщик";
+    }
+
     public static class vladelec {
         public static final String prefix = "владелец";
         public static final String famil = "Фамилия";

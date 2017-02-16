@@ -16,10 +16,14 @@ public class RightSidePanel extends SidePanel {
         createRow("<html>Технические документы<html>", genSpecialField());
         createCustomRow2(ptsCm);
         createCustomRow3(svidRegCm);
+
         addElement(genLabel("<html><b>&nbsp;&nbsp;&nbsp;&nbsp;Страховой полис:</b></html>"), 2); rowBr();
+        prefix = StrConst.Страховой_полис.name;
         createRow("Серия и номер");
         createCustomRow31();
         createCustomRow4();
+        prefix = null;
+
         addElement(genLabel("<html><b>&nbsp;&nbsp;&nbsp;&nbsp;Документ, подтверждающий право собственности:</b></html>"), 2); rowBr();
         createRow("Серия и номер", genSpecialField());
         createRow("Стоимость ТС");
@@ -63,12 +67,12 @@ public class RightSidePanel extends SidePanel {
     private void createCustomRow31() {
         addElement(genLabel("Дата выдачи"), 1);
         ComplexField complex = new ComplexField();
-        getComponentMap().add("Дата выдачи", complex.add(genDateField(), 170));
+        getComponentMap().add(StrConst.Страховой_полис.name + "_" + StrConst.Страховой_полис.дата_выдачи, complex.add(genDateField(), 170));
 
         JLabel label = genLabel("Срок действия" + ":");
         label.setHorizontalAlignment(SwingConstants.RIGHT);
         complex.add(label, 120);
-        getComponentMap().add("Срок действия", complex.add(genDateField(), 170));
+        getComponentMap().add(StrConst.Страховой_полис.name + "_" + StrConst.Страховой_полис.срок_действия, complex.add(genDateField(), 170));
         addElement(complex, 1);
         rowBr();
     }
@@ -76,9 +80,11 @@ public class RightSidePanel extends SidePanel {
     private void createCustomRow4() {
         addElement(genLabel("Страховщик"), 1);
         ComplexField complex = new ComplexField();
-        complex.add(genSpecialField(), 370);
+        SpecialField f = genSpecialField();
+        complex.add(f, 370);
         complex.add(genButton("Полис"), 90);
         addElement(complex, 1);
+        getComponentMap().add(StrConst.Страховой_полис.name + "_" + StrConst.Страховой_полис.страховщик, f);
         rowBr();
     }
 

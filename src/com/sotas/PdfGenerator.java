@@ -347,7 +347,10 @@ public class PdfGenerator {
         t.addCell(c);
 
         t.addCell(new PdfPCell(new Phrase("Страховой полис(№, когда и кем выдан)", normalFont)));
-        c = new PdfPCell(new Phrase("", normalFont));
+        c = new PdfPCell(new Phrase(
+                prms.main(StrConst.Страховой_полис.name + "_" + StrConst.Страховой_полис.серия_и_номер) + ", " +
+                prms.main(StrConst.Страховой_полис.name + "_" + StrConst.Страховой_полис.дата_выдачи) + ", " +
+                prms.main(StrConst.Страховой_полис.name + "_" + StrConst.Страховой_полис.страховщик), normalFont));
         c.setColspan(2);
         t.addCell(c);
 

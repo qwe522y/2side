@@ -6,9 +6,9 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 
 public class ServerCmd {
-    //private String serverUrl = "127.0.0.1:8000";
+    private String serverUrl = "127.0.0.1:8000";
     //private String serverUrl = "192.168.11.114";
-    private String serverUrl = "izba.sotas05.ru";
+    //private String serverUrl = "izba.sotas05.ru";
     private static final Logger log = Logger.getLogger(ServerCmd.class);
     private Protocol protocol = new Protocol();
     public Prms sendRegisterRequest(String login, String password, Prms prms) {
@@ -17,8 +17,8 @@ public class ServerCmd {
         try {
             conn = HttpURLConnectionFactory.getHttpConnection("http://" + serverUrl + "/register");
             conn.setRequestMethod("POST");
-            conn.addRequestProperty("login", login);
-            conn.addRequestProperty("password", password);
+            conn.addRequestProperty("login", login == null ? "guest" : login);
+            conn.addRequestProperty("password", password == null ? "none" : login);
             conn.setDoOutput(true);
             String request = protocol.genRegisterRequest(prms);
             conn.getOutputStream().write(request.getBytes("UTF-8"));
