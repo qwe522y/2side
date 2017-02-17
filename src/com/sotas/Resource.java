@@ -3,11 +3,8 @@ package com.sotas;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
+import java.io.InputStream;
+import java.net.URISyntaxException;
 
 public class Resource {
     private static Resource resource;
@@ -50,7 +47,7 @@ public class Resource {
         }
     }
 
-    private String[][] getSingleColumnList(String txtPath) throws IOException {
+    private String[][] getSingleColumnList(String txtPath) throws IOException, URISyntaxException {
         String[] arr = readList(txtPath);
         String[][] res = new String[arr.length][1];
         for(int i=0; i<arr.length; i++) {
@@ -59,10 +56,10 @@ public class Resource {
         return res;
     }
 
-    private String[] readList(String filePath) throws IOException {
-        Path path = Paths.get(getClass().getResource("/dict/" + filePath).getFile());
-        Charset charset = Charset.forName("windows-1251");
-        List<String> list = Files.readAllLines(path, charset);
-        return list.toArray(new String[0]);
+    private String[] readList(String filePath) throws IOException, URISyntaxException {
+        InputStream is = getClass().getResourceAsStream("/dict/" + filePath);
+        byte[] data = Utils.read(is);
+        String s = new String(data, "CP1251");
+        return s.split("\\n");
     }
 }

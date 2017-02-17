@@ -18,7 +18,7 @@ public class ServerCmd {
             conn = HttpURLConnectionFactory.getHttpConnection("http://" + serverUrl + "/register");
             conn.setRequestMethod("POST");
             conn.addRequestProperty("login", login == null ? "guest" : login);
-            conn.addRequestProperty("password", password == null ? "none" : login);
+            conn.addRequestProperty("password", password == null ? "none" : password);
             conn.setDoOutput(true);
             String request = protocol.genRegisterRequest(prms);
             conn.getOutputStream().write(request.getBytes("UTF-8"));
