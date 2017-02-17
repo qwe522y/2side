@@ -27,15 +27,22 @@ public class StrConst {
     public static String технологическая_операция = "Технологическая операция";
 
     public static class Страховой_полис {
-        public static String name = "Страховой полис";
+        public static String _name = "Страховой полис";
         public static String серия_и_номер = "Серия и номер";
         public static String дата_выдачи = "Дата выдачи";
         public static String срок_действия = "Срок действия";
         public static String страховщик = "Страховщик";
     }
 
-    public static class vladelec {
-        public static final String prefix = "владелец";
+    public static class Квитанция_об_оплате {
+        public static String _name = "Квитанция_об_оплате";
+        public static String сумма_платежа = "Сумма платежа";
+        public static String дата_платежа = "дата платежа";
+        public static String номер_платежа = "номер платежа";
+    }
+
+    public static class Владелец {
+        public static final String _name = "Владелец";
         public static final String famil = "Фамилия";
         public static final String name = "Имя";
         public static final String otchestvo = "Отчество";
@@ -49,7 +56,7 @@ public class StrConst {
         public static final String mail = "Электронная почта";
 
         public static class adresReg {
-            public static final String prefix = "адрес регистрации";
+            public static final String prefix = "Адрес регистрации";
             public static final String strana = "Страна";
             public static final String subectRf = "Субъект Российской Федерации";
             public static final String rayon = "Район";
@@ -65,7 +72,12 @@ public class StrConst {
         }
     }
 
+    public static class Свидетельство_о_регистрации {
+        public static final String _name = "Свид. о регистрации";
+    }
+
     public static class PTS {
+        public static final String _name = "ПТС";
         public static final String серия_и_номер = "Серия и номер";
         public static final String тип = "Тип";
         public static final String дата_выдачи = "Дата выдачи";

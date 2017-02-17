@@ -74,7 +74,7 @@ public class ComponentMap {
                 res.put(key, getFieldText(key));
             }
         }
-        res.put("mapName", name);
+        res.put("_name", name);
         return res;
     }
 }

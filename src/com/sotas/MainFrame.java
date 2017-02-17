@@ -22,10 +22,12 @@ public class MainFrame extends WebFrame {
     private static final Logger log = Logger.getLogger(MainFrame.class);
     ServerCmd serverCmd = new ServerCmd();
     ComponentMap cm = new ComponentMap("main");
-    ComponentMap vladelecCm = new ComponentMap("владелец");
-    ComponentMap predstavitelCm = new ComponentMap("представитель");
-    ComponentMap PTSCm = new ComponentMap("ПТС");
-    ComponentMap svidRegCm = new ComponentMap("свид. о регистрации");
+    ComponentMap vladelecCm = new ComponentMap(StrConst.Владелец._name);
+    ComponentMap predstavitelCm = new ComponentMap("Представитель");
+    ComponentMap PTSCm = new ComponentMap(StrConst.PTS._name);
+    ComponentMap svidRegCm = new ComponentMap(StrConst.Свидетельство_о_регистрации._name);
+    ComponentMap kvitanciyaCm = new ComponentMap(StrConst.Квитанция_об_оплате._name);
+
     public MainFrame() {
         setIconImage(Resource.icon);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,7 +57,7 @@ public class MainFrame extends WebFrame {
         c.weightx = 0.0; c.fill = GridBagConstraints.VERTICAL;;
         centerPanel.add(sep, c);
 
-        SidePanel rightSide = new RightSidePanel(cm, PTSCm, svidRegCm);
+        SidePanel rightSide = new RightSidePanel(cm, PTSCm, svidRegCm, kvitanciyaCm);
         c.weightx = 0.5; c.fill = GridBagConstraints.HORIZONTAL;
         centerPanel.add(rightSide, c);
     }
@@ -99,7 +101,14 @@ public class MainFrame extends WebFrame {
                 Properties prop = new Properties();
                 try(InputStream fis = new FileInputStream("setting.cfg")) {
                     prop.load(fis);
-                    Prms prms = serverCmd.sendRegisterRequest(LoginFrame.getLogin(), LoginFrame.getPassword(), new Prms(cm.toStringMap(), vladelecCm.toStringMap(), predstavitelCm.toStringMap(), PTSCm.toStringMap(), svidRegCm.toStringMap()));
+                    Prms prms = serverCmd.sendRegisterRequest(LoginFrame.getLogin(), LoginFrame.getPassword(), new Prms(
+                            cm.toStringMap(),
+                            vladelecCm.toStringMap(),
+                            predstavitelCm.toStringMap(),
+                            PTSCm.toStringMap(),
+                            svidRegCm.toStringMap(),
+                            kvitanciyaCm.toStringMap()
+                    ));
                     clearAllCm();
                     new PdfGenerator(prms).gen();
                     dispose();
@@ -122,5 +131,6 @@ public class MainFrame extends WebFrame {
         predstavitelCm.getMap().clear();
         PTSCm.getMap().clear();
         svidRegCm.getMap().clear();
+        kvitanciyaCm.getMap().clear();
     }
 }

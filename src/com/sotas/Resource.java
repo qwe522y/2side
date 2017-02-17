@@ -33,18 +33,18 @@ public class Resource {
 
     public Resource() {
         try {
-            bornPlaceRegion = getSingleColumnList("res/bornPlaceRegion.txt");
-            nationality = getSingleColumnList("res/nationality.txt"); //гражданство
-            passportType = getSingleColumnList("res/passportType.txt"); //документ удостоверяющий чичность
-            passportCountry = getSingleColumnList("res/passportCountry.txt"); //страна документа удостоверяющего личность
-            russianRegion = getSingleColumnList("res/russianRegion.txt"); //субъекты РФ
-            technologicalOperations = getSingleColumnList("res/technologicalOperations.txt"); //технологические операции
-            tipRegZnak = getSingleColumnList("res/tipRegZnak.txt"); //тип регистрационного знака
-            formaSobstvennosti = getSingleColumnList("res/formaSobstvennosti.txt"); //форма собственности
-            colorGroup = getSingleColumnList("res/colorGroup.txt"); //цветовая группа
-            ptsType = getSingleColumnList("res/ptsType.txt"); // тип ПТС
-            svidRegType = getSingleColumnList("res/svidRegType.txt"); // тип свидетельства о регистрации
-            typeTS = getSingleColumnList("res/typeTS.txt"); // тип ТС
+            bornPlaceRegion = getSingleColumnList("bornPlaceRegion.txt");
+            nationality = getSingleColumnList("nationality.txt"); //гражданство
+            passportType = getSingleColumnList("passportType.txt"); //документ удостоверяющий чичность
+            passportCountry = getSingleColumnList("passportCountry.txt"); //страна документа удостоверяющего личность
+            russianRegion = getSingleColumnList("russianRegion.txt"); //субъекты РФ
+            technologicalOperations = getSingleColumnList("technologicalOperations.txt"); //технологические операции
+            tipRegZnak = getSingleColumnList("tipRegZnak.txt"); //тип регистрационного знака
+            formaSobstvennosti = getSingleColumnList("formaSobstvennosti.txt"); //форма собственности
+            colorGroup = getSingleColumnList("colorGroup.txt"); //цветовая группа
+            ptsType = getSingleColumnList("ptsType.txt"); // тип ПТС
+            svidRegType = getSingleColumnList("svidRegType.txt"); // тип свидетельства о регистрации
+            typeTS = getSingleColumnList("typeTS.txt"); // тип ТС
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -60,7 +60,7 @@ public class Resource {
     }
 
     private String[] readList(String filePath) throws IOException {
-        Path path = Paths.get(filePath);
+        Path path = Paths.get(getClass().getResource("/dict/" + filePath).getFile());
         Charset charset = Charset.forName("windows-1251");
         List<String> list = Files.readAllLines(path, charset);
         return list.toArray(new String[0]);

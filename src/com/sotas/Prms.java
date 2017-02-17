@@ -6,7 +6,7 @@ import java.util.Map;
 public class Prms extends HashMap<String, Map<String, String>> {
     public Prms(Map<String, String>... maps) {
         for(Map<String, String> map : maps) {
-            String name = map.remove("mapName");
+            String name = map.remove("_name");
             put(name, map);
         }
     }
@@ -15,7 +15,7 @@ public class Prms extends HashMap<String, Map<String, String>> {
     }
 
     public String vladelec(String key) {
-        return getVal(StrConst.vladelec.prefix, key);
+        return getVal(StrConst.Владелец._name, key);
     }
 
     public String main(String key) {

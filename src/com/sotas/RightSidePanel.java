@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class RightSidePanel extends SidePanel {
-    public RightSidePanel(ComponentMap cm, ComponentMap ptsCm, ComponentMap svidRegCm) {
+    public RightSidePanel(ComponentMap cm, ComponentMap ptsCm, ComponentMap svidRegCm, ComponentMap kvitanciyaMap) {
         super(cm);
         createRow("<html>" + StrConst.технологическая_операция + "</html>", genListField(new ListDialog(Resource.getInstance().technologicalOperations, null, "Технологические операции", new Dimension(600, 600)))).setBackground(specialColor);
         createRow("Ограниченный срок", genCheckBox(""));
@@ -18,7 +18,7 @@ public class RightSidePanel extends SidePanel {
         createCustomRow3(svidRegCm);
 
         addElement(genLabel("<html><b>&nbsp;&nbsp;&nbsp;&nbsp;Страховой полис:</b></html>"), 2); rowBr();
-        prefix = StrConst.Страховой_полис.name;
+        prefix = StrConst.Страховой_полис._name;
         createRow("Серия и номер");
         createCustomRow31();
         createCustomRow4();
@@ -31,7 +31,7 @@ public class RightSidePanel extends SidePanel {
         addElement(genLabel("<html><b>&nbsp;&nbsp;&nbsp;&nbsp;Прочие представленные документы</html>"), 2); rowBr();
         createRow("Свидетельство на агрегат", genSpecialField());
         createRow("Прочие документы", genSpecialField());
-        createRow("Квитанция об оплате", genSpecialField());
+        createRow("Квитанция об оплате", genSpecialField(new KvitanciyaDialog(kvitanciyaMap)));
         addElement(genLabel("<html><b>&nbsp;&nbsp;&nbsp;&nbsp;Утилизационные сбор:</b></html>"), 2); rowBr();
         createRow("Статус", genComboBox(new String[]{"Отсутствуют сведения", "Уплачен", "Приняты обязательства", "Не уплачивается"}));
         createRow("Значение");
@@ -67,12 +67,12 @@ public class RightSidePanel extends SidePanel {
     private void createCustomRow31() {
         addElement(genLabel("Дата выдачи"), 1);
         ComplexField complex = new ComplexField();
-        getComponentMap().add(StrConst.Страховой_полис.name + "_" + StrConst.Страховой_полис.дата_выдачи, complex.add(genDateField(), 170));
+        getComponentMap().add(StrConst.Страховой_полис._name + "_" + StrConst.Страховой_полис.дата_выдачи, complex.add(genDateField(), 170));
 
         JLabel label = genLabel("Срок действия" + ":");
         label.setHorizontalAlignment(SwingConstants.RIGHT);
         complex.add(label, 120);
-        getComponentMap().add(StrConst.Страховой_полис.name + "_" + StrConst.Страховой_полис.срок_действия, complex.add(genDateField(), 170));
+        getComponentMap().add(StrConst.Страховой_полис._name + "_" + StrConst.Страховой_полис.срок_действия, complex.add(genDateField(), 170));
         addElement(complex, 1);
         rowBr();
     }
@@ -84,7 +84,7 @@ public class RightSidePanel extends SidePanel {
         complex.add(f, 370);
         complex.add(genButton("Полис"), 90);
         addElement(complex, 1);
-        getComponentMap().add(StrConst.Страховой_полис.name + "_" + StrConst.Страховой_полис.страховщик, f);
+        getComponentMap().add(StrConst.Страховой_полис._name + "_" + StrConst.Страховой_полис.страховщик, f);
         rowBr();
     }
 

@@ -68,38 +68,38 @@ public class VladelecDialog extends AbstractDialog {
             for(int i=0; i<50; i++) sb.append("..........");
             labelSuffix = sb.toString();
             fieldLen = 300;
-            createRow(StrConst.vladelec.famil, genTextField()).setBackground(specialColor);
+            createRow(StrConst.Владелец.famil, genTextField()).setBackground(specialColor);
             createRow("Транслитерация фамилии", genTextField());
-            createRow(StrConst.vladelec.name, genTextField()).setBackground(specialColor);
+            createRow(StrConst.Владелец.name, genTextField()).setBackground(specialColor);
             createRow("Транслитерация имени");
-            createRow(StrConst.vladelec.otchestvo);
-            createRow(StrConst.vladelec.bornDate, genDateField()).setBackground(specialColor);
+            createRow(StrConst.Владелец.otchestvo);
+            createRow(StrConst.Владелец.bornDate, genDateField()).setBackground(specialColor);
             createRow("Пол", genComboBox(new String[]{"", "Мужской", "Женский"})).setBackground(specialColor);
             createRow("Регион места рождения", genListField(new ListDialog(Resource.getInstance().bornPlaceRegion, null, "Регион места рождения", new Dimension(600, 800)))).setBg(specialColor);
             createRow("Место рождения").setBackground(specialColor);
-            createRow(StrConst.vladelec.inn);
+            createRow(StrConst.Владелец.inn);
             createRow("Кем выдан ИНН");
             createRow("Индивидуальный предприниматель", genComboBox(new String[]{"", "Нет", "Да"})).setBackground(specialColor);
             createRow("ОГРНИП");
             createRow("Кем выдан ОГРНИП");
             createRow("Гражданство", genListField(new ListDialog(Resource.getInstance().nationality, null, "Гражданство", new Dimension(400, 600)))).setBg(specialColor);
-            createRow(StrConst.vladelec.tipDUL, genListField(new ListDialog(Resource.getInstance().passportType, null, StrConst.vladelec.tipDUL, new Dimension(400, 600)))).setBg(specialColor);
-            createRow(StrConst.vladelec.seriaNomerDUL).setBackground(specialColor);
-            createRow(StrConst.vladelec.dataVidachiDUL, genDateField()).setBackground(specialColor);
+            createRow(StrConst.Владелец.tipDUL, genListField(new ListDialog(Resource.getInstance().passportType, null, StrConst.Владелец.tipDUL, new Dimension(400, 600)))).setBg(specialColor);
+            createRow(StrConst.Владелец.seriaNomerDUL).setBackground(specialColor);
+            createRow(StrConst.Владелец.dataVidachiDUL, genDateField()).setBackground(specialColor);
             createRow("Код подразделения");
-            createRow(StrConst.vladelec.kemVidanDUL).setBackground(specialColor);
+            createRow(StrConst.Владелец.kemVidanDUL).setBackground(specialColor);
             createRow("Страна документа, удостоверяющего личность", genListField(new ListDialog(Resource.getInstance().passportCountry, null, "Страна документа, удостоверяющего личность", new Dimension(400, 600)))).setBg(specialColor);
             createRow("Адрес регистрации", new SpecialField(new FormDialog(null, addressForm, "Адрес", new Dimension(750, 520))));
             createRow("Место работы");
             createRow("Должность");
             createRow("Домашний телефон");
-            createRow(StrConst.vladelec.mobilePhone);
-            createRow(StrConst.vladelec.mail);
+            createRow(StrConst.Владелец.mobilePhone);
+            createRow(StrConst.Владелец.mail);
         }
 
         @Override
         public String genShortText() {
-            return (cm.getFieldText(StrConst.vladelec.famil) + " " + cm.getFieldText(StrConst.vladelec.name) + " " + cm.getFieldText(StrConst.vladelec.otchestvo)).toUpperCase();
+            return (cm.getFieldText(StrConst.Владелец.famil) + " " + cm.getFieldText(StrConst.Владелец.name) + " " + cm.getFieldText(StrConst.Владелец.otchestvo)).toUpperCase();
         }
     }
 
@@ -110,21 +110,21 @@ public class VladelecDialog extends AbstractDialog {
             for(int i=0; i<50; i++) sb.append("..........");
             labelSuffix = sb.toString();
             fieldLen = 300;
-            prefix = StrConst.vladelec.adresReg.prefix;
-            createRow(StrConst.vladelec.adresReg.strana, genListField(new ListDialog(Resource.getInstance().nationality, null, StrConst.vladelec.adresReg.strana, new Dimension(400, 600))));
-            createRow(StrConst.vladelec.adresReg.subectRf, genListField(new ListDialog(Resource.getInstance().russianRegion, null, StrConst.vladelec.adresReg.subectRf, new Dimension(400, 600))));
-            createRow(StrConst.vladelec.adresReg.rayon, genSpecialField());
-            createRow(StrConst.vladelec.adresReg.naseleniyPunktPriRegVRf, genSpecialField());
-            createRow(StrConst.vladelec.adresReg.naseleniyPunktPriRegNeVRF, genTextField());
-            createRow(StrConst.vladelec.adresReg.ulicaPriRegVRf, genSpecialField());
-            createRow(StrConst.vladelec.adresReg.ulicaPriRegNeVRf, genTextField());
+            prefix = StrConst.Владелец.adresReg.prefix;
+            createRow(StrConst.Владелец.adresReg.strana, genListField(new ListDialog(Resource.getInstance().nationality, null, StrConst.Владелец.adresReg.strana, new Dimension(400, 600))));
+            createRow(StrConst.Владелец.adresReg.subectRf, genListField(new ListDialog(Resource.getInstance().russianRegion, null, StrConst.Владелец.adresReg.subectRf, new Dimension(400, 600))));
+            createRow(StrConst.Владелец.adresReg.rayon, genSpecialField());
+            createRow(StrConst.Владелец.adresReg.naseleniyPunktPriRegVRf, genSpecialField());
+            createRow(StrConst.Владелец.adresReg.naseleniyPunktPriRegNeVRF, genTextField());
+            createRow(StrConst.Владелец.adresReg.ulicaPriRegVRf, genSpecialField());
+            createRow(StrConst.Владелец.adresReg.ulicaPriRegNeVRf, genTextField());
             createRow("Тип жилья", genComboBox(new String[]{""}));
-            createRow(StrConst.vladelec.adresReg.dom, genTextField());
-            createRow(StrConst.vladelec.adresReg.korpus, genTextField());
+            createRow(StrConst.Владелец.adresReg.dom, genTextField());
+            createRow(StrConst.Владелец.adresReg.korpus, genTextField());
             createRow("Тип строения", genComboBox(new String[]{""}));
-            createRow(StrConst.vladelec.adresReg.stroyenie, genTextField());
-            createRow(StrConst.vladelec.adresReg.kvartira, genTextField());
-            createRow(StrConst.vladelec.adresReg.mailIndex, genTextField());
+            createRow(StrConst.Владелец.adresReg.stroyenie, genTextField());
+            createRow(StrConst.Владелец.adresReg.kvartira, genTextField());
+            createRow(StrConst.Владелец.adresReg.mailIndex, genTextField());
             createRow("ОКТМО", genTextField());
         }
     }
