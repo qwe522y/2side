@@ -4,6 +4,8 @@ import com.alee.laf.label.WebLabel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class LeftSidePanel extends SidePanel {
     public LeftSidePanel(ComponentMap cm, ComponentMap vladelecCm, ComponentMap predstavitelCm) {
@@ -50,7 +52,17 @@ public class LeftSidePanel extends SidePanel {
     private void createCustomRow2() {
         addElement(genLabel(StrConst.VIN_id), 1);
         ComplexField complex = new ComplexField();
-        getComponentMap().add(StrConst.VIN_id + "1", complex.add(genTextField(), 260));
+        final JTextField vin1Field = genTextField();
+        vin1Field.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                int len = vin1Field.getText().length();
+                if(len < 17) vin1Field.setForeground(Color.BLUE);
+                else if(len > 17) vin1Field.setForeground(Color.RED);
+                else vin1Field.setForeground(Color.BLACK);
+            }
+        });
+        getComponentMap().add(StrConst.VIN_id + "1", complex.add(vin1Field, 260));
         JLabel label = genLabel("/");
         label.setHorizontalAlignment(SwingConstants.CENTER);
         complex.add(label, 10);

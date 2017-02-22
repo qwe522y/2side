@@ -82,7 +82,9 @@ public class RightSidePanel extends SidePanel {
         ComplexField complex = new ComplexField();
         SpecialField f = genSpecialField();
         complex.add(f, 370);
-        complex.add(genButton("Полис"), 90);
+        JButton but = genButton("Полис");
+        but.setFocusable(false);
+        complex.add(but, 90);
         addElement(complex, 1);
         getComponentMap().add(StrConst.Страховой_полис._name + "_" + StrConst.Страховой_полис.страховщик, f);
         rowBr();
@@ -92,7 +94,9 @@ public class RightSidePanel extends SidePanel {
         addElement(genLabel("Форма собственности"), 1);
         ComplexField complex = new ComplexField();
         complex.add(genListField(new ListDialog(Resource.getInstance().formaSobstvennosti, null, "Формы собственности", new Dimension(600, 600))), 370);
-        complex.add(genButton("Договор"), 90);
+        JButton but = genButton("Договор");
+        but.setFocusable(false);
+        complex.add(but, 90);
         addElement(complex, 1);
         rowBr();
     }
