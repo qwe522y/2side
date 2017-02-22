@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.math.BigDecimal;
 
 public class LeftSidePanel extends SidePanel {
     public LeftSidePanel(final ComponentMap cm, ComponentMap vladelecCm, ComponentMap predstavitelCm) {
@@ -122,12 +123,35 @@ public class LeftSidePanel extends SidePanel {
     }
 
     private void createCustomRow4() {
+        final JTextField fhp = genNumericField();
+        final JTextField fkwt = genNumericField();
+
+        fhp.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if(fhp.getText().length() > 0)
+                    fkwt.setText(new BigDecimal(fhp.getText()).setScale(4, BigDecimal.ROUND_DOWN).divide(new BigDecimal("1.36"), BigDecimal.ROUND_DOWN).setScale(2, BigDecimal.ROUND_DOWN).toString());
+                else fkwt.setText("");
+            }
+        });
+
+        fkwt.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if(fkwt.getText().length() > 0)
+                    fhp.setText(new BigDecimal(fkwt.getText()).setScale(4, BigDecimal.ROUND_DOWN).multiply(new BigDecimal("1.36")).setScale(2, BigDecimal.ROUND_DOWN).toString());
+                else fhp.setText("");
+            }
+        });
+
+
+
         addElement(genLabel(StrConst.moshnost_dvigatelya + " Л/С:"), 1);
         ComplexField complex = new ComplexField();
-        getComponentMap().add(StrConst.moshnost_dvigatelya, complex.add(genTextField(), 160));
+        getComponentMap().add(StrConst.moshnost_dvigatelya, complex.add(fhp, 160));
 
         complex.add(genLabel(" кВт:"), 45).setHorizontalAlignment(SwingConstants.RIGHT);
-        getComponentMap().add(StrConst.moshnost_dvigatelya_kvt, complex.add(genTextField(), 100));
+        getComponentMap().add(StrConst.moshnost_dvigatelya_kvt, complex.add(fkwt, 100));
 
         complex.add(genLabel(" Объем:"), 55).setHorizontalAlignment(SwingConstants.RIGHT);;
         JTextField v = genNumericField();
