@@ -5,6 +5,8 @@ import com.alee.laf.text.WebTextArea;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class RightSidePanel extends SidePanel {
     public RightSidePanel(ComponentMap cm, ComponentMap ptsCm, ComponentMap svidRegCm, ComponentMap kvitanciyaMap) {
@@ -19,7 +21,7 @@ public class RightSidePanel extends SidePanel {
 
         addElement(genLabel("<html><b>&nbsp;&nbsp;&nbsp;&nbsp;Страховой полис:</b></html>"), 2); rowBr();
         prefix = StrConst.Страховой_полис._name;
-        createRow("Серия и номер");
+        createCustomRow301();
         createCustomRow31();
         createCustomRow4();
         prefix = null;
@@ -62,6 +64,20 @@ public class RightSidePanel extends SidePanel {
         complex.add(checkBox, 160).setHorizontalAlignment(SwingConstants.RIGHT);
         addElement(complex, 1);
         rowBr();
+    }
+
+    private void createCustomRow301() {
+        final JTextField f = genTextField();
+        f.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                int len = f.getText().length();
+                if(len < 13) f.setForeground(Color.BLUE);
+                else if(len > 13) f.setForeground(Color.RED);
+                else f.setForeground(Color.BLACK);
+            }
+        });
+        createRow("Серия и номер", f);
     }
 
     private void createCustomRow31() {
