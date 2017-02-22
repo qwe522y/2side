@@ -22,7 +22,7 @@ public class LeftSidePanel extends SidePanel {
         createRow(StrConst.kategoriya, genComboBox(new String[]{"", " A"," A1"," B"," B1"," C"," C1"," D"," D1"," Прицеп"})).setBackground(specialColor);
         createRow("Спецназначение", genSpecialField());
         createCustomRow3();
-        createRow(StrConst.god_vipuska, genSpinner()); ((JSpinner)cm.getMap().get(StrConst.god_vipuska)).setValue(2010);
+        createRow(StrConst.god_vipuska, genNumericField());
         createRow("Модель двигателя");
         createRow("Номер двигателя");
         createRow("Номер кузова", genSpecialField());
@@ -107,7 +107,7 @@ public class LeftSidePanel extends SidePanel {
         getComponentMap().add(StrConst.moshnost_dvigatelya_kvt, complex.add(genTextField(), 100));
 
         complex.add(genLabel(" Объем:"), 55).setHorizontalAlignment(SwingConstants.RIGHT);;
-        JSpinner v = genSpinner();
+        JTextField v = genNumericField();
         complex.add(v, 100);
         getComponentMap().add(StrConst.Vdvigatelya, v);
 
@@ -119,12 +119,12 @@ public class LeftSidePanel extends SidePanel {
         xCursor = 0;
         addElement(genLabel("<html>Разрешается макс. масса(КГ)</html>"), 1);
         ComplexField complex = new ComplexField();
-        JSpinner m = genSpinner();
+        JTextField m = genNumericField();
         complex.add(m, 160);
         getComponentMap().add(StrConst.max_massa, m);
 
-        complex.add(genLabel(" Масса без нагрузки(КГ):"), 200).setHorizontalAlignment(SwingConstants.RIGHT);;;
-        JSpinner m2 = genSpinner();
+        complex.add(genLabel(" Масса без нагрузки(КГ):"), 200).setHorizontalAlignment(SwingConstants.RIGHT);
+        JTextField m2 = genNumericField();
         complex.add(m2, 100);
         getComponentMap().add(StrConst.massa_bez_nagruzki, m2);
 
@@ -135,10 +135,10 @@ public class LeftSidePanel extends SidePanel {
     private void createCustomRow6() {
         addElement(genLabel("Тип двигателя"), 1);
         ComplexField complex = new ComplexField();
-        complex.add(genTextField(), 160);
+        complex.add(genListField(new ListDialog(Resource.getInstance().engineType, null, "Типы двигателя", new Dimension(600, 600))), 160);
 
         complex.add(genLabel("Экологический класс:"), 200).setHorizontalAlignment(SwingConstants.RIGHT);
-        complex.add(genSpinner(), 100);
+        complex.add(genNumericField(), 100);
 
         addElement(complex, 1);
         rowBr();

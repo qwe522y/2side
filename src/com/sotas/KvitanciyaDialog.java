@@ -16,7 +16,7 @@ class KvitanciyaForm extends SidePanel {
         for(int i=0; i<50; i++) sb.append("..........");
         labelSuffix = sb.toString();
         fieldLen = 300;
-        createRow(StrConst.Квитанция_об_оплате.сумма_платежа, genSpinner());
+        createRow(StrConst.Квитанция_об_оплате.сумма_платежа, genNumericField());
         createRow(StrConst.Квитанция_об_оплате.дата_платежа, genDateField());
         createRow(StrConst.Квитанция_об_оплате.номер_платежа, genTextField());
     }

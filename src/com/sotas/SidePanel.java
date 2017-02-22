@@ -6,7 +6,6 @@ import com.alee.laf.checkbox.WebCheckBox;
 import com.alee.laf.combobox.WebComboBox;
 import com.alee.laf.label.WebLabel;
 import com.alee.laf.panel.WebPanel;
-import com.alee.laf.spinner.WebSpinner;
 import com.alee.laf.text.WebTextField;
 
 import javax.swing.*;
@@ -17,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 
 public abstract class SidePanel extends WebPanel {
@@ -99,20 +99,17 @@ public abstract class SidePanel extends WebPanel {
         return l;
     }
 
-    protected JSpinner genSpinner() {
-        JSpinner tf = new WebSpinner(new SpinnerNumberModel(0, 0, 99999, 1));
-        JSpinner.NumberEditor editor = new JSpinner.NumberEditor(tf);
-        editor.getFormat().setGroupingUsed(false);
-        tf.setEditor(editor);
-        ((JSpinner.DefaultEditor)tf.getEditor()).getTextField().addKeyListener(new KeyAdapter() {
+    protected JTextField genNumericField() {
+        DecimalFormat format = new DecimalFormat();
+        format.setGroupingUsed(false);
+        JFormattedTextField res = new JFormattedTextField(format);
+        res.addActionListener(new ActionListener() {
             @Override
-            public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
-                }
+            public void actionPerformed(ActionEvent e) {
+                KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
             }
         });
-        return tf;
+        return res;
     }
 
     protected JComboBox genComboBox(String[] list) {

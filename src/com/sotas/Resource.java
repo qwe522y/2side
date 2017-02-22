@@ -27,6 +27,7 @@ public class Resource {
     public String[][] ptsType;
     public String[][] svidRegType;
     public String[][] typeTS;
+    public String[][] engineType;
 
     public Resource() {
         try {
@@ -42,6 +43,7 @@ public class Resource {
             ptsType = getSingleColumnList("ptsType.txt"); // тип ПТС
             svidRegType = getSingleColumnList("svidRegType.txt"); // тип свидетельства о регистрации
             typeTS = getSingleColumnList("typeTS.txt"); // тип ТС
+            engineType = getSingleColumnList("engineType.txt"); // тип двигателя
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -16,8 +16,8 @@ public class Main {
             SwingUtilities.invokeAndWait(new Runnable() {
                 @Override
                 public void run() {
-                    //new MainFrame().setVisible(true);
-                    //if(true) return;
+                    new MainFrame().setVisible(true);
+                    if(true) return;
                     LoginFrame f = new LoginFrame();
                     Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
                     int x = (int) ((dimension.getWidth() - f.getWidth()) / 2);
