@@ -26,9 +26,13 @@ public class SpecialField extends WebTextField {
         but.addActionListener( new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dialog.setVisible(true);
+                pressBut();
             }
         });
+    }
+
+    public void pressBut() {
+        dialog.setVisible(true);
     }
 
     @Deprecated

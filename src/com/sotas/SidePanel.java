@@ -124,13 +124,19 @@ public abstract class SidePanel extends WebPanel {
     }
 
     protected SpecialField genSpecialField(AbstractDialog dialog) {
-        SpecialField f = new SpecialField(dialog);
+        final SpecialField f = new SpecialField(dialog);
         f.setPreferredSize(110, rowHeight);
         f.setMinimumSize(new Dimension(110, minRowHeight));
         f.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
+            }
+        });
+        f.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                f.pressBut();
             }
         });
         return f;
