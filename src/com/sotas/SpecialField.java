@@ -35,6 +35,16 @@ public class SpecialField extends WebTextField {
         dialog.setVisible(true);
     }
 
+    public SpecialField(ActionListener listener) {
+        but = WebButton.createIconWebButton(new ImageIcon(getClass().getResource ( "/img/form_button16.png" )));
+        but.setFocusable ( false );
+        but.setMoveIconOnPress ( false );
+        but.setRolloverDecoratedOnly ( true );
+        setTrailingComponent(but);
+        but.setCursor ( Cursor.getDefaultCursor () );
+        but.addActionListener(listener);
+    }
+
     @Deprecated
     public SpecialField() {
         but = WebButton.createIconWebButton(new ImageIcon(getClass().getResource ( "/img/form_button16.png" )));

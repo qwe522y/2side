@@ -142,6 +142,20 @@ public abstract class SidePanel extends WebPanel {
         return f;
     }
 
+    protected SpecialField genSpecialField(SpecialFieldActionListener listener) {
+        SpecialField f = new SpecialField(listener);
+        listener.field = f;
+        f.setPreferredSize(110, rowHeight);
+        f.setMinimumSize(new Dimension(110, minRowHeight));
+        f.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
+            }
+        });
+        return f;
+    }
+
     @Deprecated
     protected SpecialField genSpecialField() {
         SpecialField f = new SpecialField();
@@ -229,4 +243,8 @@ public abstract class SidePanel extends WebPanel {
             return add(new JPanel(), pxWidth);
         }
     }
+}
+
+abstract class SpecialFieldActionListener implements ActionListener {
+    public JTextField field;
 }

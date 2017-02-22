@@ -4,11 +4,12 @@ import com.alee.laf.label.WebLabel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class LeftSidePanel extends SidePanel {
-    public LeftSidePanel(ComponentMap cm, ComponentMap vladelecCm, ComponentMap predstavitelCm) {
+    public LeftSidePanel(final ComponentMap cm, ComponentMap vladelecCm, ComponentMap predstavitelCm) {
         super(cm);
         createRow("Владелец", genSpecialField(new VladelecDialog(vladelecCm))).setBg(specialColor);
         createRow("Представитель", genSpecialField(new PredstavitelDialog(predstavitelCm)));
@@ -16,19 +17,29 @@ public class LeftSidePanel extends SidePanel {
         createCustomRow1();
         createRow("Тип", genListField(new ListDialog(Resource.getInstance().tipRegZnak, null, "Типы регистрационных знаков", new Dimension(600, 600)))).setBackground(specialColor);
         addElement(genLabel("<html><b>&nbsp;&nbsp;&nbsp;&nbsp;Сведения о транспортном средстве:</b></html>"), 2); rowBr();
-        createCustomRow2();
+        createCustomRow2(); // VIN
         createCustomRow21();
         createRow("Модификация");
         createRow("Изготовитель", genSpecialField()).setBackground(specialColor);
         createRow("Тип ТС", genListField(new ListDialog(Resource.getInstance().typeTS, null, "Типы ТС", new Dimension(600, 600)))).setBackground(specialColor);
         createRow(StrConst.kategoriya, genComboBox(new String[]{"", " A"," A1"," B"," B1"," C"," C1"," D"," D1"," Прицеп"})).setBackground(specialColor);
         createRow("Спецназначение", genSpecialField());
-        createCustomRow3();
+        createCustomRow3(); //Перевозка крупно-габаритного груза
         createRow(StrConst.god_vipuska, genNumericField());
         createRow("Модель двигателя");
         createRow("Номер двигателя");
-        createRow("Номер кузова", genSpecialField());
-        createRow("Номер шасси", genSpecialField());
+        createRow("Номер кузова", genSpecialField(new SpecialFieldActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                field.setText(cm.getFieldText(StrConst.VIN_id+"1"));
+            }
+        }));
+        createRow("Номер шасси", genSpecialField(new SpecialFieldActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                field.setText(cm.getFieldText(StrConst.VIN_id+"1"));
+            }
+        }));
         createCustomRow31();
         createCustomRow4(); //Мощн. двигателя Л/С
         createCustomRow5(); //Разрешается максимальная масса
