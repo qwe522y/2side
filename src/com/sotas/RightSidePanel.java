@@ -9,7 +9,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class RightSidePanel extends SidePanel {
-    public RightSidePanel(ComponentMap cm, ComponentMap ptsCm, ComponentMap svidRegCm, ComponentMap kvitanciyaMap) {
+    public RightSidePanel(ComponentMap cm, ComponentMap ptsCm, ComponentMap svidRegCm, ComponentMap kvitanciyaMap, ComponentMap documentOsnovanieCm) {
         super(cm);
         createRow("<html>" + StrConst.технологическая_операция + "</html>", genListField(new ListDialog(Resource.getInstance().technologicalOperations, null, "Технологические операции", new Dimension(600, 600)))).setBackground(specialColor);
         createRow("Ограниченный срок", genCheckBox(""));
@@ -27,7 +27,7 @@ public class RightSidePanel extends SidePanel {
         prefix = null;
 
         addElement(genLabel("<html><b>&nbsp;&nbsp;&nbsp;&nbsp;Документ, подтверждающий право собственности:</b></html>"), 2); rowBr();
-        createRow("Серия и номер", genSpecialField());
+        createRow("Серия и номер", genSpecialField(new DocumentOsnovanieDialog(documentOsnovanieCm)));
         createRow("Стоимость ТС");
         createCustomRow5();
         addElement(genLabel("<html><b>&nbsp;&nbsp;&nbsp;&nbsp;Прочие представленные документы</html>"), 2); rowBr();

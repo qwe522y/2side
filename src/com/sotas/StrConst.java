@@ -74,6 +74,11 @@ public class StrConst {
 
     public static class Свидетельство_о_регистрации {
         public static final String _name = "Свид. о регистрации";
+        public static final String серия_и_номер = "Серия и номер";
+        public static final String тип = "Тип";
+        public static final String дата_выдачи = "Дата выдачи";
+        public static final String кем_выдан = "Кем выдан";
+        public static final String особые_отметки = "Особые отметки";
     }
 
     public static class PTS {
@@ -83,5 +88,13 @@ public class StrConst {
         public static final String дата_выдачи = "Дата выдачи";
         public static final String кем_выдан = "Кем выдан";
         public static final String особые_отметки = "Особые отметки";
+    }
+
+    public static class ДокументОснование {
+        public static final String _name = "Документ-основание";
+        public static final String серия_и_номер = "Серия и номер";
+        public static final String тип = "Тип";
+        public static final String дата_выдачи = "Дата выдачи";
+        public static final String кем_выдан = "Кем выдан";
     }
 }

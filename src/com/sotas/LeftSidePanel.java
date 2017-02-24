@@ -16,7 +16,7 @@ public class LeftSidePanel extends SidePanel {
         createRow("Представитель", genSpecialField(new PredstavitelDialog(predstavitelCm)));
         addElement(genLabel("<html><b>&nbsp;&nbsp;&nbsp;&nbsp;Государственные регистрационные знаки ТС:</b></html>"), 2); rowBr();
         createCustomRow1();
-        createRow("Тип", genListField(new ListDialog(Resource.getInstance().tipRegZnak, null, "Типы регистрационных знаков", new Dimension(600, 600)))).setBackground(specialColor);
+        createRow("Тип", genListField(new TipRegZnakListDialog((JTextField) cm.getMap().get(StrConst.nomer)))).setBackground(specialColor);
         addElement(genLabel("<html><b>&nbsp;&nbsp;&nbsp;&nbsp;Сведения о транспортном средстве:</b></html>"), 2); rowBr();
         createCustomRow2(); // VIN
         createCustomRow21();
@@ -182,9 +182,9 @@ public class LeftSidePanel extends SidePanel {
     private void createCustomRow6() {
         addElement(genLabel("Тип двигателя"), 1);
         ComplexField complex = new ComplexField();
-        complex.add(genListField(new ListDialog(Resource.getInstance().engineType, null, "Типы двигателя", new Dimension(600, 600))), 160);
+        complex.add(genListField(new ListDialog(Resource.getInstance().engineType, null, "Типы двигателя", new Dimension(600, 600))), 260);
 
-        complex.add(genLabel("Экологический класс:"), 200).setHorizontalAlignment(SwingConstants.RIGHT);
+        complex.add(genLabel("Эколог. класс:"), 100).setHorizontalAlignment(SwingConstants.RIGHT);
         complex.add(genNumericField(), 100);
 
         addElement(complex, 1);
@@ -196,8 +196,8 @@ public class LeftSidePanel extends SidePanel {
         ComplexField complex = new ComplexField();
         complex.add(genComboBox(new String[]{"Механическая", "Автоматическая"}), 160);
 
-        complex.add(genLabel("Тип привода:"), 200).setHorizontalAlignment(SwingConstants.RIGHT);
-        complex.add(genComboBox(new String[]{"Переднеприводный", "Заднеприводный", "Полноприводный", "Иные"}), 100);
+        complex.add(genLabel("Тип привода:"), 130).setHorizontalAlignment(SwingConstants.RIGHT);
+        complex.add(genComboBox(new String[]{"Переднеприводный", "Заднеприводный", "Полноприводный", "Иные"}), 170);
 
         addElement(complex, 1);
         rowBr();

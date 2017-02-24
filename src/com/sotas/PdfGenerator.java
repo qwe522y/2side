@@ -342,7 +342,12 @@ public class PdfGenerator {
         t.addCell(c);
 
         t.addCell(new PdfPCell(new Phrase("Документ удостоверяющий право собственности", normalFont)));
-        c = new PdfPCell(new Phrase("", normalFont));
+        c = new PdfPCell(new Phrase(
+                prms.getVal(StrConst.ДокументОснование._name, StrConst.ДокументОснование.тип) + "\n" +
+                prms.getVal(StrConst.ДокументОснование._name, StrConst.ДокументОснование.серия_и_номер) + ", " +
+                prms.getVal(StrConst.ДокументОснование._name, StrConst.ДокументОснование.дата_выдачи) + ", " +
+                prms.getVal(StrConst.ДокументОснование._name, StrConst.ДокументОснование.кем_выдан)
+                , normalFont));
         c.setColspan(2);
         t.addCell(c);
 

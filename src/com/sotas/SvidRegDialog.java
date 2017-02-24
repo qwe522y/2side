@@ -16,11 +16,11 @@ class SvidRegForm extends SidePanel {
         for (int i = 0; i < 50; i++) sb.append("..........");
         labelSuffix = sb.toString();
         fieldLen = 300;
-        createRow(StrConst.PTS.серия_и_номер, genTextField());
-        createRow(StrConst.PTS.тип, genListField(new ListDialog(Resource.getInstance().svidRegType, null, "Типы cвид. о регистрации", new Dimension(500, 300))));
-        createRow(StrConst.PTS.дата_выдачи, genDateField());
-        createRow(StrConst.PTS.кем_выдан, genTextField());
-        createRow(StrConst.PTS.особые_отметки, genTextField());
+        createRow(StrConst.Свидетельство_о_регистрации.серия_и_номер, genTextField());
+        createRow(StrConst.Свидетельство_о_регистрации.тип, genListField(new ListDialog(Resource.getInstance().svidRegType, null, "Типы cвид. о регистрации", new Dimension(500, 300))));
+        createRow(StrConst.Свидетельство_о_регистрации.дата_выдачи, genDateField());
+        createRow(StrConst.Свидетельство_о_регистрации.кем_выдан, genTextField());
+        createRow(StrConst.Свидетельство_о_регистрации.особые_отметки, genTextField());
     }
 
     @Override

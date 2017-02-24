@@ -27,6 +27,7 @@ public class MainFrame extends WebFrame {
     ComponentMap PTSCm = new ComponentMap(StrConst.PTS._name);
     ComponentMap svidRegCm = new ComponentMap(StrConst.Свидетельство_о_регистрации._name);
     ComponentMap kvitanciyaCm = new ComponentMap(StrConst.Квитанция_об_оплате._name);
+    ComponentMap documentOsnovanieCm = new ComponentMap(StrConst.ДокументОснование._name);
 
     public MainFrame() {
         setIconImage(Resource.icon);
@@ -57,7 +58,7 @@ public class MainFrame extends WebFrame {
         c.weightx = 0.0; c.fill = GridBagConstraints.VERTICAL;;
         centerPanel.add(sep, c);
 
-        SidePanel rightSide = new RightSidePanel(cm, PTSCm, svidRegCm, kvitanciyaCm);
+        SidePanel rightSide = new RightSidePanel(cm, PTSCm, svidRegCm, kvitanciyaCm, documentOsnovanieCm);
         c.weightx = 0.5; c.fill = GridBagConstraints.HORIZONTAL;
         centerPanel.add(rightSide, c);
     }
@@ -107,7 +108,8 @@ public class MainFrame extends WebFrame {
                             predstavitelCm.toStringMap(),
                             PTSCm.toStringMap(),
                             svidRegCm.toStringMap(),
-                            kvitanciyaCm.toStringMap()
+                            kvitanciyaCm.toStringMap(),
+                            documentOsnovanieCm.toStringMap()
                     ));
                     clearAllCm();
                     new PdfGenerator(prms).gen();
@@ -132,5 +134,6 @@ public class MainFrame extends WebFrame {
         PTSCm.getMap().clear();
         svidRegCm.getMap().clear();
         kvitanciyaCm.getMap().clear();
+        documentOsnovanieCm.getMap().clear();
     }
 }

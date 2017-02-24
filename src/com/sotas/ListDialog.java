@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ListDialog extends AbstractDialog {
+    protected final WebTable table;
     public ListField field;
     private String[][] rows;
     public ListDialog(final String[][] rows, String[] headers, String title, Dimension size) {
@@ -22,13 +23,12 @@ public class ListDialog extends AbstractDialog {
             headers = new String[rows[0].length];
             for(int i=0; i<headers.length; i++) headers[i] = "";
         }
-        final WebTable t = new WebTable(rows, headers);
-        t.setRowSelectionAllowed ( true );
-        t.setColumnSelectionAllowed ( false );
-        //t.setPreferredScrollableViewportSize ( new Dimension ( 300, 100 ) );
-        t.setEditable ( false );
-        t.setSelectedRow(0);
-        WebScrollPane pane = new WebScrollPane(t);
+        table = new WebTable(rows, headers);
+        table.setRowSelectionAllowed ( true );
+        table.setColumnSelectionAllowed ( false );
+        table.setEditable ( false );
+        table.setSelectedRow(0);
+        WebScrollPane pane = new WebScrollPane(table);
         add(pane, BorderLayout.CENTER);
 
         WebButton okBut = new WebButton("OK");
@@ -36,7 +36,7 @@ public class ListDialog extends AbstractDialog {
         okBut.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(field != null) field.setText(rows[t.getSelectedRow()][0]);
+                if(field != null) field.setText(rows[table.getSelectedRow()][0]);
                 dispose();
             }
         });
