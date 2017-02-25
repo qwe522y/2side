@@ -17,7 +17,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.Locale;
 
 public abstract class SidePanel extends WebPanel {
     private ComponentMap componentMap;
@@ -100,7 +102,7 @@ public abstract class SidePanel extends WebPanel {
     }
 
     protected JTextField genNumericField() {
-        DecimalFormat format = new DecimalFormat();
+        DecimalFormat format = (DecimalFormat) NumberFormat.getNumberInstance(Locale.US);
         format.setGroupingUsed(false);
         JFormattedTextField res = new JFormattedTextField(format);
         res.addActionListener(new ActionListener() {
