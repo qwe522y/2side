@@ -15,8 +15,9 @@ public class LeftSidePanel extends SidePanel {
         createRow("Владелец", genSpecialField(new VladelecDialog(vladelecCm))).setBg(specialColor);
         createRow("Представитель", genSpecialField(new PredstavitelDialog(predstavitelCm)));
         addElement(genLabel("<html><b>&nbsp;&nbsp;&nbsp;&nbsp;Государственные регистрационные знаки ТС:</b></html>"), 2); rowBr();
-        createCustomRow1();
-        createRow("Тип", genListField(new TipRegZnakListDialog((JTextField) cm.getMap().get(StrConst.nomer)))).setBackground(specialColor);
+        ListField tipRegZnakField = genListField(new TipRegZnakListDialog(cm));
+        createCustomRow1(tipRegZnakField);
+        createRow("Тип", tipRegZnakField).setBackground(specialColor);
         addElement(genLabel("<html><b>&nbsp;&nbsp;&nbsp;&nbsp;Сведения о транспортном средстве:</b></html>"), 2); rowBr();
         createCustomRow2(); // VIN
         createCustomRow21();
@@ -49,10 +50,17 @@ public class LeftSidePanel extends SidePanel {
         createRow("<html>Расположение руля</html>", genComboBox(new String[]{"Левостороннее", "Правостороннее"}));
     }
 
-    private void createCustomRow1() {
+    private void createCustomRow1(final ListField tipRegZnakField) {
         addElement(new WebLabel("Номер"), 1);
         ComplexField complex = new ComplexField();
-        JTextField nomerField = genTextField();
+        final JTextField nomerField = genTextField();
+        nomerField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                final String[] rows = TipRegZnakList.getList(nomerField.getText());
+                tipRegZnakField.setItems(rows);
+            }
+        });
         getComponentMap().add(StrConst.nomer, nomerField);
         complex.add(nomerField, 200);
         complex.add(genLabel("<html>Действие<br>со знаком</html>"), 70).setHorizontalAlignment(SwingConstants.RIGHT);

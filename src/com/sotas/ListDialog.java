@@ -13,6 +13,7 @@ public class ListDialog extends AbstractDialog {
     protected final WebTable table;
     public ListField field;
     private String[][] rows;
+
     public ListDialog(final String[][] rows, String[] headers, String title, Dimension size) {
         super(null);
         this.rows = rows;

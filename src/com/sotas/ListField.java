@@ -11,15 +11,15 @@ import java.awt.event.ActionListener;
 
 public class ListField extends JPanel {
     private final WebComboBox comboBox;
-    private final AutoCompleteSupport<String> val;
-
+    private AutoCompleteSupport<String> val;
+    private String[] items;
     public ListField(final ListDialog listDialog) {
         setLayout(new GridBagLayout());
         WebButton but = new WebButton(new ImageIcon(getClass().getResource("/img/list_button16.png")));
         comboBox = new WebComboBox();
 
         String[] items = firstColumnArray(listDialog.getRows());
-        val = AutoCompleteSupport.install(comboBox, GlazedLists.eventListOf(items));
+        setItems(items);
 
         GridBagConstraints c = new GridBagConstraints();
         c.weightx = 1; c.fill = GridBagConstraints.HORIZONTAL;
@@ -56,5 +56,21 @@ public class ListField extends JPanel {
     public ListField setBg(Color color) {
         setBackground(color);
         return this;
+    }
+
+    public void setItems(String[] items) {
+        if(is2ArrayEqual(this.items, items)) return;
+        this.items = items;
+        if(val != null) val.uninstall();
+        val = AutoCompleteSupport.install(comboBox, GlazedLists.eventListOf(items));
+    }
+
+    private boolean is2ArrayEqual(String[] a, String[] b) {
+        if(a == null || b == null) return false;
+        if(a.length != b.length) return false;
+        for(int i=0; i<a.length; i++) {
+            if(!a[i].equals(b[i])) return false;
+        }
+        return true;
     }
 }

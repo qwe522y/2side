@@ -21,7 +21,6 @@ public class Resource {
     public String[][] passportCountry;
     public String[][] russianRegion;
     public String[][] technologicalOperations;
-    public String[][] tipRegZnak;
     public String[][] formaSobstvennosti;
     public String[][] colorGroup;
     public String[][] ptsType;
@@ -38,7 +37,6 @@ public class Resource {
             passportCountry = getSingleColumnList("passportCountry.txt"); //страна документа удостоверяющего личность
             russianRegion = getSingleColumnList("russianRegion.txt"); //субъекты РФ
             technologicalOperations = getSingleColumnList("technologicalOperations.txt"); //технологические операции
-            tipRegZnak = getSingleColumnList("tipRegZnak.txt"); //тип регистрационного знака
             formaSobstvennosti = getSingleColumnList("formaSobstvennosti.txt"); //форма собственности
             colorGroup = getSingleColumnList("colorGroup.txt"); //цветовая группа
             ptsType = getSingleColumnList("ptsType.txt"); // тип ПТС
