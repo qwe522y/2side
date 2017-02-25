@@ -60,4 +60,19 @@ public class ListDialog extends AbstractDialog {
     public String[][] getRows() {
         return rows;
     }
+
+    @Override
+    public void setVisible(boolean b) {
+        String txt = field.getText();
+        boolean stop = false;
+        for(int i=0; i<table.getModel().getRowCount() && !stop; i++) {
+            for(int j=0; j<table.getModel().getColumnCount() && !stop; j++) {
+                if (table.getModel().getValueAt(i, j).equals(txt)) {
+                    table.setSelectedRow(i);
+                    stop = true;
+                }
+            }
+        }
+        super.setVisible(b);
+    }
 }
