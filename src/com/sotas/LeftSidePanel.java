@@ -147,7 +147,7 @@ public class LeftSidePanel extends SidePanel {
             @Override
             public void keyReleased(KeyEvent e) {
                 if(fkwt.getText().length() > 0)
-                    fhp.setText(new BigDecimal(fkwt.getText()).setScale(4, BigDecimal.ROUND_DOWN).multiply(new BigDecimal("1.36")).setScale(2, BigDecimal.ROUND_DOWN).toString());
+                    fhp.setText(new BigDecimal(fkwt.getText()).setScale(4, BigDecimal.ROUND_DOWN).multiply(new BigDecimal("1.36")).setScale(0, BigDecimal.ROUND_HALF_DOWN).toString());
                 else fhp.setText("");
             }
         });
