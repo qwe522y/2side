@@ -99,25 +99,36 @@ public class MainFrame extends WebFrame {
         printButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                Properties prop = new Properties();
+                final Properties prop = new Properties();
                 try(InputStream fis = new FileInputStream("setting.cfg")) {
                     prop.load(fis);
-                    Prms prms = serverCmd.sendRegisterRequest(LoginFrame.getLogin(), LoginFrame.getPassword(), new Prms(
-                            cm.toStringMap(),
-                            vladelecCm.toStringMap(),
-                            predstavitelCm.toStringMap(),
-                            PTSCm.toStringMap(),
-                            svidRegCm.toStringMap(),
-                            kvitanciyaCm.toStringMap(),
-                            documentOsnovanieCm.toStringMap()
-                    ));
-                    clearAllCm();
-                    new PdfGenerator(prms).gen();
-                    dispose();
-                    log.info(prop.getProperty("pdfReader") + " temp.pdf");
-                    Process process = Runtime.getRuntime().exec(new String[]{prop.getProperty("pdfReader"), "temp.pdf"});
-                    process.waitFor();
-                    new MainFrame().setVisible(true);
+                    final PodrazdelenieDialog podrazdelenieDialog = new PodrazdelenieDialog(cm, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            try {
+                                Prms prms = serverCmd.sendRegisterRequest(LoginFrame.getLogin(), LoginFrame.getPassword(), new Prms(
+                                        cm.toStringMap(),
+                                        vladelecCm.toStringMap(),
+                                        predstavitelCm.toStringMap(),
+                                        PTSCm.toStringMap(),
+                                        svidRegCm.toStringMap(),
+                                        kvitanciyaCm.toStringMap(),
+                                        documentOsnovanieCm.toStringMap()
+                                ));
+                                clearAllCm();
+                                new PdfGenerator(prms).gen();
+                                dispose();
+                                log.info(prop.getProperty("pdfReader") + " temp.pdf");
+                                Process process = Runtime.getRuntime().exec(new String[]{prop.getProperty("pdfReader"), "temp.pdf"});
+                                process.waitFor();
+                                new MainFrame().setVisible(true);
+                            } catch (Exception ex) {
+                                log.error(ex.getMessage(), ex);
+                                Utils.showException(ex);
+                            }
+                        }
+                    });
+                    podrazdelenieDialog.setVisible(true);
                 } catch (Exception ex) {
                     log.error(ex.getMessage(), ex);
                     Utils.showException(ex);

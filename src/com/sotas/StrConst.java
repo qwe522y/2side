@@ -22,6 +22,7 @@ public class StrConst {
     public static final String color = "Цвет";
     public static final String перевозка_крупногабаритного_груза = "Перевозка крупногабаритного груза";
     public static final String оборудование_системы_ГЛОНАСС = "Оборудование системы ГЛОНАСС";
+    public static final String представитель = "Представитель";
 
     public static String свид_утрачено = "Свид. утрачено";
     public static String технологическая_операция = "Технологическая операция";

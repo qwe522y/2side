@@ -34,7 +34,7 @@ public class PdfGenerator {
         Document doc = new Document(PageSize.A4, 10, 10, 10, 10);
         PdfWriter.getInstance(doc, new FileOutputStream(path));
         doc.open();
-        doc.add(new Phrase("                     "+ Utils.dateTimeFormat.format(new Date()) +"                                              МРЭО ГИБДД МВД по РД(дислокация г.Избербаш)", smallFont));
+        doc.add(new Phrase("                     "+ Utils.dateTimeFormat.format(new Date()) +"                                              " + prms.main(StrConst.представитель), smallFont));
         doc.add(genT1());
         doc.add(genT2());
         doc.add(genT3());
@@ -57,7 +57,7 @@ public class PdfGenerator {
         PdfPTable t = new PdfPTable(1);
         t.setWidthPercentage(90);
 
-        PdfPCell c = new PdfPCell(new Phrase("Заявляение №", boldFont));
+        PdfPCell c = new PdfPCell(new Phrase("Заявление №", boldFont));
         c.setHorizontalAlignment(Element.ALIGN_CENTER);
         c.setBorderWidthBottom(0);
         t.addCell(c);
