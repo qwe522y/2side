@@ -334,15 +334,16 @@ public class PdfGenerator {
         t.setSpacingBefore(5);
         t.setWidthPercentage(90);
 
-        PdfPCell c = new PdfPCell(new Phrase("РЕШЕНИЕ ПО ЗАЯВЛЕНИЮ", normalFont));
+        PdfPCell c = new PdfPCell(new Phrase("РЕШЕНИЕ ПО ЗАЯВЛЕНИЮ\n \n ", normalFont));
+        t.addCell(c);
+
+        c = new PdfPCell(new Phrase(" ", normalFont));
         c.setColspan(2);
         t.addCell(c);
 
-        t.addCell(" ");
-
-        t.addCell(" ");
-        t.addCell(" ");
-        t.addCell(" ");
+        c = new PdfPCell(new Phrase(" ", normalFont));
+        c.setColspan(3);
+        t.addCell(c);
 
         c = new PdfPCell(new Phrase("(дата)", smallFont));
         c.setHorizontalAlignment(Element.ALIGN_CENTER);
