@@ -231,18 +231,19 @@
   
   <target name="artifact.2side:jar" depends="init.artifacts, compile.module.2side" description="Build &#39;2side:jar&#39; artifact">
     <mkdir dir="${artifact.output.2side:jar}"/>
+    <mkdir dir="${artifact.output.2side:jar}/lib"/>
     <jar destfile="${temp.jar.path.2side.jar}" duplicate="preserve" manifest="${basedir}/src/META-INF/MANIFEST.MF">
       <zipfileset dir="${2side.output.dir}"/>
     </jar>
     <copy file="${temp.jar.path.2side.jar}" tofile="${artifact.output.2side:jar}/2side.jar"/>
-    <copy file="${basedir}/lib/weblaf-1.29.jar" tofile="${artifact.output.2side:jar}/weblaf-1.29.jar"/>
-    <copy file="${basedir}/lib/xstream-1.4.9.jar" tofile="${artifact.output.2side:jar}/xstream-1.4.9.jar"/>
-    <copy file="${basedir}/lib/jackson-core-2.8.6.jar" tofile="${artifact.output.2side:jar}/jackson-core-2.8.6.jar"/>
-    <copy file="${basedir}/lib/jackson-databind-2.8.6.jar" tofile="${artifact.output.2side:jar}/jackson-databind-2.8.6.jar"/>
-    <copy file="${basedir}/lib/jackson-annotations-2.8.6.jar" tofile="${artifact.output.2side:jar}/jackson-annotations-2.8.6.jar"/>
-    <copy file="${basedir}/lib/glazedlists_java15-1.9.1.jar" tofile="${artifact.output.2side:jar}/glazedlists_java15-1.9.1.jar"/>
-    <copy file="${basedir}/lib/log4j-1.2.17.jar" tofile="${artifact.output.2side:jar}/log4j-1.2.17.jar"/>
-    <copy file="${basedir}/lib/itextpdf-5.5.3.jar" tofile="${artifact.output.2side:jar}/itextpdf-5.5.3.jar"/>
+    <copy file="${basedir}/lib/weblaf-1.29.jar" tofile="${artifact.output.2side:jar}/lib/weblaf-1.29.jar"/>
+    <copy file="${basedir}/lib/xstream-1.4.9.jar" tofile="${artifact.output.2side:jar}/lib/xstream-1.4.9.jar"/>
+    <copy file="${basedir}/lib/jackson-core-2.8.6.jar" tofile="${artifact.output.2side:jar}/lib/jackson-core-2.8.6.jar"/>
+    <copy file="${basedir}/lib/jackson-databind-2.8.6.jar" tofile="${artifact.output.2side:jar}/lib/jackson-databind-2.8.6.jar"/>
+    <copy file="${basedir}/lib/jackson-annotations-2.8.6.jar" tofile="${artifact.output.2side:jar}/lib/jackson-annotations-2.8.6.jar"/>
+    <copy file="${basedir}/lib/glazedlists_java15-1.9.1.jar" tofile="${artifact.output.2side:jar}/lib/glazedlists_java15-1.9.1.jar"/>
+    <copy file="${basedir}/lib/log4j-1.2.17.jar" tofile="${artifact.output.2side:jar}/lib/log4j-1.2.17.jar"/>
+    <copy file="${basedir}/lib/itextpdf-5.5.3.jar" tofile="${artifact.output.2side:jar}/lib/itextpdf-5.5.3.jar"/>
   </target>
   
   <target name="build.all.artifacts" depends="artifact.2side:jar" description="Build all artifacts">
