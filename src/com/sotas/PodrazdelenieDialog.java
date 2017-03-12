@@ -22,6 +22,7 @@ public class PodrazdelenieDialog extends ListDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cm.add(StrConst.представитель, new JTextField(rows[table.getSelectedRow()][0]));
+                dispose();
                 actionListener.actionPerformed(e);
             }
         });

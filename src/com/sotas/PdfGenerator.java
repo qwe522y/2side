@@ -73,9 +73,13 @@ public class PdfGenerator {
         c.setHorizontalAlignment(Element.ALIGN_CENTER);
         t.addCell(c);
 
-        t.addCell(new Phrase(prms.main(StrConst.технологическая_операция), normalFont));
-        //t.addCell(new Phrase("с выдачей СТС, ГРС, с внесением изменений в ПТС", normalFont));
-
+        String techOp = prms.main(StrConst.технологическая_операция);
+        String techOpPdfView = Resource.getInstance().technologicalOperationsPdfViewMap.get(techOp);
+        if(techOpPdfView == null) techOpPdfView = techOp;
+        String[] techOpPdfViewRows = techOpPdfView.split("<br>");
+        for(String r : techOpPdfViewRows) {
+            t.addCell(new Phrase(r, normalFont));
+        }
         return t;
     }
 
@@ -428,7 +432,10 @@ public class PdfGenerator {
         t.addCell(c);
 
         t.addCell(" ");
-        t.addCell(" ");
+        c = new PdfPCell(new Phrase("v", normalFont));
+        c.setHorizontalAlignment(Element.ALIGN_CENTER);
+        c.setVerticalAlignment(Element.ALIGN_BOTTOM);
+        t.addCell(c);
 
         c = new PdfPCell(new Phrase("(дата)", smallFont));
         c.setHorizontalAlignment(Element.ALIGN_CENTER);

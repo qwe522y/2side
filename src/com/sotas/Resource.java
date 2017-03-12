@@ -5,6 +5,8 @@ import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Resource {
     private static Resource resource;
@@ -29,6 +31,8 @@ public class Resource {
     public String[][] engineType;
     public String[][] documentOsnovanieType;
 
+    public Map<String, String> technologicalOperationsPdfViewMap;
+
     public Resource() {
         try {
             bornPlaceRegion = getSingleColumnList("bornPlaceRegion.txt");
@@ -36,7 +40,6 @@ public class Resource {
             passportType = getSingleColumnList("passportType.txt"); //документ удостоверяющий чичность
             passportCountry = getSingleColumnList("passportCountry.txt"); //страна документа удостоверяющего личность
             russianRegion = getSingleColumnList("russianRegion.txt"); //субъекты РФ
-            technologicalOperations = getSingleColumnList("technologicalOperations.txt"); //технологические операции
             formaSobstvennosti = getSingleColumnList("formaSobstvennosti.txt"); //форма собственности
             colorGroup = getSingleColumnList("colorGroup.txt"); //цветовая группа
             ptsType = getSingleColumnList("ptsType.txt"); // тип ПТС
@@ -44,8 +47,23 @@ public class Resource {
             typeTS = getSingleColumnList("typeTS.txt"); // тип ТС
             engineType = getSingleColumnList("engineType.txt"); // тип двигателя
             documentOsnovanieType = getSingleColumnList("documentOsnovanieType.txt"); // документ основание -> тип
+
+            loadTechnologicalOperations();
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private void loadTechnologicalOperations() throws IOException, URISyntaxException {
+        technologicalOperationsPdfViewMap = new HashMap<>();
+        technologicalOperations = getSingleColumnList("technologicalOperations.txt"); //технологические операции
+        for(int i=0; i<technologicalOperations.length; i++) {
+            String s = technologicalOperations[i][0];
+            if(s.contains("---")) {
+                String[] keyVal = s.split("---");
+                technologicalOperations[i][0] = keyVal[0];
+                technologicalOperationsPdfViewMap.put(keyVal[0], keyVal[1]);
+            }
         }
     }
 
