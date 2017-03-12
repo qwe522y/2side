@@ -40,6 +40,9 @@ public class PdfGenerator {
         doc.add(genT3());
         doc.add(genT4());
         doc.add(genT5());
+        if("Изменение конструкции".equals(prms.main(StrConst.технологическая_операция))) {
+            doc.add(getT55());
+        }
         doc.add(genT6());
         doc.add(genT7());
         doc.add(genT8());
@@ -246,6 +249,36 @@ public class PdfGenerator {
         t.addCell(c);
         c = new PdfPCell(new Phrase(prms.main(StrConst.max_massa) + ", " + prms.main(StrConst.massa_bez_nagruzki), normalFont));
         t.addCell(c);
+
+        t.addCell(" ");
+        t.addCell(" ");
+        t.addCell(" ");
+
+        c = new PdfPCell(new Phrase("(время, дата осмотра)", smallFont));
+        c.setHorizontalAlignment(Element.ALIGN_CENTER);
+        t.addCell(c);
+
+        c = new PdfPCell(new Phrase("(подпись)", smallFont));
+        c.setHorizontalAlignment(Element.ALIGN_CENTER);
+        t.addCell(c);
+
+        c = new PdfPCell(new Phrase("И.О. Фамилия сотрудника", smallFont));
+        c.setHorizontalAlignment(Element.ALIGN_CENTER);
+        t.addCell(c);
+
+        return t;
+    }
+
+    private Element getT55() {
+        PdfPTable t = new PdfPTable(new float[]{33, 33, 34});
+        t.setSpacingBefore(5);
+        t.setWidthPercentage(90);
+
+        PdfPCell c = new PdfPCell(new Phrase("ВНОСИМЫЕ ИЗМЕНЕНИЯ В КОНСТРУКЦИЮ ТС", normalFont));
+        c.setColspan(2);
+        t.addCell(c);
+
+        t.addCell(" ");
 
         t.addCell(" ");
         t.addCell(" ");
