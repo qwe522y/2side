@@ -23,7 +23,7 @@ public class MainFrame extends WebFrame {
     ServerCmd serverCmd = new ServerCmd();
     ComponentMap cm = new ComponentMap("main");
     ComponentMap vladelecCm = new ComponentMap(StrConst.Владелец._name);
-    ComponentMap predstavitelCm = new ComponentMap("Представитель");
+    ComponentMap predstavitelCm = new ComponentMap(StrConst.Представитель_собственника._name);
     ComponentMap PTSCm = new ComponentMap(StrConst.PTS._name);
     ComponentMap svidRegCm = new ComponentMap(StrConst.Свидетельство_о_регистрации._name);
     ComponentMap kvitanciyaCm = new ComponentMap(StrConst.Квитанция_об_оплате._name);

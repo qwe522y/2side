@@ -5,6 +5,7 @@ import com.alee.laf.label.WebLabel;
 import com.alee.laf.radiobutton.WebRadioButton;
 import com.alee.utils.swing.UnselectableButtonGroup;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,12 +24,14 @@ public class VladelecDialog extends AbstractDialog {
         setSize(330, 200);
         setResizable(false);
         setTitle("Выберете:");
+
         final WebRadioButton radioButtonA = new WebRadioButton ( "Физическое лицо" );
-        radioButtonA.setSelected ( true );
         final WebRadioButton radioButtonB = new WebRadioButton ( "Юридическое лицо" );
-        radioButtonB.setEnabled(false);
         final WebRadioButton radioButtonC = new WebRadioButton ( "Аккредитованный при МИД РФ" );
+
+        radioButtonA.setSelected ( true );
         radioButtonC.setEnabled(false);
+
         WebLabel label = new WebLabel("Владелец");
         label.setBounds(10, 10, 200, 30);
         radioButtonA.setBounds(10, 40, 300, 30);
@@ -36,6 +39,10 @@ public class VladelecDialog extends AbstractDialog {
         radioButtonC.setBounds(10, 100, 300, 30);
 
         add(label);
+        final ButtonGroup group = new ButtonGroup();
+        group.add(radioButtonA);
+        group.add(radioButtonB);
+        group.add(radioButtonC);
         add(radioButtonA);
         add(radioButtonB);
         add(radioButtonC);
@@ -50,14 +57,21 @@ public class VladelecDialog extends AbstractDialog {
         but.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                VladelecDialog.this.dispose();
-                showNaturalPersonDialog();
+                String type = null;
+                if(radioButtonA.isSelected()) type = radioButtonA.getText();
+                if(radioButtonB.isSelected()) type = radioButtonB.getText();
+                if(radioButtonC.isSelected()) type = radioButtonC.getText();
+                if(type != null) {
+                    VladelecDialog.this.dispose();
+                    showNaturalPersonDialog(type);
+                }
             }
         });
     }
 
-    private void showNaturalPersonDialog() {
+    private void showNaturalPersonDialog(String actionCommand) {
         FormDialog dialog = new FormDialog(field, naturalPersonForm , "Сведения о физических лицах", new Dimension(700, 700));
+        naturalPersonForm.getComponentMap().add(StrConst.Владелец.tip, new JTextField(actionCommand));
         dialog.setVisible(true);
     }
 

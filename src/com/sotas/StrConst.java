@@ -44,6 +44,7 @@ public class StrConst {
 
     public static class Владелец {
         public static final String _name = "Владелец";
+        public static final String tip = "Тип";
         public static final String famil = "Фамилия";
         public static final String name = "Имя";
         public static final String otchestvo = "Отчество";
@@ -71,6 +72,10 @@ public class StrConst {
             public static final String kvartira = "Квартира";
             public static final String mailIndex = "Почтовый индекс";
         }
+    }
+
+    public static class Представитель_собственника extends Владелец {
+        public static final String _name = "Представитель собственника";
     }
 
     public static class Свидетельство_о_регистрации {

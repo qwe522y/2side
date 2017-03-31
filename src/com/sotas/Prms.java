@@ -18,6 +18,10 @@ public class Prms extends HashMap<String, Map<String, String>> {
         return getVal(StrConst.Владелец._name, key);
     }
 
+    public String predstavitel(String key) {
+        return getVal(StrConst.Представитель_собственника._name, key);
+    }
+
     public String main(String key) {
         return getVal("main", key);
     }

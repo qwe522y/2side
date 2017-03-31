@@ -91,7 +91,7 @@ public class PredstavitelDialog extends AbstractDialog {
 
         @Override
         public String genShortText() {
-            return getComponentMap().getFieldText("Фамилия") + " " + getComponentMap().getFieldText("Имя") + " " + getComponentMap().getFieldText("Отчество");
+            return (getComponentMap().getFieldText("Фамилия") + " " + getComponentMap().getFieldText("Имя") + " " + getComponentMap().getFieldText("Отчество")).toUpperCase();
         }
     }
 
@@ -102,6 +102,7 @@ public class PredstavitelDialog extends AbstractDialog {
             for (int i = 0; i < 50; i++) sb.append("..........");
             labelSuffix = sb.toString();
             fieldLen = 300;
+            prefix = StrConst.Представитель_собственника.adresReg.prefix;
             createRow("Страна", genListField(new ListDialog(Resource.getInstance().nationality, null, "Страна", new Dimension(400, 600))));
             createRow("Субъект Российской Федерации", genListField(new ListDialog(Resource.getInstance().russianRegion, null, "Субъекты Российской Федерации", new Dimension(400, 600))));
             createRow("Район", genSpecialField());

@@ -15,6 +15,7 @@ public class PdfGenerator {
     private static final Logger log = Logger.getLogger(PdfGenerator.class);
     private static String path = "temp.pdf";
     private final String vladelecFio;
+    private final String predstavitelFio;
     private Prms prms;
     private Font smallFont;
     private Font normalFont;
@@ -23,6 +24,7 @@ public class PdfGenerator {
     public PdfGenerator(Prms prms) throws IOException, DocumentException {
         this.prms = prms;
         vladelecFio = (prms.vladelec(StrConst.Владелец.famil) + " " + prms.vladelec(StrConst.Владелец.name) + " " + prms.vladelec(StrConst.Владелец.otchestvo)).toUpperCase();
+        predstavitelFio = (prms.predstavitel(StrConst.Представитель_собственника.famil) + " " + prms.predstavitel(StrConst.Представитель_собственника.name) + " " + prms.predstavitel(StrConst.Представитель_собственника.otchestvo)).toUpperCase().trim();
         BaseFont times = BaseFont.createFont("normal.ttf", "cp1251", BaseFont.EMBEDDED);
         smallFont = new Font(times, 6);
         normalFont = new Font(times, 9);
@@ -38,6 +40,9 @@ public class PdfGenerator {
         doc.add(genT1());
         doc.add(genT2());
         doc.add(genT3());
+        if(predstavitelFio.length() > 0) {
+            doc.add(genT35());
+        }
         doc.add(genT4());
         doc.add(genT5());
         if("Изменение конструкции".equals(prms.main(StrConst.технологическая_операция))) {
@@ -70,7 +75,7 @@ public class PdfGenerator {
         t.addCell(c);
 
         phrase = new Phrase("Я, ", normalFont);
-        phrase.add(new Chunk(vladelecFio, boldFont));
+        phrase.add(new Chunk(predstavitelFio.length() > 0 ? predstavitelFio : vladelecFio, boldFont));
         phrase.add(new Chunk(", прошу", normalFont));
         c = new PdfPCell(phrase);
         c.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -118,11 +123,13 @@ public class PdfGenerator {
         t.addCell(new Phrase(StrConst.Владелец.bornDate, normalFont));
         t.addCell(new Phrase(prms.vladelec(StrConst.Владелец.bornDate), normalFont));
 
-        t.addCell(new Phrase("Документ, удостоверяющий личность", normalFont));
-        t.addCell(new Phrase(prms.vladelec(StrConst.Владелец.tipDUL) +  ", " +
-                prms.vladelec(StrConst.Владелец.seriaNomerDUL) + ", выдан " +
-                prms.vladelec(StrConst.Владелец.dataVidachiDUL) + ", " +
-                prms.vladelec(StrConst.Владелец.kemVidanDUL), normalFont));
+        if (prms.vladelec(StrConst.Владелец.tip).equals("Физическое лицо")) {
+            t.addCell(new Phrase("Документ, удостоверяющий личность", normalFont));
+            t.addCell(new Phrase(prms.vladelec(StrConst.Владелец.tipDUL) + ", " +
+                    prms.vladelec(StrConst.Владелец.seriaNomerDUL) + ", выдан " +
+                    prms.vladelec(StrConst.Владелец.dataVidachiDUL) + ", " +
+                    prms.vladelec(StrConst.Владелец.kemVidanDUL), normalFont));
+        }
 
         t.addCell(new Phrase("ИНН(при наличии)", normalFont));
         t.addCell(new Phrase(prms.vladelec(StrConst.Владелец.inn), normalFont));
@@ -150,6 +157,52 @@ public class PdfGenerator {
 
         t.addCell(new Phrase("Телефон    " + prms.vladelec(StrConst.Владелец.mobilePhone), normalFont));
         t.addCell(new Phrase("Адрес эл. почты(при наличии)    " + prms.vladelec(StrConst.Владелец.mail), normalFont));
+        return t;
+    }
+
+    private Element genT35() {
+        PdfPTable t = new PdfPTable(new float[]{40, 60});
+        t.setSpacingBefore(5);
+        t.setWidthPercentage(90);
+
+        t.addCell(new Phrase("ПРЕДСТАВИТЕЛЬ СОБСТВЕННИКА", boldFont));
+        t.addCell(new Phrase(predstavitelFio, boldFont));
+
+        t.addCell(new Phrase(StrConst.Представитель_собственника.bornDate, normalFont));
+        t.addCell(new Phrase(prms.predstavitel(StrConst.Представитель_собственника.bornDate), normalFont));
+
+        t.addCell(new Phrase("Документ, удостоверяющий личность", normalFont));
+        t.addCell(new Phrase(prms.predstavitel(StrConst.Представитель_собственника.tipDUL) +  ", " +
+                prms.predstavitel(StrConst.Представитель_собственника.seriaNomerDUL) + ", выдан " +
+                prms.predstavitel(StrConst.Представитель_собственника.dataVidachiDUL) + ", " +
+                prms.predstavitel(StrConst.Представитель_собственника.kemVidanDUL), normalFont));
+
+        t.addCell(new Phrase("ИНН(при наличии)", normalFont));
+        t.addCell(new Phrase(prms.predstavitel(StrConst.Представитель_собственника.inn), normalFont));
+
+        t.addCell(new Phrase("Адрес регистрации", normalFont));
+        StringBuilder sb = new StringBuilder();
+        for(String s : new String[]{
+                prms.predstavitel(StrConst.Представитель_собственника.adresReg.prefix + "_" + StrConst.Представитель_собственника.adresReg.mailIndex),
+                prms.predstavitel(StrConst.Представитель_собственника.adresReg.prefix + "_" + StrConst.Представитель_собственника.adresReg.strana),
+                prms.predstavitel(StrConst.Представитель_собственника.adresReg.prefix + "_" + StrConst.Представитель_собственника.adresReg.subectRf),
+                prms.predstavitel(StrConst.Представитель_собственника.adresReg.prefix + "_" + StrConst.Представитель_собственника.adresReg.rayon),
+                prms.predstavitel(StrConst.Представитель_собственника.adresReg.prefix + "_" + StrConst.Представитель_собственника.adresReg.naseleniyPunktPriRegVRf),
+                prms.predstavitel(StrConst.Представитель_собственника.adresReg.prefix + "_" + StrConst.Представитель_собственника.adresReg.naseleniyPunktPriRegNeVRF),
+                prms.predstavitel(StrConst.Представитель_собственника.adresReg.prefix + "_" + StrConst.Представитель_собственника.adresReg.ulicaPriRegVRf),
+                prms.predstavitel(StrConst.Представитель_собственника.adresReg.prefix + "_" + StrConst.Представитель_собственника.adresReg.ulicaPriRegNeVRf),
+                addPrefix("дом ", prms.predstavitel(StrConst.Представитель_собственника.adresReg.prefix + "_" + StrConst.Представитель_собственника.adresReg.dom)),
+                addPrefix("корпус ", prms.predstavitel(StrConst.Представитель_собственника.adresReg.prefix + "_" + StrConst.Представитель_собственника.adresReg.korpus)),
+                addPrefix("стр-е", prms.predstavitel(StrConst.Представитель_собственника.adresReg.prefix + "_" + StrConst.Представитель_собственника.adresReg.stroyenie)),
+                addPrefix("кв. ", prms.predstavitel(StrConst.Представитель_собственника.adresReg.prefix + "_" + StrConst.Представитель_собственника.adresReg.kvartira))
+        }) {
+            if(s != null && s.length() > 0) sb.append(", ").append(s);
+        }
+        if(sb.length()>0) sb.delete(0, 1);
+        t.addCell(new Phrase(sb.toString(), normalFont));
+
+        t.addCell(new Phrase("Телефон    " + prms.predstavitel(StrConst.Представитель_собственника.mobilePhone), normalFont));
+        t.addCell(new Phrase("Адрес эл. почты(при наличии)    " + prms.predstavitel(StrConst.Представитель_собственника.mail), normalFont));
         return t;
     }
 
